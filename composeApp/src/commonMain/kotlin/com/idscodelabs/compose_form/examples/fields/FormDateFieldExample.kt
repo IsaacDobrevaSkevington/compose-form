@@ -17,29 +17,31 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.ExperimentalTime
 
 data class FormDateFieldExampleModel(
-    override var value: LocalDate? = null
-): ExampleModel<LocalDate>
+    override var value: LocalDate? = null,
+) : ExampleModel<LocalDate>
 
 @OptIn(ExperimentalTime::class)
 @Preview
 @Composable
-fun FormDateFieldExample() = ExampleScreen {
-    ExampleForm(emptyModel = ::FormDateFieldExampleModel){
-        val min = LocalDate(2020, 1,1)
-        val max = LocalDate(2025, 2,1)
-        FormDateField(
-            modelProperty = FormDateFieldExampleModel::value,
-            initialValue = null,
-            enabled = true,
-            validator = NotEmptyValidator() +
-                    DateBeforeValidator(min) +
-                    DateAfterValidator(max),
-            updateModel = { value = it },
-        ){
-            DefaultDateEntry(
-                hint = "Date",
-                datePickerState = rememberDatePickerMinMaxState(min, max)
-            )
+fun FormDateFieldExample() =
+    ExampleScreen {
+        ExampleForm(emptyModel = ::FormDateFieldExampleModel) {
+            val min = LocalDate(2020, 1, 1)
+            val max = LocalDate(2025, 2, 1)
+            FormDateField(
+                modelProperty = FormDateFieldExampleModel::value,
+                initialValue = null,
+                enabled = true,
+                validator =
+                    NotEmptyValidator() +
+                        DateBeforeValidator(min) +
+                        DateAfterValidator(max),
+                updateModel = { value = it },
+            ) {
+                DefaultDateEntry(
+                    hint = "Date",
+                    datePickerState = rememberDatePickerMinMaxState(min, max),
+                )
+            }
         }
     }
-}

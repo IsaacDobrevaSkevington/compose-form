@@ -11,9 +11,8 @@ fun DateBeforeValidator(
     before: LocalDate,
     formatter: DateTimeFormat<LocalDate> = LocalFormDateFormatter.current,
     error: Any = "Must be before ${formatter.format(before)}",
-) = Validator {s, _ ->
+) = Validator { s, _ ->
     if (s == null) return@Validator null
     val date = formatter.parse(s)
     return@Validator if (date < before) null else error
 }
-

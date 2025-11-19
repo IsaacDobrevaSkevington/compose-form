@@ -16,7 +16,7 @@ fun ExampleScreen(content: @Composable () -> Unit) {
     Column(modifier = Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
             style = MaterialTheme.typography.headlineLarge,
-            text = "Form Example"
+            text = "Form Example",
         )
         HorizontalDivider()
         content()

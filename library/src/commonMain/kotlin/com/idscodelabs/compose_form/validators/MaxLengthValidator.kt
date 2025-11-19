@@ -8,7 +8,7 @@ class MaxLengthValidator(
 ) : Validator {
     override fun validate(
         s: String?,
-        otherFieldValues: Map<String, String?>
+        otherFieldValues: Map<String, String?>,
     ): Any? {
         if (s == null) return null
         return if (s.length <= maxLength) null else error

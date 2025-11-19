@@ -7,11 +7,13 @@ import androidx.compose.runtime.LaunchedEffect
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 
 /**
- * Generic form without editing the realm
- * @param Model The result object
- * @param emptyModel Get a blank instance of the result object for this form
- * @param setLoading Function to setLoading on the parent
- * @param contents The contents of the form - receives blank [Model]
+ * A Compose Form
+ *
+ * @param Model The type this form will emit
+ * @param emptyModel Constructor for the empty model
+ * @param scope Form scope which will handle this form's actions
+ * @param container The root level container for form fields
+ * @param contents The contents of the form
  */
 @Composable
 fun <Model> Form(
@@ -19,18 +21,17 @@ fun <Model> Form(
     scope: FormScope<Model> = rememberFormScope(),
     container: @Composable FormScope<Model>.(contents: @Composable FormScope<Model>.() -> Unit) -> Unit = {
         Column(
-            verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldSpacing)
+            verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldSpacing),
         ) {
             it()
         }
     },
-    contents: @Composable FormScope<Model>.() -> Unit = {}
+    contents: @Composable FormScope<Model>.() -> Unit = {},
 ) {
     LaunchedEffect(emptyModel, scope) {
         scope.emptyModel = emptyModel
     }
-    container(scope){
+    container(scope) {
         contents()
     }
-
 }

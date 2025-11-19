@@ -7,26 +7,26 @@ import com.idscodelabs.compose_form.form.fields.core.base.AbstractFormFieldImple
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 
-data class DropdownFormFieldImplementationParameters<Item: ListDisplayable>(
+data class DropdownFormFieldImplementationParameters<Item : ListDisplayable>(
     override val value: TextFieldValue,
     override val _setValue: (TextFieldValue) -> Unit,
     override val error: String?,
     override val enabled: Boolean,
     override val focusRequester: FocusRequester,
-    val options: List<Item>
-): AbstractFormFieldImplementationParameters<TextFieldValue>(){
+    val options: List<Item>,
+) : AbstractFormFieldImplementationParameters<TextFieldValue>() {
+    val currentItem: Item? @Composable get() =
+        options.firstOrNull {
+            it.label.asDisplayString() == value.text
+        }
 
-    val currentItem: Item? @Composable get() = options.firstOrNull {
-        it.label.asDisplayString() == value.text
-    }
-
-    constructor(params: AbstractFormFieldImplementationParameters<TextFieldValue>, options: List<Item>)
-    : this(
-        value = params.value,
-        _setValue = params._setValue,
-        error = params.error,
-        enabled = params.enabled,
-        focusRequester = params.focusRequester,
-        options = options
-    )
+    constructor(params: AbstractFormFieldImplementationParameters<TextFieldValue>, options: List<Item>) :
+        this(
+            value = params.value,
+            _setValue = params._setValue,
+            error = params.error,
+            enabled = params.enabled,
+            focusRequester = params.focusRequester,
+            options = options,
+        )
 }

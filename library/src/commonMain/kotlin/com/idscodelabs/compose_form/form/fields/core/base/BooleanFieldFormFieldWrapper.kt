@@ -24,11 +24,11 @@ fun <Model> FormScope<Model>.BooleanFieldFormFieldWrapper(
     implementation = implementation,
     valueToStored = { it },
     storedToString = { it?.toString() },
-    stringToValue = { it?.let { v -> v == "true" }},
+    stringToValue = { it?.let { v -> v == "true" } },
     formImplementationMapper = { this },
     rememberState = {
         rememberSaveable(it) {
             mutableStateOf(false)
         }
-    }
+    },
 )

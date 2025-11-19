@@ -15,23 +15,24 @@ import com.idscodelabs.compose_form.validators.MustBeTickedValidator
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 data class FormSliderExampleModel(
-    override var value: Int? = null
-): ExampleModel<Int>
+    override var value: Int? = null,
+) : ExampleModel<Int>
 
 @Preview
 @Composable
-fun FormSliderFieldExample() = ExampleScreen {
-    ExampleForm(emptyModel = ::FormSliderExampleModel){
-        FormSliderField(
-            modelProperty = FormSliderExampleModel::value,
-            initialValue = null,
-            enabled = true,
-            validator = null,
-            updateModel = { value = it },
-        ){
-            DefaultFormSliderEntry(
-                hint = "Slide Me",
-            )
+fun FormSliderFieldExample() =
+    ExampleScreen {
+        ExampleForm(emptyModel = ::FormSliderExampleModel) {
+            FormSliderField(
+                modelProperty = FormSliderExampleModel::value,
+                initialValue = null,
+                enabled = true,
+                validator = null,
+                updateModel = { value = it },
+            ) {
+                DefaultFormSliderEntry(
+                    hint = "Slide Me",
+                )
+            }
         }
     }
-}

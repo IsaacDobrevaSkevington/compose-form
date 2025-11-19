@@ -15,7 +15,6 @@ import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementatio
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormFieldImplementationParameters<Boolean>.DefaultFormCheckBoxEntry(
@@ -27,24 +26,25 @@ fun FormFieldImplementationParameters<Boolean>.DefaultFormCheckBoxEntry(
 ) {
     Column(
         modifier,
-        verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldColumnSpacing)
+        verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldColumnSpacing),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldRowSpacing)
+            horizontalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldRowSpacing),
         ) {
             Checkbox(
                 checked = value,
                 onCheckedChange = ::setValue,
                 modifier = checkboxModifier,
-                enabled = enabled
+                enabled = enabled,
             )
             Text(
                 text = hint.asDisplayString(),
-                modifier = textModifier.clickable(
-                    enabled = enabled,
-                    onClick = { setValue(!value) }
-                )
+                modifier =
+                    textModifier.clickable(
+                        enabled = enabled,
+                        onClick = { setValue(!value) },
+                    ),
             )
         }
 
@@ -52,7 +52,7 @@ fun FormFieldImplementationParameters<Boolean>.DefaultFormCheckBoxEntry(
             Text(
                 modifier = errorModifier,
                 text = it,
-                color = MaterialTheme.colorScheme.error
+                color = MaterialTheme.colorScheme.error,
             )
         }
     }

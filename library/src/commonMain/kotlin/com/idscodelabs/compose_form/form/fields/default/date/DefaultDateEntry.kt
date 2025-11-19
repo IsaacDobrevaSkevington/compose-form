@@ -33,31 +33,31 @@ fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultDateEntry(
         DefaultTextEntry(
             hint = hint,
             modifier = modifier,
-            icon = if (enabled) {
-                FormScope.IconParams(
-                    Icons.Filled.DateRange
-                ) {
-                    it.setPickerVisible(true)
-                }
-            } else {
-                null
-            },
+            icon =
+                if (enabled) {
+                    FormScope.IconParams(
+                        Icons.Filled.DateRange,
+                    ) {
+                        it.setPickerVisible(true)
+                    }
+                } else {
+                    null
+                },
             placeholder = placeholder,
             isLast = isLast,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            leadingIcon = leadingIcon
+            leadingIcon = leadingIcon,
         )
     },
-    dialog: @Composable AbstractFormFieldImplementationParameters<TextFieldValue>.(DatePickerController)->Unit = {
+    dialog: @Composable AbstractFormFieldImplementationParameters<TextFieldValue>.(DatePickerController) -> Unit = {
         DefaultDatePickerDialog(
             it.datePickerState,
-            ::setValue
-        ){
+            ::setValue,
+        ) {
             it.setPickerVisible(false)
         }
-    }
+    },
 ) {
-
     val dateFormatter = LocalFormDateFormatter.current
 
     LaunchedEffect(value.text) {

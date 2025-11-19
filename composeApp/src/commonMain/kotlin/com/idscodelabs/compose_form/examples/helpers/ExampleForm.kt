@@ -11,21 +11,22 @@ import com.idscodelabs.compose_form.form.core.Form
 import com.idscodelabs.compose_form.form.core.FormScope
 
 @Composable
-fun <Model: ExampleModel<*>> ExampleForm(
+fun <Model : ExampleModel<*>> ExampleForm(
     emptyModel: () -> Model,
-    contents: @Composable FormScope<Model>.() -> Unit = {}
+    contents: @Composable FormScope<Model>.() -> Unit = {},
 ) {
-    val (result, setResult) = remember {
-        mutableStateOf<Model?>(null)
-    }
-    if(result == null) {
+    val (result, setResult) =
+        remember {
+            mutableStateOf<Model?>(null)
+        }
+    if (result == null) {
         Form(emptyModel = emptyModel) {
             contents()
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
                     submit { setResult(it) }
-                }
+                },
             ) {
                 Text("Submit")
             }

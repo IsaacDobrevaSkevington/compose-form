@@ -15,9 +15,9 @@ import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <Item: ListDisplayable> DropdownFormFieldImplementationParameters<Item>.DefaultDropdownMenuItem(
+fun <Item : ListDisplayable> DropdownFormFieldImplementationParameters<Item>.DefaultDropdownMenuItem(
     item: Item,
-    setExpanded: (Boolean)->Unit,
+    setExpanded: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val displayString = item.label.asDisplayString()
@@ -30,13 +30,13 @@ fun <Item: ListDisplayable> DropdownFormFieldImplementationParameters<Item>.Defa
                 setValue(
                     TextFieldValue(
                         displayString,
-                        TextRange(displayString.length)
-                    )
+                        TextRange(displayString.length),
+                    ),
                 )
             }
             setExpanded(false)
             focusManager.clearFocus()
         },
-        contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+        contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
     )
 }

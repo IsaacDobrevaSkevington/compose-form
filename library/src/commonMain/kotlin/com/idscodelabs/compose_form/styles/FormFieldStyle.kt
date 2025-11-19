@@ -14,9 +14,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
 interface FormFieldStyle {
-
     @Composable
-    operator fun invoke(contents: @Composable () -> Unit){
+    operator fun invoke(contents: @Composable () -> Unit) {
         CompositionLocalProvider(LocalFormFieldStyle provides this) {
             contents()
         }
@@ -31,7 +30,7 @@ interface FormFieldStyle {
     @Composable
     fun shape(): Shape
 
-    object Outlined: FormFieldStyle{
+    object Outlined : FormFieldStyle {
         @Composable
         override fun colors(): TextFieldColors = OutlinedTextFieldDefaults.colors()
 
@@ -40,9 +39,9 @@ interface FormFieldStyle {
 
         @Composable
         override fun shape(): Shape = RoundedCornerShape(4.dp)
-
     }
-    object Filled: FormFieldStyle{
+
+    object Filled : FormFieldStyle {
         @Composable
         override fun colors(): TextFieldColors = TextFieldDefaults.colors()
 
@@ -53,7 +52,5 @@ interface FormFieldStyle {
         override fun shape(): Shape = RoundedCornerShape(4.dp)
     }
 }
-
-
 
 val LocalFormFieldStyle = compositionLocalOf<FormFieldStyle> { FormFieldStyle.Outlined }

@@ -12,21 +12,22 @@ import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 data class FormTextFieldExampleModel(
-    override var value: String? = null
-): ExampleModel<String>
+    override var value: String? = null,
+) : ExampleModel<String>
 
 @Preview
 @Composable
-fun FormTextFieldExample() = ExampleScreen {
-    ExampleForm(emptyModel = ::FormTextFieldExampleModel){
-        FormTextField(
-            modelProperty = FormTextFieldExampleModel::value,
-            initialValue = null,
-            enabled = true,
-            validator = NotEmptyValidator(),
-            updateModel = { value = it },
-        ){
-            DefaultTextEntry(hint = "Value")
+fun FormTextFieldExample() =
+    ExampleScreen {
+        ExampleForm(emptyModel = ::FormTextFieldExampleModel) {
+            FormTextField(
+                modelProperty = FormTextFieldExampleModel::value,
+                initialValue = null,
+                enabled = true,
+                validator = NotEmptyValidator(),
+                updateModel = { value = it },
+            ) {
+                DefaultTextEntry(hint = "Value")
+            }
         }
     }
-}

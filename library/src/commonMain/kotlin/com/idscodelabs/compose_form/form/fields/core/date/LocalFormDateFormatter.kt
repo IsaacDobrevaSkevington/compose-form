@@ -4,10 +4,13 @@ import androidx.compose.runtime.compositionLocalOf
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format.char
 
-val LocalFormDateFormatter = compositionLocalOf { LocalDate.Format{
-    day()
-    char('/')
-    monthNumber()
-    char('/')
-    year()
-} }
+val LocalFormDateFormatter =
+    compositionLocalOf {
+        LocalDate.Format {
+            day()
+            char('/')
+            monthNumber()
+            char('/')
+            year()
+        }
+    }

@@ -23,7 +23,7 @@ import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
 @Composable
-fun <Model, Item: ListDisplayable> FormScope<Model>.FormRadioField(
+fun <Model, Item : ListDisplayable> FormScope<Model>.FormRadioField(
     modelProperty: KProperty<Item?>,
     initialValue: Item?,
     enabled: Boolean,
@@ -32,15 +32,17 @@ fun <Model, Item: ListDisplayable> FormScope<Model>.FormRadioField(
     options: List<Item>,
     invalidOptionError: Any = "Invalid Option",
     implementation: IFormFieldImplementation<RadioFormFieldImplementationParameters<Item>>,
-){
-    val sortedOptions = remember(options) {
-        options.sortedBy { it.position }
-    }
+) {
+    val sortedOptions =
+        remember(options) {
+            options.sortedBy { it.position }
+        }
     val displayableOptions = sortedOptions.map { it to it.label.asDisplayString() }
 
-    val displayableOptionsListString = remember(displayableOptions) {
-        displayableOptions.map { it.second }
-    }
+    val displayableOptionsListString =
+        remember(displayableOptions) {
+            displayableOptions.map { it.second }
+        }
 
     FormFieldWrapper(
         modelProperty = modelProperty,
@@ -54,15 +56,15 @@ fun <Model, Item: ListDisplayable> FormScope<Model>.FormRadioField(
             displayableOptions.indexOfFirst { it.first.key == item?.key }.takeIf { it != -1 }
         },
         storedToString = { it.toString() },
-        stringToValue = {string ->
+        stringToValue = { string ->
             string?.toIntOrNull()?.takeIf { it != -1 }?.let {
                 sortedOptions.getOrNull(it)
             }
         },
         rememberState = {
-            rememberSaveable(it){
+            rememberSaveable(it) {
                 mutableIntStateOf(-1)
             }
-        }
+        },
     )
 }

@@ -14,12 +14,12 @@ fun <Model> FormScope<Model>.FormCheckBoxField(
     enabled: Boolean,
     validator: Validator?,
     updateModel: Model.(Boolean?) -> Unit,
-    implementation: FormFieldImplementation<Boolean>
+    implementation: FormFieldImplementation<Boolean>,
 ) = BooleanFieldFormFieldWrapper(
     modelProperty = modelProperty,
     initialValue = initialValue,
     enabled = enabled,
     validator = validator,
     updateModel = updateModel,
-    implementation = implementation
+    implementation = implementation,
 )

@@ -18,13 +18,12 @@ fun rememberDatePickerMinMaxState(
 ) = rememberDatePickerState(
     initialDisplayMode = initialDisplayMode,
     yearRange = min.year..max.year,
-    selectableDates = object: SelectableDates {
-        override fun isSelectableDate(utcTimeMillis: Long): Boolean =
-            utcTimeMillis >= min.atStartOfDayIn(TimeZone.UTC).toEpochMilliseconds() && utcTimeMillis <= max.atStartOfDayIn(TimeZone.UTC).toEpochMilliseconds()
+    selectableDates =
+        object : SelectableDates {
+            override fun isSelectableDate(utcTimeMillis: Long): Boolean =
+                utcTimeMillis >= min.atStartOfDayIn(TimeZone.UTC).toEpochMilliseconds() &&
+                    utcTimeMillis <= max.atStartOfDayIn(TimeZone.UTC).toEpochMilliseconds()
 
-
-        override fun isSelectableYear(year: Int): Boolean =
-            year in min.year..max.year
-    }
-
+            override fun isSelectableYear(year: Int): Boolean = year in min.year..max.year
+        },
 )

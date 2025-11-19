@@ -20,20 +20,21 @@ fun DefaultTimePickerDialog(
     timePicker: @Composable () -> Unit = {
         TimePicker(state = state)
     },
-    title: @Composable ()-> Unit = {Text("Choose Time")},
+    title: @Composable () -> Unit = { Text("Choose Time") },
     onDismissRequest: () -> Unit,
-){
+) {
     val timeFormat = LocalFormTimeFormatter.current
     TimePickerDialog(
         title = title,
         onDismissRequest = onDismissRequest,
         confirmButton = {
             TextButton(onClick = {
-                val newValue = LocalTime(state.hour, state.minute).format(
-                    timeFormat
-                )
+                val newValue =
+                    LocalTime(state.hour, state.minute).format(
+                        timeFormat,
+                    )
                 onValueChange(
-                    TextFieldValue(newValue, TextRange(newValue.length))
+                    TextFieldValue(newValue, TextRange(newValue.length)),
                 )
                 onDismissRequest()
             }) {
@@ -44,7 +45,7 @@ fun DefaultTimePickerDialog(
             TextButton(onClick = onDismissRequest) {
                 Text(text = negativeButtonText.asDisplayString())
             }
-        }
+        },
     ) {
         timePicker()
     }

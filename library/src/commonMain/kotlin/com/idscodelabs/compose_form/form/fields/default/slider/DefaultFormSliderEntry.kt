@@ -23,12 +23,12 @@ import kotlin.math.roundToInt
 fun FormFieldImplementationParameters<Int>.DefaultFormSliderEntry(
     start: Int = 0,
     end: Int = 100,
-    hint: Any? = null
+    hint: Any? = null,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldColumnSpacing)) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldRowSpacing),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             hint?.let {
                 Text(hint.asDisplayString(), modifier = Modifier.weight(1f))
@@ -42,13 +42,13 @@ fun FormFieldImplementationParameters<Int>.DefaultFormSliderEntry(
             },
             valueRange = start.toFloat()..end.toFloat(),
             enabled = enabled,
-            modifier = Modifier.focusRequester(focusRequester)
+            modifier = Modifier.focusRequester(focusRequester),
         )
 
         if (error != null) {
             Text(
                 error,
-                color = MaterialTheme.colorScheme.error
+                color = MaterialTheme.colorScheme.error,
             )
         }
     }

@@ -24,29 +24,31 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.ExperimentalTime
 
 data class FormTimeFieldExampleModel(
-    override var value: LocalTime? = null
-): ExampleModel<LocalTime>
+    override var value: LocalTime? = null,
+) : ExampleModel<LocalTime>
 
 @OptIn(ExperimentalTime::class, ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun FormTimeFieldExample() = ExampleScreen {
-    ExampleForm(emptyModel = ::FormTimeFieldExampleModel){
-        val min = LocalTime(5, 0,0)
-        val max = LocalTime(10, 0,0)
-        FormTimeField(
-            modelProperty = FormTimeFieldExampleModel::value,
-            initialValue = null,
-            enabled = true,
-            validator = NotEmptyValidator() +
-                    TimeAfterValidator(min) +
-                    TimeBeforeValidator(max),
-            updateModel = { value = it },
-        ){
-            DefaultTimeEntry(
-                hint = "Time",
-                timePickerState = rememberTimePickerState()
-            )
+fun FormTimeFieldExample() =
+    ExampleScreen {
+        ExampleForm(emptyModel = ::FormTimeFieldExampleModel) {
+            val min = LocalTime(5, 0, 0)
+            val max = LocalTime(10, 0, 0)
+            FormTimeField(
+                modelProperty = FormTimeFieldExampleModel::value,
+                initialValue = null,
+                enabled = true,
+                validator =
+                    NotEmptyValidator() +
+                        TimeAfterValidator(min) +
+                        TimeBeforeValidator(max),
+                updateModel = { value = it },
+            ) {
+                DefaultTimeEntry(
+                    hint = "Time",
+                    timePickerState = rememberTimePickerState(),
+                )
+            }
         }
     }
-}

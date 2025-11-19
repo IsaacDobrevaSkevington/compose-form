@@ -23,11 +23,11 @@ fun DefaultDatePickerDialog(
     datePicker: @Composable ColumnScope.() -> Unit = {
         DatePicker(
             state = state,
-            showModeToggle = false
+            showModeToggle = false,
         )
     },
     onDismissRequest: () -> Unit,
-){
+) {
     val formatter = LocalFormDateFormatter.current
     DatePickerDialog(
         onDismissRequest = onDismissRequest,
@@ -35,13 +35,14 @@ fun DefaultDatePickerDialog(
             TextButton(onClick = {
                 val newValue =
                     state.selectedDateMillis?.let {
-                        Instant.fromEpochMilliseconds(it)
+                        Instant
+                            .fromEpochMilliseconds(it)
                             .toLocalDateTime(TimeZone.UTC)
                             .date
                             .format(formatter)
                     } ?: ""
                 onValueChange(
-                    TextFieldValue(newValue, TextRange(newValue.length))
+                    TextFieldValue(newValue, TextRange(newValue.length)),
                 )
                 onDismissRequest()
             }) {
@@ -52,7 +53,7 @@ fun DefaultDatePickerDialog(
             TextButton(onClick = onDismissRequest) {
                 Text(text = negativeButtonText.asDisplayString())
             }
-        }
+        },
     ) {
         datePicker()
     }

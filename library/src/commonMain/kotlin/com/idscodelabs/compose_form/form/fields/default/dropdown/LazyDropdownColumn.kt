@@ -15,15 +15,15 @@ fun <Item> LazyDropdownColumn(
     modifier: Modifier = Modifier,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
-    item: @Composable (Item) -> Unit
-){
-    if(items.size > 10){
+    item: @Composable (Item) -> Unit,
+) {
+    if (items.size > 10) {
         LazyColumn(
             modifier = modifier.lazyDropdownMenu(scope),
             verticalArrangement = verticalArrangement,
             horizontalAlignment = horizontalAlignment,
-        ){
-            items(items){
+        ) {
+            items(items) {
                 item(it)
             }
         }

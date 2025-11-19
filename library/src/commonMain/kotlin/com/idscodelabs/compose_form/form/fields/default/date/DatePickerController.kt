@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.update
 data class DatePickerController(
     val datePickerState: DatePickerState,
 ) {
-
     val pickerVisible: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
     fun setPickerVisible(visible: Boolean) {
         pickerVisible.update { visible }
     }

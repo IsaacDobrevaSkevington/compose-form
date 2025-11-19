@@ -14,7 +14,6 @@ import kotlinx.datetime.LocalTime
 import kotlinx.datetime.format
 import kotlin.reflect.KProperty
 
-
 @Composable
 fun <Model> FormScope<Model>.FormTimeField(
     modelProperty: KProperty<LocalTime?>,
@@ -24,8 +23,8 @@ fun <Model> FormScope<Model>.FormTimeField(
     updateModel: Model.(LocalTime?) -> Unit,
     invalidTimeMessage: Any = "Invalid time format",
     cleanTime: (String) -> String = { sanitizeTime(it) },
-    implementation: FormFieldImplementation<TextFieldValue>
-){
+    implementation: FormFieldImplementation<TextFieldValue>,
+) {
     val timeFormatter = LocalFormTimeFormatter.current
     TextFieldFormFieldWrapper(
         modelProperty = modelProperty,
@@ -44,6 +43,6 @@ fun <Model> FormScope<Model>.FormTimeField(
         mapValue = {
             val cleaned = cleanTime(it.text)
             TextFieldValue(cleaned, TextRange(cleaned.length))
-        }
+        },
     )
 }

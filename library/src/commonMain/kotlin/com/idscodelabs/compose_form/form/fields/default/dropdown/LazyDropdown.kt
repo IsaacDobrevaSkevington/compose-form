@@ -22,7 +22,6 @@ import kotlin.math.max
 import kotlin.math.roundToInt
 
 class LazyDropdownScope {
-
     val size: MutableStateFlow<IntSize> = MutableStateFlow(IntSize(0, 0))
 }
 
@@ -36,11 +35,12 @@ fun Modifier.lazyDropdown(scope: LazyDropdownScope): Modifier {
         scope.size.update {
             IntSize(
                 width = layoutCoordinates.size.width,
-                height = calculateMaxHeight(
-                    windowBounds = IntRect(IntOffset.Zero, IntSize(window.width, window.height)),
-                    anchorBounds = layoutCoordinates.getAnchorBounds(),
-                    verticalMargin = verticalMargin,
-                )
+                height =
+                    calculateMaxHeight(
+                        windowBounds = IntRect(IntOffset.Zero, IntSize(window.width, window.height)),
+                        anchorBounds = layoutCoordinates.getAnchorBounds(),
+                        verticalMargin = verticalMargin,
+                    ),
             )
         }
     }
@@ -86,4 +86,3 @@ private fun calculateMaxHeight(
 
 private fun LayoutCoordinates?.getAnchorBounds(): Rect =
     if (this == null || !this.isAttached) Rect.Zero else Rect(positionInWindow(), size.toSize())
-

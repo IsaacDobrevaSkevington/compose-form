@@ -29,5 +29,5 @@ fun <Model> FormScope<Model>.IntFieldFormFieldWrapper(
     formImplementationMapper = { this },
     rememberState = {
         rememberSaveable(modelProperty.name) { mutableIntStateOf(0) }
-    }
+    },
 )

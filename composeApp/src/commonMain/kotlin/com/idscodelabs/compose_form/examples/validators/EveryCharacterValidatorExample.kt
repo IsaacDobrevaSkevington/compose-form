@@ -10,22 +10,23 @@ import com.idscodelabs.compose_form.validators.asValidator
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 data class FormTextFieldExampleModel(
-    var value: String? = null
+    var value: String? = null,
 )
 
 @Preview
 @Composable
 fun EveryCharacterValidatorExampleCustom() {
-    Form(emptyModel = ::FormTextFieldExampleModel){
+    Form(emptyModel = ::FormTextFieldExampleModel) {
         FormTextField(
             modelProperty = FormTextFieldExampleModel::value,
             initialValue = null,
             enabled = true,
-            validator = EveryCharacterValidator {
-                it.isLetterOrDigit()
-            },
+            validator =
+                EveryCharacterValidator {
+                    it.isLetterOrDigit()
+                },
             updateModel = { value = it },
-        ){
+        ) {
             DefaultTextEntry(hint = "Value")
         }
     }
@@ -34,14 +35,14 @@ fun EveryCharacterValidatorExampleCustom() {
 @Preview
 @Composable
 fun EveryCharacterValidatorExampleWithPredefinedFunction() {
-    Form(emptyModel = ::FormTextFieldExampleModel){
+    Form(emptyModel = ::FormTextFieldExampleModel) {
         FormTextField(
             modelProperty = FormTextFieldExampleModel::value,
             initialValue = null,
             enabled = true,
             validator = Char::isLetterOrDigit.asValidator(),
             updateModel = { value = it },
-        ){
+        ) {
             DefaultTextEntry(hint = "Value")
         }
     }

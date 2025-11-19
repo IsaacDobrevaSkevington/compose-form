@@ -12,8 +12,6 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format
 import kotlin.reflect.KProperty
 
-
-
 @Composable
 fun <Model> FormScope<Model>.FormDateField(
     modelProperty: KProperty<LocalDate?>,
@@ -22,9 +20,9 @@ fun <Model> FormScope<Model>.FormDateField(
     validator: Validator?,
     updateModel: Model.(LocalDate?) -> Unit,
     invalidDateMessage: Any = "Invalid date format",
-    cleanDate: (String)->String = { sanitizeDate(it) },
-    implementation: FormFieldImplementation<TextFieldValue>
-){
+    cleanDate: (String) -> String = { sanitizeDate(it) },
+    implementation: FormFieldImplementation<TextFieldValue>,
+) {
     val dateFormatter = LocalFormDateFormatter.current
     TextFieldFormFieldWrapper(
         modelProperty = modelProperty,
@@ -43,6 +41,6 @@ fun <Model> FormScope<Model>.FormDateField(
         mapValue = {
             val cleaned = cleanDate(it.text)
             TextFieldValue(cleaned, TextRange(cleaned.length))
-        }
+        },
     )
 }

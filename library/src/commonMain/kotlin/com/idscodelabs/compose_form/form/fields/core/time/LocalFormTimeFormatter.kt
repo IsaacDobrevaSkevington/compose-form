@@ -5,8 +5,11 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.format.char
 
-val LocalFormTimeFormatter = compositionLocalOf { LocalTime.Format{
-    hour()
-    char(':')
-    minute()
-} }
+val LocalFormTimeFormatter =
+    compositionLocalOf {
+        LocalTime.Format {
+            hour()
+            char(':')
+            minute()
+        }
+    }

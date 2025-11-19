@@ -20,7 +20,6 @@ import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 import org.jetbrains.compose.resources.stringResource
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormFieldImplementationParameters<Boolean>.DefaultFormSwitchEntry(
@@ -36,7 +35,7 @@ fun FormFieldImplementationParameters<Boolean>.DefaultFormSwitchEntry(
 ) {
     Column(
         modifier.focusRequester(focusRequester),
-        verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldColumnSpacing)
+        verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldColumnSpacing),
     ) {
         hint?.let {
             Text(
@@ -53,9 +52,10 @@ fun FormFieldImplementationParameters<Boolean>.DefaultFormSwitchEntry(
                 Text(
                     text = it.asDisplayString(),
                     textAlign = TextAlign.Right,
-                    modifier = leftLabelModifier.selectable(selected = !value, enabled = enabled) {
-                        setValue(false)
-                    }
+                    modifier =
+                        leftLabelModifier.selectable(selected = !value, enabled = enabled) {
+                            setValue(false)
+                        },
                 )
             }
 
@@ -65,16 +65,17 @@ fun FormFieldImplementationParameters<Boolean>.DefaultFormSwitchEntry(
                 onCheckedChange = {
                     setValue(it)
                 },
-                enabled = enabled
+                enabled = enabled,
             )
 
             rightLabel?.let {
                 Text(
                     text = it.asDisplayString(),
                     textAlign = TextAlign.Left,
-                    modifier = rightLabelModifier.selectable(selected = value, enabled = enabled) {
-                        setValue(true)
-                    }
+                    modifier =
+                        rightLabelModifier.selectable(selected = value, enabled = enabled) {
+                            setValue(true)
+                        },
                 )
             }
         }
@@ -83,7 +84,7 @@ fun FormFieldImplementationParameters<Boolean>.DefaultFormSwitchEntry(
             Text(
                 modifier = errorModifier,
                 text = it.asDisplayString(),
-                color = MaterialTheme.colorScheme.error
+                color = MaterialTheme.colorScheme.error,
             )
         }
     }

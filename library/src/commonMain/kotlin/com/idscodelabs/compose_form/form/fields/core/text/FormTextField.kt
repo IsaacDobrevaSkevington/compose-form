@@ -15,8 +15,8 @@ fun <Model> FormScope<Model>.FormTextField(
     enabled: Boolean,
     validator: Validator?,
     updateModel: Model.(String?) -> Unit,
-    implementation: FormFieldImplementation<TextFieldValue>
-){
+    implementation: FormFieldImplementation<TextFieldValue>,
+) {
     TextFieldFormFieldWrapper(
         modelProperty = modelProperty,
         initialValue = initialValue,
@@ -26,6 +26,6 @@ fun <Model> FormScope<Model>.FormTextField(
         implementation = implementation,
         valueToString = { it },
         stringToValue = { it },
-        { this }
+        { this },
     )
 }

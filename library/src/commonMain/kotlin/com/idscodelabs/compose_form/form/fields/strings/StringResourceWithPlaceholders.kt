@@ -4,5 +4,5 @@ import org.jetbrains.compose.resources.StringResource
 
 data class StringResourceWithPlaceholders(
     val stringResource: StringResource,
-    val placeholders: List<String>
+    val placeholders: List<String>,
 )

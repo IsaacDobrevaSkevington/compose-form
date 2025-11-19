@@ -1,16 +1,16 @@
 package com.idscodelabs.compose_form.validators
 
 import com.idscodelabs.compose_form.validators.core.Validator
-import kotlin.reflect.KProperty
 import org.jetbrains.compose.resources.StringResource
+import kotlin.reflect.KProperty
 
 class NotEmptyIfOtherPopulatedValidator(
     val other: KProperty<*>,
-    private val error: Any
+    private val error: Any,
 ) : Validator {
     override fun validate(
         s: String?,
-        otherFieldValues: Map<String, String?>
+        otherFieldValues: Map<String, String?>,
     ): Any? {
         val otherFieldValue = otherFieldValues[other.name]
         if (otherFieldValue.isNullOrBlank()) return null

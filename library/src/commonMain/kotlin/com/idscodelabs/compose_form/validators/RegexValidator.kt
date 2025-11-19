@@ -4,11 +4,11 @@ import com.idscodelabs.compose_form.validators.core.Validator
 
 open class RegexValidator(
     private val pattern: Regex,
-    private val error: Any = "Invalid format"
+    private val error: Any = "Invalid format",
 ) : Validator {
     override fun validate(
         s: String?,
-        otherFieldValues: Map<String, String?>
+        otherFieldValues: Map<String, String?>,
     ): Any? {
         if (s.isNullOrBlank()) return null
         return if (pattern.matches(s)) {

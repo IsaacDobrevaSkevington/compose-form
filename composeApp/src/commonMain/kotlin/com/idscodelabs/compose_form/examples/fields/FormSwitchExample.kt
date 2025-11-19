@@ -14,25 +14,26 @@ import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 data class FormSwitchExampleModel(
-    override var value: Boolean? = null
-): ExampleModel<Boolean>
+    override var value: Boolean? = null,
+) : ExampleModel<Boolean>
 
 @Preview
 @Composable
-fun FormSwitchFieldExample() = ExampleScreen {
-    ExampleForm(emptyModel = ::FormSwitchExampleModel){
-        FormSwitchField(
-            modelProperty = FormSwitchExampleModel::value,
-            initialValue = null,
-            enabled = true,
-            validator = null,
-            updateModel = { value = it },
-        ){
-            DefaultFormSwitchEntry(
-                hint = "Select from A or B",
-                leftLabel = "A",
-                rightLabel = "B",
-            )
+fun FormSwitchFieldExample() =
+    ExampleScreen {
+        ExampleForm(emptyModel = ::FormSwitchExampleModel) {
+            FormSwitchField(
+                modelProperty = FormSwitchExampleModel::value,
+                initialValue = null,
+                enabled = true,
+                validator = null,
+                updateModel = { value = it },
+            ) {
+                DefaultFormSwitchEntry(
+                    hint = "Select from A or B",
+                    leftLabel = "A",
+                    rightLabel = "B",
+                )
+            }
         }
     }
-}

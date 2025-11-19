@@ -20,11 +20,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.idscodelabs.compose_form.styles.FormFieldStyle
-import com.idscodelabs.compose_form.styles.LocalFormFieldStyle
 import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.form.fields.core.base.AbstractFormFieldImplementationParameters
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
+import com.idscodelabs.compose_form.styles.FormFieldStyle
+import com.idscodelabs.compose_form.styles.LocalFormFieldStyle
 
 @Composable
 fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTextEntry(
@@ -37,7 +37,7 @@ fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTextEntry(
     prefix: Any = "",
     readOnly: Boolean = false,
     style: FormFieldStyle = LocalFormFieldStyle.current,
-    leadingIcon: (@Composable () -> Unit)? = null
+    leadingIcon: (@Composable () -> Unit)? = null,
 ) = DefaultTextEntry(
     hint,
     modifier,
@@ -48,8 +48,9 @@ fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTextEntry(
     prefix,
     readOnly,
     style,
-    leadingIcon
+    leadingIcon,
 )
+
 @Composable
 fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTextEntry(
     hint: Any? = null,
@@ -61,82 +62,83 @@ fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTextEntry(
     prefix: Any = "",
     readOnly: Boolean = false,
     style: FormFieldStyle = LocalFormFieldStyle.current,
-    leadingIcon: (@Composable () -> Unit)? = null
+    leadingIcon: (@Composable () -> Unit)? = null,
 ) {
-        OutlinedTextField(
-            value = value,
-            prefix = { Text(prefix.asDisplayString()) },
-            onValueChange = {
-                setValue(it)
-            },
-            readOnly = readOnly,
-            placeholder =
+    OutlinedTextField(
+        value = value,
+        prefix = { Text(prefix.asDisplayString()) },
+        onValueChange = {
+            setValue(it)
+        },
+        readOnly = readOnly,
+        placeholder =
             placeholder?.let {
                 { Text(it.asDisplayString(), softWrap = false) }
             },
-            singleLine = true,
-            isError = error != null,
-            supportingText = {
-                error?.let {
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = it,
-                        color = MaterialTheme.colorScheme.error,
-                        fontWeight = FontWeight.Normal
-                    )
-                }
-            },
-            trailingIcon = {
-                icons.ifEmpty { null }?.let {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        it.forEach {icon ->
-                            IconButton(onClick = icon.onClick, enabled = enabled) {
-                                Icon(
-                                    icon.icon,
-                                    "",
-                                    tint =
-                                        if (error == null) {
-                                            MaterialTheme.colorScheme.onBackground
-                                        } else {
-                                            MaterialTheme.colorScheme.error
-                                        },
-                                    modifier = Modifier.rotate(icon.rotation)
-                                )
-                            }
+        singleLine = true,
+        isError = error != null,
+        supportingText = {
+            error?.let {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = it,
+                    color = MaterialTheme.colorScheme.error,
+                    fontWeight = FontWeight.Normal,
+                )
+            }
+        },
+        trailingIcon = {
+            icons.ifEmpty { null }?.let {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    it.forEach { icon ->
+                        IconButton(onClick = icon.onClick, enabled = enabled) {
+                            Icon(
+                                icon.icon,
+                                "",
+                                tint =
+                                    if (error == null) {
+                                        MaterialTheme.colorScheme.onBackground
+                                    } else {
+                                        MaterialTheme.colorScheme.error
+                                    },
+                                modifier = Modifier.rotate(icon.rotation),
+                            )
                         }
-
                     }
-                } ?: error?.let {
-                    Icon(
-                        Icons.Filled.Error,
-                        "error",
-                        tint = MaterialTheme.colorScheme.error
-                    )
                 }
-            },
-            leadingIcon = leadingIcon,
-            label = {
-                hint?.let {
-                    Text(
-                        text = it.asDisplayString(),
-                        fontWeight = FontWeight.Normal,
-                        color =
+            } ?: error?.let {
+                Icon(
+                    Icons.Filled.Error,
+                    "error",
+                    tint = MaterialTheme.colorScheme.error,
+                )
+            }
+        },
+        leadingIcon = leadingIcon,
+        label = {
+            hint?.let {
+                Text(
+                    text = it.asDisplayString(),
+                    fontWeight = FontWeight.Normal,
+                    color =
                         if (error != null) {
                             MaterialTheme.colorScheme.error
                         } else {
                             style.labelColor()
                         },
-                        softWrap = false
-                    )
-                }
-            },
-            modifier = modifier.focusRequester(focusRequester),
-            shape = style.shape(),
-            enabled = enabled,
-            colors = style.colors(),
-            keyboardOptions = (keyboardOptions ?: KeyboardOptions()).copy(
-                imeAction = keyboardOptions?.imeAction.takeIf { it != ImeAction.Unspecified }
-                    ?: if (isLast) ImeAction.Done else ImeAction.Next
-            )
-        )
-    }
+                    softWrap = false,
+                )
+            }
+        },
+        modifier = modifier.focusRequester(focusRequester),
+        shape = style.shape(),
+        enabled = enabled,
+        colors = style.colors(),
+        keyboardOptions =
+            (keyboardOptions ?: KeyboardOptions()).copy(
+                imeAction =
+                    keyboardOptions?.imeAction.takeIf { it != ImeAction.Unspecified }
+                        ?: if (isLast) ImeAction.Done else ImeAction.Next,
+            ),
+    )
+}

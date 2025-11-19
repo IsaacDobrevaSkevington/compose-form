@@ -9,7 +9,7 @@ class MinLengthValidator(
 ) : Validator {
     override fun validate(
         s: String?,
-        otherFieldValues: Map<String, String?>
+        otherFieldValues: Map<String, String?>,
     ): Any? {
         if (s == null) return null
         return if (s.length >= minLength) null else error

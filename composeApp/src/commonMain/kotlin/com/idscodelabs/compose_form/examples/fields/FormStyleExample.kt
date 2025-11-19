@@ -11,29 +11,30 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable
-fun FormStyleExample() = ExampleScreen {
-    Form(emptyModel = ::FormTextFieldExampleModel){
-        FormFieldStyle.Outlined{
-            FormTextField(
-                modelProperty = FormTextFieldExampleModel::value,
-                initialValue = null,
-                enabled = true,
-                validator = NotEmptyValidator(),
-                updateModel = { value = it },
-            ){
-                DefaultTextEntry(hint = "Value")
+fun FormStyleExample() =
+    ExampleScreen {
+        Form(emptyModel = ::FormTextFieldExampleModel) {
+            FormFieldStyle.Outlined {
+                FormTextField(
+                    modelProperty = FormTextFieldExampleModel::value,
+                    initialValue = null,
+                    enabled = true,
+                    validator = NotEmptyValidator(),
+                    updateModel = { value = it },
+                ) {
+                    DefaultTextEntry(hint = "Value")
+                }
             }
-        }
-        FormFieldStyle.Filled{
-            FormTextField(
-                modelProperty = FormTextFieldExampleModel::value,
-                initialValue = null,
-                enabled = true,
-                validator = NotEmptyValidator(),
-                updateModel = { value = it },
-            ){
-                DefaultTextEntry(hint = "Value")
+            FormFieldStyle.Filled {
+                FormTextField(
+                    modelProperty = FormTextFieldExampleModel::value,
+                    initialValue = null,
+                    enabled = true,
+                    validator = NotEmptyValidator(),
+                    updateModel = { value = it },
+                ) {
+                    DefaultTextEntry(hint = "Value")
+                }
             }
         }
     }
-}

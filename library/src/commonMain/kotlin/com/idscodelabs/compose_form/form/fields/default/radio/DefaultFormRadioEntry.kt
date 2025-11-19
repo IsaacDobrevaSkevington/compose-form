@@ -23,44 +23,43 @@ fun <Item : ListDisplayable> RadioFormFieldImplementationParameters<Item>.Defaul
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
     errorModifier: Modifier = Modifier,
-    radioButton: @Composable (Item, Int) -> Unit = {item, index ->
+    radioButton: @Composable (Item, Int) -> Unit = { item, index ->
         Row(
             Modifier
                 .fillMaxWidth()
                 .selectable(
                     selected = index == value,
-                    onClick = { setValue(index) }
-                )
-                .minimumInteractiveComponentSize(),
+                    onClick = { setValue(index) },
+                ).minimumInteractiveComponentSize(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldRowSpacing)
+            horizontalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldRowSpacing),
         ) {
             RadioButton(
                 selected = (index == value),
                 onClick = {
-                    if(value == index){
+                    if (value == index) {
                         setValue(-1)
                     } else {
                         setValue(index)
                     }
                 },
-                enabled = enabled
+                enabled = enabled,
             )
             Text(
                 text = item.label.asDisplayString(),
             )
         }
-    }
-){
+    },
+) {
     Column(
         modifier = modifier.focusRequester(focusRequester),
-        verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldColumnSpacing)
+        verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldColumnSpacing),
     ) {
         hint?.let {
             Text(
                 modifier = textModifier,
                 text = it.asDisplayString(),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
         }
 
@@ -72,7 +71,7 @@ fun <Item : ListDisplayable> RadioFormFieldImplementationParameters<Item>.Defaul
             Text(
                 modifier = errorModifier,
                 text = error.asDisplayString(),
-                color = MaterialTheme.colorScheme.error
+                color = MaterialTheme.colorScheme.error,
             )
         }
     }

@@ -16,7 +16,7 @@ import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
 @Composable
-fun <Model, Item: ListDisplayable> FormScope<Model>.FormDropdownField(
+fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
     modelProperty: KProperty<Item?>,
     initialValue: Item?,
     enabled: Boolean,
@@ -25,14 +25,16 @@ fun <Model, Item: ListDisplayable> FormScope<Model>.FormDropdownField(
     options: List<Item>,
     invalidOptionError: Any = "Invalid Option",
     implementation: IFormFieldImplementation<DropdownFormFieldImplementationParameters<Item>>,
-){
-    val displayableOptions = options
-        .sortedBy { it.position }
-        .map { it to it.label.asDisplayString() }
+) {
+    val displayableOptions =
+        options
+            .sortedBy { it.position }
+            .map { it to it.label.asDisplayString() }
 
-    val displayableOptionsListString = remember(displayableOptions) {
-        displayableOptions.map { it.second }
-    }
+    val displayableOptionsListString =
+        remember(displayableOptions) {
+            displayableOptions.map { it.second }
+        }
 
     FormFieldWrapper(
         modelProperty = modelProperty,
@@ -42,21 +44,21 @@ fun <Model, Item: ListDisplayable> FormScope<Model>.FormDropdownField(
         updateModel = updateModel,
         implementation = implementation,
         formImplementationMapper = { DropdownFormFieldImplementationParameters(this, options) },
-        valueToStored = {item ->
-            displayableOptions.firstOrNull { it.first.key == item?.key }?.second?.trim()?.let {selected ->
+        valueToStored = { item ->
+            displayableOptions.firstOrNull { it.first.key == item?.key }?.second?.trim()?.let { selected ->
                 TextFieldValue(selected, TextRange(selected.length))
             }
         },
         storedToString = {
             it?.text?.trim()
         },
-        stringToValue = {string ->
+        stringToValue = { string ->
             displayableOptions.firstOrNull { it.second == string }?.first
         },
         rememberState = {
-            rememberSaveable(it, stateSaver = TextFieldValue.Saver){
+            rememberSaveable(it, stateSaver = TextFieldValue.Saver) {
                 mutableStateOf(TextFieldValue(""))
             }
-        }
+        },
     )
 }

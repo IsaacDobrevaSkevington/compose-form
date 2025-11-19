@@ -11,7 +11,7 @@ fun DateValidator(
     error: Any = "Invalid date format",
     formatter: DateTimeFormat<LocalDate> = LocalFormDateFormatter.current,
 ): Validator {
-    return Validator {s, _ ->
+    return Validator { s, _ ->
         if (s == null) return@Validator null
         try {
             formatter.parse(s)

@@ -7,7 +7,6 @@ import com.idscodelabs.compose_form.form.fields.core.base.IntFieldFormFieldWrapp
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
-
 @Composable
 fun <Model> FormScope<Model>.FormSliderField(
     modelProperty: KProperty<Int?>,
@@ -15,12 +14,12 @@ fun <Model> FormScope<Model>.FormSliderField(
     enabled: Boolean,
     validator: Validator?,
     updateModel: Model.(Int?) -> Unit,
-    implementation: FormFieldImplementation<Int>
+    implementation: FormFieldImplementation<Int>,
 ) = IntFieldFormFieldWrapper(
     modelProperty = modelProperty,
     initialValue = initialValue,
     enabled = enabled,
     validator = validator,
     updateModel = updateModel,
-    implementation = implementation
+    implementation = implementation,
 )

@@ -23,19 +23,22 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 class FormDropdownFieldExampleOptionLarge(
     override val key: Any,
     override val label: Any,
-    override val position: Int
-): ListDisplayable {
+    override val position: Int,
+) : ListDisplayable {
     override fun toString(): String = label.toString()
+
     companion object {
-        val options = (0..1000).map {
-            FormDropdownFieldExampleOptionLarge(it.toString(), "Option $it", it)
-        }
+        val options =
+            (0..1000).map {
+                FormDropdownFieldExampleOptionLarge(it.toString(), "Option $it", it)
+            }
     }
 }
 
-enum class FormDropdownFieldExampleOption: ListDisplayable {
+enum class FormDropdownFieldExampleOption : ListDisplayable {
     OPTION_1,
-    OPTION_2;
+    OPTION_2,
+    ;
 
     override val key: Any
         get() = ordinal
@@ -45,80 +48,84 @@ enum class FormDropdownFieldExampleOption: ListDisplayable {
 
     override val position: Int
         get() = ordinal
-
 }
+
 data class FormDropdownFieldExampleModel(
-    override var value: FormDropdownFieldExampleOption? = null
-): ExampleModel<FormDropdownFieldExampleOption>
+    override var value: FormDropdownFieldExampleOption? = null,
+) : ExampleModel<FormDropdownFieldExampleOption>
 
 data class FormDropdownFieldExampleModelLarge(
-    override var value: FormDropdownFieldExampleOptionLarge? = null
-): ExampleModel<FormDropdownFieldExampleOptionLarge>
-
-
-@Preview
-@Composable
-fun FormDropdownFieldExample() = ExampleScreen {
-    ExampleForm(emptyModel = ::FormDropdownFieldExampleModel){
-        FormDropdownField(
-            modelProperty = FormDropdownFieldExampleModel::value,
-            initialValue = null,
-            enabled = true,
-            validator = NotEmptyValidator(),
-            updateModel = { value = it },
-            options = FormDropdownFieldExampleOption.entries
-        ){
-            DefaultFormDropdownEntry(hint = "Value")
-        }
-    }
-}
+    override var value: FormDropdownFieldExampleOptionLarge? = null,
+) : ExampleModel<FormDropdownFieldExampleOptionLarge>
 
 @Preview
 @Composable
-fun FormAutocompleteDropdownFieldExample() = ExampleScreen {
-    ExampleForm(emptyModel = ::FormDropdownFieldExampleModel){
-        FormDropdownField(
-            modelProperty = FormDropdownFieldExampleModel::value,
-            initialValue = null,
-            enabled = true,
-            validator = NotEmptyValidator(),
-            updateModel = { value = it },
-            options = FormDropdownFieldExampleOption.entries
-        ){
-            DefaultAutocompleteFormDropdownEntry(hint = "Value")
+fun FormDropdownFieldExample() =
+    ExampleScreen {
+        ExampleForm(emptyModel = ::FormDropdownFieldExampleModel) {
+            FormDropdownField(
+                modelProperty = FormDropdownFieldExampleModel::value,
+                initialValue = null,
+                enabled = true,
+                validator = NotEmptyValidator(),
+                updateModel = { value = it },
+                options = FormDropdownFieldExampleOption.entries,
+            ) {
+                DefaultFormDropdownEntry(hint = "Value")
+            }
         }
     }
-}
-@Preview
-@Composable
-fun FormDropdownFieldExampleLarge() = ExampleScreen {
-    ExampleForm(emptyModel = ::FormDropdownFieldExampleModelLarge){
-        FormDropdownField(
-            modelProperty = FormDropdownFieldExampleModelLarge::value,
-            initialValue = null,
-            enabled = true,
-            validator = NotEmptyValidator(),
-            updateModel = { value = it },
-            options = FormDropdownFieldExampleOptionLarge.options
-        ){
-            DefaultFormDropdownEntry(hint = "Value")
-        }
-    }
-}
 
 @Preview
 @Composable
-fun FormAutocompleteDropdownFieldExampleLarge() = ExampleScreen {
-    ExampleForm(emptyModel = ::FormDropdownFieldExampleModelLarge){
-        FormDropdownField(
-            modelProperty = FormDropdownFieldExampleModelLarge::value,
-            initialValue = null,
-            enabled = true,
-            validator = NotEmptyValidator(),
-            updateModel = { value = it },
-            options = FormDropdownFieldExampleOptionLarge.options
-        ){
-            DefaultAutocompleteFormDropdownEntry(hint = "Value")
+fun FormAutocompleteDropdownFieldExample() =
+    ExampleScreen {
+        ExampleForm(emptyModel = ::FormDropdownFieldExampleModel) {
+            FormDropdownField(
+                modelProperty = FormDropdownFieldExampleModel::value,
+                initialValue = null,
+                enabled = true,
+                validator = NotEmptyValidator(),
+                updateModel = { value = it },
+                options = FormDropdownFieldExampleOption.entries,
+            ) {
+                DefaultAutocompleteFormDropdownEntry(hint = "Value")
+            }
         }
     }
-}
+
+@Preview
+@Composable
+fun FormDropdownFieldExampleLarge() =
+    ExampleScreen {
+        ExampleForm(emptyModel = ::FormDropdownFieldExampleModelLarge) {
+            FormDropdownField(
+                modelProperty = FormDropdownFieldExampleModelLarge::value,
+                initialValue = null,
+                enabled = true,
+                validator = NotEmptyValidator(),
+                updateModel = { value = it },
+                options = FormDropdownFieldExampleOptionLarge.options,
+            ) {
+                DefaultFormDropdownEntry(hint = "Value")
+            }
+        }
+    }
+
+@Preview
+@Composable
+fun FormAutocompleteDropdownFieldExampleLarge() =
+    ExampleScreen {
+        ExampleForm(emptyModel = ::FormDropdownFieldExampleModelLarge) {
+            FormDropdownField(
+                modelProperty = FormDropdownFieldExampleModelLarge::value,
+                initialValue = null,
+                enabled = true,
+                validator = NotEmptyValidator(),
+                updateModel = { value = it },
+                options = FormDropdownFieldExampleOptionLarge.options,
+            ) {
+                DefaultAutocompleteFormDropdownEntry(hint = "Value")
+            }
+        }
+    }

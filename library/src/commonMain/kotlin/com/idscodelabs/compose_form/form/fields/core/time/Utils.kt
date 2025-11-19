@@ -7,11 +7,12 @@ fun sanitizeTime(
     firstLength: Int = 2,
     secondLength: Int = 2,
     thirdLength: Int = 0,
-    separator: Char = ':'
-): String = sanitizeDuration(
-    input,
-    firstLength,
-    secondLength,
-    thirdLength,
-    separator,
-)
+    separator: Char = ':',
+): String =
+    sanitizeDuration(
+        input,
+        firstLength,
+        secondLength,
+        thirdLength,
+        separator,
+    )

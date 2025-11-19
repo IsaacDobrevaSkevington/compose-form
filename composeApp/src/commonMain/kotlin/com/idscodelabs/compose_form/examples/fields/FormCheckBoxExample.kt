@@ -11,21 +11,22 @@ import com.idscodelabs.compose_form.validators.MustBeTickedValidator
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 data class FormCheckBoxExampleModel(
-    override var value: Boolean? = null
-): ExampleModel<Boolean>
+    override var value: Boolean? = null,
+) : ExampleModel<Boolean>
 
 @Preview
 @Composable
-fun FormCheckBoxFieldExample() = ExampleScreen {
-    ExampleForm(emptyModel = ::FormCheckBoxExampleModel){
-        FormCheckBoxField(
-            modelProperty = FormCheckBoxExampleModel::value,
-            initialValue = null,
-            enabled = true,
-            validator = MustBeTickedValidator(),
-            updateModel = { value = it },
-        ){
-            DefaultFormCheckBoxEntry(hint = "Check Me")
+fun FormCheckBoxFieldExample() =
+    ExampleScreen {
+        ExampleForm(emptyModel = ::FormCheckBoxExampleModel) {
+            FormCheckBoxField(
+                modelProperty = FormCheckBoxExampleModel::value,
+                initialValue = null,
+                enabled = true,
+                validator = MustBeTickedValidator(),
+                updateModel = { value = it },
+            ) {
+                DefaultFormCheckBoxEntry(hint = "Check Me")
+            }
         }
     }
-}

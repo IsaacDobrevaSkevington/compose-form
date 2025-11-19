@@ -33,31 +33,31 @@ fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTimeEntry(
         DefaultTextEntry(
             hint = hint,
             modifier = modifier,
-            icon = if (enabled) {
-                FormScope.IconParams(
-                    Icons.Outlined.Timer
-                ) {
-                    it.setPickerVisible(true)
-                }
-            } else {
-                null
-            },
+            icon =
+                if (enabled) {
+                    FormScope.IconParams(
+                        Icons.Outlined.Timer,
+                    ) {
+                        it.setPickerVisible(true)
+                    }
+                } else {
+                    null
+                },
             placeholder = placeholder,
             isLast = isLast,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
-            leadingIcon = leadingIcon
+            leadingIcon = leadingIcon,
         )
     },
-    dialog: @Composable AbstractFormFieldImplementationParameters<TextFieldValue>.(TimePickerController)->Unit = {
+    dialog: @Composable AbstractFormFieldImplementationParameters<TextFieldValue>.(TimePickerController) -> Unit = {
         DefaultTimePickerDialog(
             it.timepickerState,
-            ::setValue
-        ){
+            ::setValue,
+        ) {
             it.setPickerVisible(false)
         }
-    }
+    },
 ) {
-
     val timeFormatter = LocalFormTimeFormatter.current
 
     LaunchedEffect(value.text) {
