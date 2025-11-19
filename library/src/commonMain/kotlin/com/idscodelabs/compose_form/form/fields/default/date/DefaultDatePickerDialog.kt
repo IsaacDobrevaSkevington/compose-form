@@ -13,7 +13,7 @@ import kotlinx.datetime.toLocalDateTime
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
-@OptIn(ExperimentalTime::class)
+@OptIn(ExperimentalTime::class, ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultDatePickerDialog(
     state: DatePickerState,
