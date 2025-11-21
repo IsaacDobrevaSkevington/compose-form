@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.composeHotReload)
 }
 
+
 kotlin {
     androidTarget {
         compilerOptions {
