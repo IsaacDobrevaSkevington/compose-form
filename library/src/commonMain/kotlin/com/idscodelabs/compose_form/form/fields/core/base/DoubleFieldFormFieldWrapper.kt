@@ -1,12 +1,12 @@
 package com.idscodelabs.compose_form.form.fields.core.base
 
 import androidx.compose.runtime.Composable
-import com.idscodelabs.compose_form.form.core.FormViewModel
+import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
 @Composable
-fun <Model> FormViewModel<Model>.DoubleFieldFormFieldWrapper(
+fun <Model> FormScope<Model>.DoubleFieldFormFieldWrapper(
     modelProperty: KProperty<*>,
     initialValue: Double?,
     enabled: Boolean,

@@ -13,7 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import com.idscodelabs.compose_form.form.core.FormViewModel
+import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
@@ -32,14 +32,14 @@ fun <Model, Item : ListDisplayable> DropdownFormBox<Model, Item>.DefaultBaseForm
     readOnly: Boolean = false,
     leadingIcon: (@Composable DropdownFormBox<Model, Item>.() -> Unit)? = null,
     filterFunction: ((item: String, value: String) -> Boolean)? = null,
-    clearIcon: ((onClick: () -> Unit) -> FormViewModel.IconParams)? = {
-        FormViewModel.IconParams(
+    clearIcon: ((onClick: () -> Unit) -> FormScope.IconParams)? = {
+        FormScope.IconParams(
             Icons.Filled.Close,
             onClick = it,
         )
     },
-    expandIcon: (expanded: Boolean) -> FormViewModel.IconParams = {
-        FormViewModel.IconParams(
+    expandIcon: (expanded: Boolean) -> FormScope.IconParams = {
+        FormScope.IconParams(
             Icons.Filled.ArrowDropDown,
             if (it) 180f else 0f,
         ) {}

@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
-import com.idscodelabs.compose_form.form.core.FormViewModel
+import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.styles.FormFieldStyle
@@ -24,7 +24,7 @@ import com.idscodelabs.compose_form.styles.LocalFormFieldStyle
 fun FormBox<*, TextFieldValue>.DefaultTextEntry(
     hint: Any? = null,
     modifier: Modifier = Modifier,
-    icon: FormViewModel.IconParams?,
+    icon: FormScope.IconParams?,
     placeholder: Any? = null,
     isLast: Boolean = false,
     keyboardOptions: KeyboardOptions? = null,
@@ -49,7 +49,7 @@ fun FormBox<*, TextFieldValue>.DefaultTextEntry(
 fun FormBox<*, TextFieldValue>.DefaultTextEntry(
     hint: Any? = null,
     modifier: Modifier = Modifier.fillMaxWidth(),
-    icons: List<FormViewModel.IconParams> = emptyList(),
+    icons: List<FormScope.IconParams> = emptyList(),
     placeholder: Any? = null,
     isLast: Boolean = false,
     keyboardOptions: KeyboardOptions? = null,

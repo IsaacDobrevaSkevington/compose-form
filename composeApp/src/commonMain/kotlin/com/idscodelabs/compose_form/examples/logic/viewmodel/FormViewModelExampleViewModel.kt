@@ -2,13 +2,13 @@ package com.idscodelabs.compose_form.examples.logic.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.idscodelabs.compose_form.examples.fields.textfield.FormTextFieldExampleModel
-import com.idscodelabs.compose_form.form.core.FormViewModel
+import com.idscodelabs.compose_form.form.core.FormScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class FormViewModelExampleViewModel : FormViewModel<FormTextFieldExampleModel>() {
+class FormViewModelExampleViewModel : FormScope<FormTextFieldExampleModel>() {
     val uiState = MutableStateFlow(FormViewModelExampleUiState())
 
     fun onSubmitPressed() =

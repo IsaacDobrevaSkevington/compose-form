@@ -17,17 +17,17 @@ import com.idscodelabs.compose_form.styles.LocalFormStyle
  * @param contents The contents of the form
  */
 @Composable
-fun <Model> Form(
+fun <Model : Any> Form(
     emptyModel: () -> Model,
-    viewModel: FormViewModel<Model> = viewModel { FormViewModel() },
-    container: @Composable FormViewModel<Model>.(contents: @Composable FormViewModel<Model>.() -> Unit) -> Unit = {
+    viewModel: FormScope<Model> = viewModel(key = remember { emptyModel()::class.simpleName }) { FormScope() },
+    container: @Composable FormScope<Model>.(contents: @Composable FormScope<Model>.() -> Unit) -> Unit = {
         Column(
             verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldSpacing),
         ) {
             it()
         }
     },
-    contents: @Composable FormViewModel<Model>.() -> Unit = {},
+    contents: @Composable FormScope<Model>.() -> Unit = {},
 ) {
     remember(emptyModel, viewModel) {
         viewModel.emptyModel = emptyModel

@@ -5,13 +5,10 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.idscodelabs.compose_form.form.model.FormBox
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,12 +27,13 @@ import kotlin.reflect.KProperty
  *
  * This inherits from [ViewModel] for convenience, allowing application level [ViewModel]s to drive the form in the UI
  *
- * The [FormViewModel] can also be used standalone with no extra logic to drive lightweight, non-complex forms.
+ * The [FormScope] can also be used standalone with no extra logic to drive lightweight, non-complex forms.
  *
  * @param Model The type which the form
  * @constructor Create empty Form scope
+ *
  */
-open class FormViewModel<Model> : ViewModel() {
+open class FormScope<Model> : ViewModel() {
     /**
      * Icon parameters for forms
      *
@@ -82,7 +80,7 @@ open class FormViewModel<Model> : ViewModel() {
         observerJobs[property.name] =
             viewModelScope.launch {
                 this@addToForm.onFieldValueChanged {
-                    this@FormViewModel.valueFlow.update { this@FormViewModel.valueSnapshot }
+                    this@FormScope.valueFlow.update { this@FormScope.valueSnapshot }
                 }
             }
     }
@@ -199,7 +197,6 @@ open class FormViewModel<Model> : ViewModel() {
      * @param context [CoroutineContext] in which to run the [block]
      * @param debounceMillis Debounce for the value to allow the value to settle
      * @param block Executed when a change is detected in [Model] assuming no further changes are detected for [debounceMillis]
-     * @receiver
      */
     @Composable
     fun ValueChangedEffect(
@@ -216,6 +213,11 @@ open class FormViewModel<Model> : ViewModel() {
         }
     }
 
+    /**
+     * Bind a [FormBox] lifecycle to this form
+     *
+     * @param modelProperty
+     */
     @Composable
     fun FormBox<Model, *>.BindLifecycle(modelProperty: KProperty<*>) {
         DisposableEffect(modelProperty.name, this) {

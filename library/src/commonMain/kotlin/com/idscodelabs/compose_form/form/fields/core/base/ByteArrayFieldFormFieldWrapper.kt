@@ -1,13 +1,13 @@
 package com.idscodelabs.compose_form.form.fields.core.base
 
 import androidx.compose.runtime.Composable
-import com.idscodelabs.compose_form.form.core.FormViewModel
+import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.io.encoding.Base64
 import kotlin.reflect.KProperty
 
 @Composable
-fun <Model> FormViewModel<Model>.ByteArrayFieldFormFieldWrapper(
+fun <Model> FormScope<Model>.ByteArrayFieldFormFieldWrapper(
     modelProperty: KProperty<*>,
     initialValue: ByteArray?,
     enabled: Boolean,

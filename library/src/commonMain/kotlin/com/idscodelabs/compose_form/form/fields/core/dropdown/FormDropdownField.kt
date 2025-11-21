@@ -2,7 +2,7 @@ package com.idscodelabs.compose_form.form.fields.core.dropdown
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import com.idscodelabs.compose_form.form.core.FormViewModel
+import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.IFormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
@@ -13,8 +13,8 @@ import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
 @Composable
-fun <Model, Item : ListDisplayable> FormViewModel<Model>.FormDropdownField(
-    modelProperty: KProperty<Item?>,
+fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
+    modelProperty: KProperty<*>,
     updateModel: Model.(Item?) -> Unit,
     options: List<Item>,
     initialValue: Item? = null,

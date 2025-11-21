@@ -8,12 +8,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.core.Form
-import com.idscodelabs.compose_form.form.core.FormViewModel
+import com.idscodelabs.compose_form.form.core.FormScope
 
 @Composable
 fun <Model : ExampleModel<*>> ExampleForm(
     emptyModel: () -> Model,
-    contents: @Composable FormViewModel<Model>.() -> Unit = {},
+    contents: @Composable FormScope<Model>.() -> Unit = {},
 ) {
     val (result, setResult) =
         remember {

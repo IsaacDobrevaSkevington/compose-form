@@ -14,7 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
-import com.idscodelabs.compose_form.form.core.FormViewModel
+import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.form.fields.core.time.LocalFormTimeFormatter
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.model.FormBox
@@ -37,7 +37,7 @@ fun FormBox<*, TextFieldValue>.DefaultTimeEntry(
             modifier = modifier,
             icon =
                 if (enabled) {
-                    FormViewModel.IconParams(
+                    FormScope.IconParams(
                         Icons.Outlined.Timer,
                     ) {
                         it.setPickerVisible(true)

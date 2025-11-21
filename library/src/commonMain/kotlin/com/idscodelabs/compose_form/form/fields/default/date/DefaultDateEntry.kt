@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
-import com.idscodelabs.compose_form.form.core.FormViewModel
+import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.model.FormBox
@@ -42,7 +42,7 @@ fun FormBox<*, TextFieldValue>.DefaultDateEntry(
                 },
             icon =
                 if (enabled) {
-                    FormViewModel.IconParams(
+                    FormScope.IconParams(
                         Icons.Filled.DateRange,
                     ) {
                         it.setPickerVisible(true)
