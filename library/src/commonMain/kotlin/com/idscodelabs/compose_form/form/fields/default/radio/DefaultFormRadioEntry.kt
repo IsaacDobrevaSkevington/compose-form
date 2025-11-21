@@ -2,7 +2,6 @@ package com.idscodelabs.compose_form.form.fields.default.radio
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -11,19 +10,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.unit.dp
+import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
-import com.idscodelabs.compose_form.form.fields.core.radio.RadioFormFieldImplementationParameters
+import com.idscodelabs.compose_form.form.fields.core.radio.RadioFormBox
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 
 @Composable
-fun <Item : ListDisplayable> RadioFormFieldImplementationParameters<Item>.DefaultFormRadioEntry(
+fun <Model, Item : ListDisplayable> RadioFormBox<Model, Item>.DefaultFormRadioEntry(
     hint: Any?,
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
     errorModifier: Modifier = Modifier,
-    radioButton: @Composable (Item, Int) -> Unit = { item, index ->
+    radioButton: @Composable (DisplayableOption<Item>, Int) -> Unit = { item, index ->
         Row(
             Modifier
                 .fillMaxWidth()
@@ -37,7 +36,7 @@ fun <Item : ListDisplayable> RadioFormFieldImplementationParameters<Item>.Defaul
             RadioButton(
                 selected = (index == value),
                 onClick = {
-                    if (value == index) {
+                    if (valueSnapshot == index) {
                         setValue(-1)
                     } else {
                         setValue(index)
@@ -46,13 +45,13 @@ fun <Item : ListDisplayable> RadioFormFieldImplementationParameters<Item>.Defaul
                 enabled = enabled,
             )
             Text(
-                text = item.label.asDisplayString(),
+                text = item.label,
             )
         }
     },
 ) {
     Column(
-        modifier = modifier.focusRequester(focusRequester),
+        modifier = modifier.primaryFocusable(),
         verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldColumnSpacing),
     ) {
         hint?.let {
@@ -67,10 +66,10 @@ fun <Item : ListDisplayable> RadioFormFieldImplementationParameters<Item>.Defaul
             radioButton(item, index)
         }
 
-        if (error != null) {
+        error?.let {
             Text(
                 modifier = errorModifier,
-                text = error.asDisplayString(),
+                text = it,
                 color = MaterialTheme.colorScheme.error,
             )
         }

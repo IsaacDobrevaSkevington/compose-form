@@ -2,35 +2,29 @@ package com.idscodelabs.compose_form.form.fields.default.text
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
-import com.idscodelabs.compose_form.form.core.FormScope
-import com.idscodelabs.compose_form.form.fields.core.base.AbstractFormFieldImplementationParameters
+import com.idscodelabs.compose_form.form.core.FormViewModel
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
+import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.styles.FormFieldStyle
 import com.idscodelabs.compose_form.styles.LocalFormFieldStyle
 
 @Composable
-fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTextEntry(
+fun FormBox<*, TextFieldValue>.DefaultTextEntry(
     hint: Any? = null,
     modifier: Modifier = Modifier,
-    icon: FormScope.IconParams?,
+    icon: FormViewModel.IconParams?,
     placeholder: Any? = null,
     isLast: Boolean = false,
     keyboardOptions: KeyboardOptions? = null,
@@ -52,10 +46,10 @@ fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTextEntry(
 )
 
 @Composable
-fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTextEntry(
+fun FormBox<*, TextFieldValue>.DefaultTextEntry(
     hint: Any? = null,
     modifier: Modifier = Modifier.fillMaxWidth(),
-    icons: List<FormScope.IconParams> = emptyList(),
+    icons: List<FormViewModel.IconParams> = emptyList(),
     placeholder: Any? = null,
     isLast: Boolean = false,
     keyboardOptions: KeyboardOptions? = null,
@@ -64,6 +58,7 @@ fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTextEntry(
     style: FormFieldStyle = LocalFormFieldStyle.current,
     leadingIcon: (@Composable () -> Unit)? = null,
 ) {
+    val value by collectValueAsState()
     OutlinedTextField(
         value = value,
         prefix = { Text(prefix.asDisplayString()) },
@@ -130,7 +125,7 @@ fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTextEntry(
                 )
             }
         },
-        modifier = modifier.focusRequester(focusRequester),
+        modifier = modifier.primaryFocusable(),
         shape = style.shape(),
         enabled = enabled,
         colors = style.colors(),

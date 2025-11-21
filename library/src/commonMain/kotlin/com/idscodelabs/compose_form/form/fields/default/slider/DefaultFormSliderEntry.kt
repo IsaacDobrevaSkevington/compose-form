@@ -12,15 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.unit.dp
-import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementationParameters
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
+import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FormFieldImplementationParameters<Int>.DefaultFormSliderEntry(
+fun FormBox<*, Int>.DefaultFormSliderEntry(
     start: Int = 0,
     end: Int = 100,
     hint: Any? = null,
@@ -42,12 +41,12 @@ fun FormFieldImplementationParameters<Int>.DefaultFormSliderEntry(
             },
             valueRange = start.toFloat()..end.toFloat(),
             enabled = enabled,
-            modifier = Modifier.focusRequester(focusRequester),
+            modifier = Modifier.primaryFocusable(),
         )
 
-        if (error != null) {
+        error?.let {
             Text(
-                error,
+                it,
                 color = MaterialTheme.colorScheme.error,
             )
         }

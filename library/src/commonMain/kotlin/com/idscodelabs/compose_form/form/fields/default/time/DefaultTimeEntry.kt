@@ -3,39 +3,41 @@ package com.idscodelabs.compose_form.form.fields.default.time
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.LockClock
-import androidx.compose.material.icons.outlined.PunchClock
 import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberTimePickerState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
-import com.idscodelabs.compose_form.form.core.FormScope
-import com.idscodelabs.compose_form.form.fields.core.base.AbstractFormFieldImplementationParameters
+import com.idscodelabs.compose_form.form.core.FormViewModel
 import com.idscodelabs.compose_form.form.fields.core.time.LocalFormTimeFormatter
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
+import com.idscodelabs.compose_form.form.model.FormBox
 import kotlin.time.ExperimentalTime
 
 @ExperimentalMaterial3Api
 @ExperimentalTime
 @Composable
-fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTimeEntry(
+fun FormBox<*, TextFieldValue>.DefaultTimeEntry(
     modifier: Modifier = Modifier.fillMaxWidth(),
     hint: Any? = null,
     placeholder: Any? = null,
     isLast: Boolean = false,
     leadingIcon: (@Composable () -> Unit)? = null,
     timePickerState: TimePickerState = rememberTimePickerState(),
-    entry: @Composable AbstractFormFieldImplementationParameters<TextFieldValue>.(TimePickerController) -> Unit = {
+    allowTyping: Boolean = true,
+    entry: @Composable FormBox<*, TextFieldValue>.(TimePickerController) -> Unit = {
         DefaultTextEntry(
             hint = hint,
             modifier = modifier,
             icon =
                 if (enabled) {
-                    FormScope.IconParams(
+                    FormViewModel.IconParams(
                         Icons.Outlined.Timer,
                     ) {
                         it.setPickerVisible(true)
@@ -47,9 +49,10 @@ fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTimeEntry(
             isLast = isLast,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
             leadingIcon = leadingIcon,
+            readOnly = !(allowTyping && enabled),
         )
     },
-    dialog: @Composable AbstractFormFieldImplementationParameters<TextFieldValue>.(TimePickerController) -> Unit = {
+    dialog: @Composable FormBox<*, TextFieldValue>.(TimePickerController) -> Unit = {
         DefaultTimePickerDialog(
             it.timepickerState,
             ::setValue,
@@ -60,11 +63,12 @@ fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultTimeEntry(
 ) {
     val timeFormatter = LocalFormTimeFormatter.current
 
-    LaunchedEffect(value.text) {
-        val text = value.text
+    FieldValueChangedEffect {
         if (text.isNotBlank()) {
             try {
-                timeFormatter.parse(text)
+                val time = timeFormatter.parse(text)
+                timePickerState.hour = time.hour
+                timePickerState.minute = time.minute
             } catch (_: IllegalArgumentException) {
             }
         }

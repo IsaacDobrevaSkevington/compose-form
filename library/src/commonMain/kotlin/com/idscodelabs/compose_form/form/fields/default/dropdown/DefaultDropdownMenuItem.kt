@@ -9,24 +9,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
+import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
-import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormFieldImplementationParameters
+import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <Item : ListDisplayable> DropdownFormFieldImplementationParameters<Item>.DefaultDropdownMenuItem(
-    item: Item,
+fun <Model, Item : ListDisplayable> DropdownFormBox<Model, Item>.DefaultDropdownMenuItem(
+    item: DisplayableOption<Item>,
     setExpanded: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val displayString = item.label.asDisplayString()
+    val displayString = item.label
     val focusManager = LocalFocusManager.current
     DropdownMenuItem(
         modifier = modifier,
         text = { Text(displayString) },
         onClick = {
-            if (value.text != displayString) {
+            if (valueSnapshot.text != displayString) {
                 setValue(
                     TextFieldValue(
                         displayString,

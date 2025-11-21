@@ -1,21 +1,12 @@
-package com.idscodelabs.compose_form.examples.fields
+package com.idscodelabs.compose_form.examples.fields.switch
 
 import androidx.compose.runtime.Composable
 import com.idscodelabs.compose_form.examples.helpers.ExampleForm
 import com.idscodelabs.compose_form.examples.helpers.ExampleModel
 import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
-import com.idscodelabs.compose_form.form.core.Form
-import com.idscodelabs.compose_form.form.fields.core.checkbox.FormCheckBoxField
 import com.idscodelabs.compose_form.form.fields.core.switch.FormSwitchField
-import com.idscodelabs.compose_form.form.fields.default.checkbox.DefaultFormCheckBoxEntry
 import com.idscodelabs.compose_form.form.fields.default.switch.DefaultFormSwitchEntry
-import com.idscodelabs.compose_form.validators.MustBeTickedValidator
-import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-data class FormSwitchExampleModel(
-    override var value: Boolean? = null,
-) : ExampleModel<Boolean>
 
 @Preview
 @Composable
@@ -24,9 +15,6 @@ fun FormSwitchFieldExample() =
         ExampleForm(emptyModel = ::FormSwitchExampleModel) {
             FormSwitchField(
                 modelProperty = FormSwitchExampleModel::value,
-                initialValue = null,
-                enabled = true,
-                validator = null,
                 updateModel = { value = it },
             ) {
                 DefaultFormSwitchEntry(

@@ -5,19 +5,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementationParameters
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
+import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FormFieldImplementationParameters<Boolean>.DefaultFormCheckBoxEntry(
+fun FormBox<*, Boolean>.DefaultFormCheckBoxEntry(
     hint: Any,
     modifier: Modifier = Modifier.fillMaxWidth(),
     checkboxModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
@@ -35,7 +33,7 @@ fun FormFieldImplementationParameters<Boolean>.DefaultFormCheckBoxEntry(
             Checkbox(
                 checked = value,
                 onCheckedChange = ::setValue,
-                modifier = checkboxModifier,
+                modifier = checkboxModifier.primaryFocusable(),
                 enabled = enabled,
             )
             Text(
@@ -43,7 +41,7 @@ fun FormFieldImplementationParameters<Boolean>.DefaultFormCheckBoxEntry(
                 modifier =
                     textModifier.clickable(
                         enabled = enabled,
-                        onClick = { setValue(!value) },
+                        onClick = { setValue(!valueSnapshot) },
                     ),
             )
         }

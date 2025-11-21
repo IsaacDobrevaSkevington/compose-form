@@ -9,33 +9,40 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
-import com.idscodelabs.compose_form.form.core.FormScope
-import com.idscodelabs.compose_form.form.fields.core.base.AbstractFormFieldImplementationParameters
-import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementationParameters
+import com.idscodelabs.compose_form.form.core.FormViewModel
 import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
+import com.idscodelabs.compose_form.form.model.FormBox
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 @Composable
-fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultDateEntry(
+fun FormBox<*, TextFieldValue>.DefaultDateEntry(
     modifier: Modifier = Modifier.fillMaxWidth(),
     hint: Any? = null,
     placeholder: Any? = null,
     isLast: Boolean = false,
     leadingIcon: (@Composable () -> Unit)? = null,
     datePickerState: DatePickerState = rememberDatePickerState(),
-    entry: @Composable AbstractFormFieldImplementationParameters<TextFieldValue>.(DatePickerController) -> Unit = {
+    allowTyping: Boolean = true,
+    entry: @Composable FormBox<*, TextFieldValue>.(DatePickerController) -> Unit = {
+        val enabled = enabled
         DefaultTextEntry(
             hint = hint,
-            modifier = modifier,
+            modifier =
+                modifier.onFocusChanged { focusState ->
+                    if (focusState.isFocused && !allowTyping && enabled) {
+                        it.setPickerVisible(true)
+                    }
+                },
             icon =
                 if (enabled) {
-                    FormScope.IconParams(
+                    FormViewModel.IconParams(
                         Icons.Filled.DateRange,
                     ) {
                         it.setPickerVisible(true)
@@ -47,9 +54,10 @@ fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultDateEntry(
             isLast = isLast,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             leadingIcon = leadingIcon,
+            readOnly = !(allowTyping && enabled),
         )
     },
-    dialog: @Composable AbstractFormFieldImplementationParameters<TextFieldValue>.(DatePickerController) -> Unit = {
+    dialog: @Composable FormBox<*, TextFieldValue>.(DatePickerController) -> Unit = {
         DefaultDatePickerDialog(
             it.datePickerState,
             ::setValue,
@@ -60,8 +68,7 @@ fun AbstractFormFieldImplementationParameters<TextFieldValue>.DefaultDateEntry(
 ) {
     val dateFormatter = LocalFormDateFormatter.current
 
-    LaunchedEffect(value.text) {
-        val text = value.text
+    FieldValueChangedEffect {
         if (text.isNotBlank()) {
             try {
                 datePickerState.selectedDateMillis = dateFormatter.parse(text).atStartOfDayIn(TimeZone.UTC).toEpochMilliseconds()
