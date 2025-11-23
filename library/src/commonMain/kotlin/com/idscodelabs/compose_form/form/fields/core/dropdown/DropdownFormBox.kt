@@ -4,19 +4,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
-import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.model.FormBox
 
-class DropdownFormBox<Model, Item>(
-    val field: FormBox<Model, TextFieldValue>,
+/**
+ * [FormBox] specific to dropdowns, also holds a list of [DisplayableOption]s to allow use in the UI
+ *
+ * @param Model The Model of the Form
+ * @param Item The type of Item to be displayed in the dropdown
+ * @property field A base [FormBox]
+ * @property options A list of [Item]s which can be selected from the UI
+ * @constructor Create Dropdown form box
+ */
+open class DropdownFormBox<Model, Item>(
+    field: FormBox<Model, TextFieldValue>,
     val options: List<DisplayableOption<Item>>,
 ) : FormBox<Model, TextFieldValue>(field) {
+    /**
+     * Get a stateful version of the currently selected item.
+     *
+     * This is different from [value] in that it produces an [Item] rather than the raw [TextFieldValue]
+     * currently in the entry box.
+     */
     val currentItem: Item? @Composable get() {
-        val value by this.field.collectValueAsState()
-        return options
-            .firstOrNull {
-                it.label.asDisplayString() == value.text
-            }?.item
+        val value by collectValueAsState()
+        return options.firstOrNull { it.label == value.text }?.item
     }
 }

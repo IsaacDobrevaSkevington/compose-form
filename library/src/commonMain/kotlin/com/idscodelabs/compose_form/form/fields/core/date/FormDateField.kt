@@ -12,6 +12,23 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format
 import kotlin.reflect.KProperty
 
+/**
+ * A date form field
+ *
+ * @param Model The Model of the form
+ * @param modelProperty The [KProperty] of the [Model] which this field updates.
+ * @param initialValue The initial value for this field
+ * @param enabled Whether the field is enabled
+ * @param validator The [Validator] for this field
+ * @param updateModel Function called which should set the correct property on the model. Most often should be `{ <variable> = it }`
+ * @param implementation The implementation of the form field UI
+ * @param invalidDateMessage The message to display if the date is in an invalid format
+ * @param cleanDate A function which can be used to coerce the user's input into a date format
+ * @see [FormFieldImplementation]
+ * @see [LocalFormDateFormatter]
+ * @see [sanitizeDate]
+ * @see [com.idscodelabs.compose_form.form.fields.default.date.DefaultDateEntry]
+ */
 @Composable
 fun <Model> FormScope<Model>.FormDateField(
     modelProperty: KProperty<*>,

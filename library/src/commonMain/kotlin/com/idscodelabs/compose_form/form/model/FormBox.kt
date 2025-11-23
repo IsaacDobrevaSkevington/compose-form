@@ -18,50 +18,92 @@ import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
+/**
+ * Representation of a Form Box
+ *
+ * @param Model The Model the form outputs
+ * @param Value The Value which is stored in this [FormBox]
+ * @property enabledFlow A [MutableStateFlow] defining if this box is enabled
+ * @property currentValidator The current [Validator] for this [FormBox], can be changed using [setValidator]
+ * @property setModelProperty Set the property on [Model]
+ * @param valueToString Convert [Value] to a [String]. This will be used in [Validator]s and used for state saving
+ * @property valueFlow A flow of the current value
+ * @property errorFlow A flow of the current error
+ * @property focusRequester A [FocusRequester] for this [FormBox]. Use [primaryFocusable] to specify this element which should gain focus
+ * @property mapValue Map the value on set to another [Value], for example, to clean the input
+ * @constructor Create empty Form box
+ */
 open class FormBox<Model, Value>(
     protected val enabledFlow: MutableStateFlow<Boolean>,
     protected var currentValidator: Validator?,
     val setModelProperty: Model.(String?) -> Unit,
     protected val valueToString: (Value?) -> String?,
-    protected val stringToValue: (String?) -> Value,
-    protected val stringValueFlow: MutableStateFlow<String>,
+    protected val valueFlow: MutableStateFlow<Value>,
     protected val errorFlow: MutableStateFlow<Any?> = MutableStateFlow(null),
     protected val focusRequester: FocusRequester,
     protected val mapValue: (value: Value) -> Value,
 ) {
+    /**
+     * Use this constructor to copy a form box, or when inheriting to avoid needing access to non-visible properties
+     */
     constructor(field: FormBox<Model, Value>) : this(
         field.enabledFlow,
         field.currentValidator,
         field.setModelProperty,
         field.valueToString,
-        field.stringToValue,
-        field.stringValueFlow,
+        field.valueFlow,
         field.errorFlow,
         field.focusRequester,
         field.mapValue,
     )
 
+    /**
+     * Snapshot of the current value.
+     *
+     * Don't use this in Composable functions due to the risk of unnecessary recomposition, or stale values.
+     * Instead, use [value] or [collectValueAsState]
+     */
     val valueSnapshot: Value get() = valueFlow.value
 
+    /**
+     * State aware representation of the current value. Will trigger recomposition when [value] changes
+     *
+     * This should be used in the UI to display the current value of the field.
+     */
     val value: Value @Composable get() {
         val result by collectValueAsState()
         return result
     }
 
+    /**
+     * State aware representation of the current enabled value. Will trigger recomposition when [enabled] changes
+     *
+     * This should be used in the UI to enable or disable the entry
+     */
     val enabled: Boolean @Composable get() {
         val enabled by collectEnabledAsState()
         return enabled
     }
+
+    /**
+     * State aware representation of the current error value. Will trigger recomposition when [error] changes.
+     * The error will be converted to a [String] using [asDisplayString]
+     *
+     * This should be used in the UI to display the error to the user
+     */
     val error: String? @Composable get() {
         val result by collectErrorAsState()
         return result?.asDisplayString()
     }
 
-    val valueFlow =
-        stringValueFlow.mapSync {
-            stringToValue(it)
-        }
-
+    /**
+     * Validate this [FormBox]
+     *
+     * @param s The string representation of the current value of the form box
+     * @param otherFieldValues The values of the other fields in the form.
+     * @return `true` if the field was valid, `false` otherwise
+     * @see [Validator]
+     */
     fun validate(
         s: String?,
         otherFieldValues: Map<String, String?> = mapOf(),
@@ -71,31 +113,47 @@ open class FormBox<Model, Value>(
         return error == null
     }
 
-    fun setError(error: Any?) {
+    /**
+     * Set the error of this [FormBox]
+     *
+     * @param error The new error to set. [asDisplayString] can be called in the UI to display the error
+     */
+    open fun setError(error: Any?) {
         errorFlow.update { error }
     }
 
+    /**
+     * Set validator for the [FormBox]
+     *
+     * @param validator The new [Validator], can be `null` to clear the [Validator]
+     */
     fun setValidator(validator: Validator?) {
         this.currentValidator = validator
     }
 
-    fun setValue(value: Value) {
+    /**
+     * Set the value of this [FormBox]
+     *
+     * If the value has not changed, or the field is not [enabled], then the value will not be set.
+     *
+     * This should be used in the UI whenever the user changes the value. It can also be used to override the value
+     *
+     * @param value The new value
+     */
+    open fun setValue(value: Value) {
         errorFlow.update { null }
         if (enabledFlow.value) {
-            stringValueFlow.update {
-                valueToString(mapValue(value)) ?: ""
+            valueFlow.update {
+                mapValue(value)
             }
         }
     }
 
-    fun getStringValue() = stringValueFlow.value
+    fun getStringValue() = valueToString(valueFlow.value)
 
-    fun setEnabled(enabled: Boolean) {
+    open fun setEnabled(enabled: Boolean) {
         enabledFlow.update { enabled }
     }
-
-    @Composable
-    fun collectStringValueAsState(): State<String> = stringValueFlow.collectAsState()
 
     @Composable
     fun collectValueAsState(): State<Value> = valueFlow.collectAsState()
@@ -138,7 +196,7 @@ open class FormBox<Model, Value>(
         val focusRequester: FocusRequester,
         val mapValue: (value: Value) -> Value,
     ) : androidx.compose.runtime.saveable.Saver<FormBox<Model, Value>, String> {
-        override fun SaverScope.save(value: FormBox<Model, Value>): String = value.getStringValue()
+        override fun SaverScope.save(value: FormBox<Model, Value>): String = value.getStringValue() ?: ""
 
         override fun restore(value: String): FormBox<Model, Value> =
             FormBox(
@@ -146,8 +204,7 @@ open class FormBox<Model, Value>(
                 validator,
                 setModelProperty,
                 valueToString,
-                stringToValue,
-                MutableStateFlow(value),
+                MutableStateFlow(stringToValue(value)),
                 MutableStateFlow(null),
                 focusRequester,
                 mapValue,
@@ -191,8 +248,7 @@ fun <Model, Value> rememberFormBox(
                 validator,
                 setModelProperty,
                 valueToString,
-                stringToValue,
-                MutableStateFlow(""),
+                MutableStateFlow(stringToValue("")),
                 MutableStateFlow(null),
                 focusRequester,
                 mapValue,

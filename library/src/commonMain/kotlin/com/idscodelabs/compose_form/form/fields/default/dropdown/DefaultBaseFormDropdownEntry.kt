@@ -91,6 +91,7 @@ fun <Model, Item : ListDisplayable> DropdownFormBox<Model, Item>.DefaultBaseForm
             placeholder = placeholder?.asDisplayString(),
             isLast = isLast,
             readOnly = readOnly,
+            onValueChange = { setExpanded(true) },
             leadingIcon =
                 leadingIcon?.let {
                     { it() }

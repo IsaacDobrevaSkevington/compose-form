@@ -31,6 +31,7 @@ fun FormBox<*, TextFieldValue>.DefaultTextEntry(
     prefix: Any = "",
     readOnly: Boolean = false,
     style: FormFieldStyle = LocalFormFieldStyle.current,
+    onValueChange: (TextFieldValue) -> Unit = {},
     leadingIcon: (@Composable () -> Unit)? = null,
 ) = DefaultTextEntry(
     hint,
@@ -42,6 +43,7 @@ fun FormBox<*, TextFieldValue>.DefaultTextEntry(
     prefix,
     readOnly,
     style,
+    onValueChange,
     leadingIcon,
 )
 
@@ -56,14 +58,15 @@ fun FormBox<*, TextFieldValue>.DefaultTextEntry(
     prefix: Any = "",
     readOnly: Boolean = false,
     style: FormFieldStyle = LocalFormFieldStyle.current,
+    onValueChange: (TextFieldValue) -> Unit = {},
     leadingIcon: (@Composable () -> Unit)? = null,
 ) {
-    val value by collectValueAsState()
     OutlinedTextField(
         value = value,
         prefix = { Text(prefix.asDisplayString()) },
         onValueChange = {
             setValue(it)
+            onValueChange(it)
         },
         readOnly = readOnly,
         placeholder =
