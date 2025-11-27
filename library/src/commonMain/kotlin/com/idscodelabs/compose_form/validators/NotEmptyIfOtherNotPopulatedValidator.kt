@@ -6,7 +6,7 @@ import kotlin.reflect.KProperty
 
 class NotEmptyIfOtherNotPopulatedValidator(
     val other: KProperty<*>,
-    private val error: Any,
+    private val error: Any = "Required if ${other.name} is empty.",
 ) : Validator {
     override fun validate(
         s: String?,

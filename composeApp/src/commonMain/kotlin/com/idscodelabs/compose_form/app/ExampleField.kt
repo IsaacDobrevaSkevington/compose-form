@@ -17,10 +17,10 @@ import com.idscodelabs.compose_form.examples.logic.valuechange.FormValueChangeEx
 import com.idscodelabs.compose_form.examples.logic.viewmodel.FormViewModelExample
 import com.idscodelabs.compose_form.examples.ui.style.FormStyleExample
 
-enum class ExampleScreenDisplay(
-    val displayName: String,
-    val contents: @Composable () -> Unit,
-) {
+enum class ExampleField(
+    override val displayName: String,
+    override val contents: @Composable () -> Unit,
+) : Example {
     CHECKBOX("Checkbox", { FormCheckBoxFieldExample() }),
     DATE("Date", { FormDateFieldExample() }),
     AUTOCOMPLETE_DROPDOWN("Autocomplete Dropdown", { FormAutocompleteDropdownFieldExample() }),

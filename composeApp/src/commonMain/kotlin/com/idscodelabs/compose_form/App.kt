@@ -1,36 +1,33 @@
 package com.idscodelabs.compose_form
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.idscodelabs.compose_form.app.ExampleScreenDisplay
-import compose_form.composeapp.generated.resources.Res
-import compose_form.composeapp.generated.resources.compose_multiplatform
-import org.jetbrains.compose.resources.painterResource
+import com.idscodelabs.compose_form.app.Example
+import com.idscodelabs.compose_form.app.ExampleField
+import com.idscodelabs.compose_form.app.ExampleValidator
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,7 +35,8 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     MaterialTheme {
-        var currentContent by remember { mutableStateOf<ExampleScreenDisplay?>(null) }
+        var currentContent by remember { mutableStateOf<Example?>(null) }
+        var selectedDestination by rememberSaveable { mutableIntStateOf(0) }
 
         Scaffold(
             topBar = {
@@ -62,13 +60,47 @@ fun App() {
                 Modifier
                     .padding(paddingValues)
                     .fillMaxSize()
-                    .padding(horizontal = 8.dp)
-                    .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                    .padding(horizontal = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                ExampleScreenDisplay.entries.sortedBy { it.displayName }.forEach { entry ->
-                    Button(onClick = { currentContent = entry }, modifier = Modifier.fillMaxWidth()) {
-                        Text(entry.displayName)
+                PrimaryTabRow(selectedTabIndex = selectedDestination) {
+                    Tab(
+                        selected = selectedDestination == 0,
+                        onClick = {
+                            selectedDestination = 0
+                        },
+                        text = {
+                            Text(
+                                text = "Fields",
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
+                    )
+                    Tab(
+                        selected = selectedDestination == 1,
+                        onClick = {
+                            selectedDestination = 1
+                        },
+                        text = {
+                            Text(
+                                text = "Validators",
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
+                    )
+                }
+
+                Column(
+                    Modifier.weight(1f).verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    val options = if (selectedDestination == 0) ExampleField.entries else ExampleValidator.entries
+                    options.sortedBy { it.displayName }.forEach { entry ->
+                        Button(onClick = { currentContent = entry }, modifier = Modifier.fillMaxWidth()) {
+                            Text(entry.displayName)
+                        }
                     }
                 }
             }

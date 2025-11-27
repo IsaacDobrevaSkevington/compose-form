@@ -7,40 +7,19 @@ import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
 import com.idscodelabs.compose_form.form.core.Form
 import com.idscodelabs.compose_form.form.fields.core.text.FormTextField
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
-import com.idscodelabs.compose_form.validators.EveryCharacterValidator
-import com.idscodelabs.compose_form.validators.asValidator
+import com.idscodelabs.compose_form.validators.MaxLengthValidator
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable
-fun EveryCharacterValidatorExampleCustom() =
+fun MaxLengthValidatorExample() =
     ExampleScreen {
         ExampleForm(emptyModel = ::FormTextFieldExampleModel) {
             FormTextField(
                 modelProperty = FormTextFieldExampleModel::value,
                 initialValue = null,
                 enabled = true,
-                validator =
-                    EveryCharacterValidator {
-                        it.isLetterOrDigit()
-                    },
-                updateModel = { value = it },
-            ) {
-                DefaultTextEntry(hint = "Value")
-            }
-        }
-    }
-
-@Preview
-@Composable
-fun EveryCharacterValidatorExampleWithPredefinedFunction() =
-    ExampleScreen {
-        ExampleForm(emptyModel = ::FormTextFieldExampleModel) {
-            FormTextField(
-                modelProperty = FormTextFieldExampleModel::value,
-                initialValue = null,
-                enabled = true,
-                validator = Char::isLetterOrDigit.asValidator(),
+                validator = MaxLengthValidator(10),
                 updateModel = { value = it },
             ) {
                 DefaultTextEntry(hint = "Value")

@@ -7,13 +7,15 @@ import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
 import com.idscodelabs.compose_form.form.core.Form
 import com.idscodelabs.compose_form.form.fields.core.text.FormTextField
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
-import com.idscodelabs.compose_form.validators.EveryCharacterValidator
-import com.idscodelabs.compose_form.validators.asValidator
+import com.idscodelabs.compose_form.validators.MaxLengthValidator
+import com.idscodelabs.compose_form.validators.MinLengthValidator
+import com.idscodelabs.compose_form.validators.MultipleValidator
+import com.idscodelabs.compose_form.validators.core.and
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable
-fun EveryCharacterValidatorExampleCustom() =
+fun MultipleValidatorExample() =
     ExampleScreen {
         ExampleForm(emptyModel = ::FormTextFieldExampleModel) {
             FormTextField(
@@ -21,9 +23,10 @@ fun EveryCharacterValidatorExampleCustom() =
                 initialValue = null,
                 enabled = true,
                 validator =
-                    EveryCharacterValidator {
-                        it.isLetterOrDigit()
-                    },
+                    MultipleValidator(
+                        MinLengthValidator(5),
+                        MaxLengthValidator(10),
+                    ),
                 updateModel = { value = it },
             ) {
                 DefaultTextEntry(hint = "Value")
@@ -33,14 +36,31 @@ fun EveryCharacterValidatorExampleCustom() =
 
 @Preview
 @Composable
-fun EveryCharacterValidatorExampleWithPredefinedFunction() =
+fun InfixMultipleValidatorExample() =
     ExampleScreen {
         ExampleForm(emptyModel = ::FormTextFieldExampleModel) {
             FormTextField(
                 modelProperty = FormTextFieldExampleModel::value,
                 initialValue = null,
                 enabled = true,
-                validator = Char::isLetterOrDigit.asValidator(),
+                validator = MinLengthValidator(5) and MaxLengthValidator(10),
+                updateModel = { value = it },
+            ) {
+                DefaultTextEntry(hint = "Value")
+            }
+        }
+    }
+
+@Preview
+@Composable
+fun OperatorMultipleValidatorExample() =
+    ExampleScreen {
+        ExampleForm(emptyModel = ::FormTextFieldExampleModel) {
+            FormTextField(
+                modelProperty = FormTextFieldExampleModel::value,
+                initialValue = null,
+                enabled = true,
+                validator = MinLengthValidator(5) + MaxLengthValidator(10),
                 updateModel = { value = it },
             ) {
                 DefaultTextEntry(hint = "Value")
