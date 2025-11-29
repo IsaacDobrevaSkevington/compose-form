@@ -1,6 +1,7 @@
 package com.idscodelabs.compose_form.examples.fields.switch
 
 import androidx.compose.runtime.Composable
+import com.idscodelabs.compose_form.examples.fields.switch.FormSwitchExampleModel
 import com.idscodelabs.compose_form.examples.helpers.ExampleForm
 import com.idscodelabs.compose_form.examples.helpers.ExampleModel
 import com.idscodelabs.compose_form.examples.helpers.ExampleScreen

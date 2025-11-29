@@ -19,7 +19,7 @@ import kotlin.reflect.KProperty
  * @param implementation The implementation of the form field UI
  * @see [FormFieldImplementation]
  * @see [com.idscodelabs.compose_form.form.fields.default.checkbox.DefaultFormCheckBoxEntry]
- *
+ * @sample com.idscodelabs.compose_form.examples.fields.checkbox.FormCheckBoxFieldSample
  */
 @Composable
 fun <Model> FormScope<Model>.FormCheckBoxField(

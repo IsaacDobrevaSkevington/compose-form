@@ -5,4 +5,4 @@ import kotlinx.datetime.LocalTime
 
 data class FormTimeFieldExampleModel(
     override var value: LocalTime? = null,
-) : ExampleModel<LocalTime>
+) : com.idscodelabs.compose_form.examples.helpers.ExampleModel<LocalTime>

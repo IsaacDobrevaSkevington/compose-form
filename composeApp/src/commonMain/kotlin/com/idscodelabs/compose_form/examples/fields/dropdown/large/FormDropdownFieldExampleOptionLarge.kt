@@ -12,7 +12,11 @@ class FormDropdownFieldExampleOptionLarge(
     companion object {
         val options =
             (0..1000).map {
-                FormDropdownFieldExampleOptionLarge(it.toString(), "Option $it", it)
+                FormDropdownFieldExampleOptionLarge(
+                    it.toString(),
+                    "Option $it",
+                    it,
+                )
             }
     }
 }

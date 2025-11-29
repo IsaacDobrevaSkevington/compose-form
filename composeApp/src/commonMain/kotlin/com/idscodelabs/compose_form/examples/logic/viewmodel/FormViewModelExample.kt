@@ -24,7 +24,8 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun FormViewModelExample() =
     ExampleScreen {
-        val viewModel = viewModel { FormViewModelExampleViewModel() }
+        val viewModel =
+            viewModel { FormViewModelExampleViewModel() }
         val uiState by viewModel.uiState.collectAsState()
 
         Box(Modifier.fillMaxSize()) {

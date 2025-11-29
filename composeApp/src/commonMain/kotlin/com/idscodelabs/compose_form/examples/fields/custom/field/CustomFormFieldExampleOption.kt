@@ -16,7 +16,11 @@ class CustomFormFieldExampleOption(
                 ALPHA.flatMap { c2 ->
                     ALPHA.map { c3 ->
                         val v = "$c1$c2$c3"
-                        CustomFormFieldExampleOption(v, v, 0)
+                        CustomFormFieldExampleOption(
+                            v,
+                            v,
+                            0,
+                        )
                     }
                 }
             }

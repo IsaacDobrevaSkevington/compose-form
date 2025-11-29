@@ -57,6 +57,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.kotlinx.datetime)
             implementation(project(":library"))
+            implementation(libs.backhandler)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

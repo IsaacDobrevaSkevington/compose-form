@@ -11,7 +11,7 @@ import com.idscodelabs.compose_form.form.core.Form
 import com.idscodelabs.compose_form.form.core.FormScope
 
 @Composable
-fun <Model : ExampleModel<*>> ExampleForm(
+fun <Model : com.idscodelabs.compose_form.examples.helpers.ExampleModel<*>> ExampleForm(
     emptyModel: () -> Model,
     contents: @Composable FormScope<Model>.() -> Unit = {},
 ) {

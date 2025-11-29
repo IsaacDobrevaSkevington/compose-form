@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>FormBox</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    Compose Form
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+0.0.2        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true"
+                        data-filter=":library/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":library/commonMain"
+                                       data-filter=":library/commonMain"/>
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    Compose Form
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="Compose Form::com.idscodelabs.compose_form.form.model/FormBox///PointingToDeclaration//-654899660">
+  <div class="breadcrumbs"><a href="../../../index.html">Compose Form</a><span class="delimiter">/</span><a href="../index.html">com.idscodelabs.compose_form.form.model</a><span class="delimiter">/</span><span class="current">FormBox</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Form</span><wbr></wbr><span><span>Box</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><a href="index.html">Model</a><span class="token punctuation">, </span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabledFlow<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/MutableStateFlow///PointingToDeclaration/">MutableStateFlow</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">currentValidator<span class="token operator">: </span><a href="../../com.idscodelabs.compose_form.validators.core/-validator/index.html">Validator</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>setModelProperty<span class="token operator">: </span><a href="index.html">Model</a><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">valueToString<span class="token operator">: </span><span class="token punctuation">(</span><a href="index.html">Value</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">valueFlow<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/MutableStateFlow///PointingToDeclaration/">MutableStateFlow</span><span class="token operator">&lt;</span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">errorFlow<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/MutableStateFlow///PointingToDeclaration/">MutableStateFlow</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator"> = </span>MutableStateFlow(null)<span class="token punctuation">, </span></span><span class="parameter ">focusRequester<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a><span class="token punctuation">, </span></span><span class="parameter ">mapValue<span class="token operator">: </span><span class="token punctuation">(</span>value<span class="token operator">: </span><a href="index.html">Value</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="index.html">Value</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">Representation of a Form Box</p><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>Model</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The Model the form outputs</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>Value</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The Value which is stored in this <a href="index.html">FormBox</a></p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>value</span><wbr></wbr><span>To</span><wbr></wbr><span><span>String</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Convert <a href="index.html">Value</a> to a <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a>. This will be used in <a href="../../com.idscodelabs.compose_form.validators.core/-validator/index.html">Validator</a>s and used for state saving</p></div></div></div></div></div><h4 class="tableheader">Inheritors</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../com.idscodelabs.compose_form.form.fields.core.dropdown/-dropdown-form-box/index.html">DropdownFormBox</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../com.idscodelabs.compose_form.form.fields.core.multiselect/-multiselect-form-box/index.html">MultiselectFormBox</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../com.idscodelabs.compose_form.form.fields.core.radio/-radio-form-box/index.html">RadioFormBox</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="2028033222%2FConstructors%2F-654899660" anchor-label="FormBox" id="2028033222%2FConstructors%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-form-box.html"><span>Form</span><wbr></wbr><span><span>Box</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2028033222%2FConstructors%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabledFlow<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/MutableStateFlow///PointingToDeclaration/">MutableStateFlow</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">currentValidator<span class="token operator">: </span><a href="../../com.idscodelabs.compose_form.validators.core/-validator/index.html">Validator</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">setModelProperty<span class="token operator">: </span><a href="index.html">Model</a><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">valueToString<span class="token operator">: </span><span class="token punctuation">(</span><a href="index.html">Value</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">valueFlow<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/MutableStateFlow///PointingToDeclaration/">MutableStateFlow</span><span class="token operator">&lt;</span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">errorFlow<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/MutableStateFlow///PointingToDeclaration/">MutableStateFlow</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator"> = </span>MutableStateFlow(null)<span class="token punctuation">, </span></span><span class="parameter ">focusRequester<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a><span class="token punctuation">, </span></span><span class="parameter ">mapValue<span class="token operator">: </span><span class="token punctuation">(</span>value<span class="token operator">: </span><a href="index.html">Value</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="index.html">Value</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create empty Form box</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">field<span class="token operator">: </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><a href="index.html">Model</a><span class="token punctuation">, </span><a href="index.html">Value</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Use this constructor to copy a form box, or when inheriting to avoid needing access to non-visible properties</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-535332538%2FClasslikes%2F-654899660" anchor-label="Saver" id="-535332538%2FClasslikes%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-saver/index.html"><span><span>Saver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-535332538%2FClasslikes%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-saver/index.html">Saver</a><span class="token operator">&lt;</span><a href="-saver/index.html">Model</a><span class="token punctuation">, </span><a href="-saver/index.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>validator<span class="token operator">: </span><a href="../../com.idscodelabs.compose_form.validators.core/-validator/index.html">Validator</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>setModelProperty<span class="token operator">: </span><a href="-saver/index.html">Model</a><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>valueToString<span class="token operator">: </span><span class="token punctuation">(</span><a href="-saver/index.html">Value</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>stringToValue<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="-saver/index.html">Value</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>focusRequester<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/focus/FocusRequester.html">FocusRequester</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>mapValue<span class="token operator">: </span><span class="token punctuation">(</span>value<span class="token operator">: </span><a href="-saver/index.html">Value</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="-saver/index.html">Value</a></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/saveable/Saver.html">Saver</a><span class="token operator">&lt;</span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><a href="-saver/index.html">Model</a><span class="token punctuation">, </span><a href="-saver/index.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-2127109881%2FProperties%2F-654899660" anchor-label="enabled" id="-2127109881%2FProperties%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enabled.html"><span><span>enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2127109881%2FProperties%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@get:</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">val </span><a href="enabled.html">enabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">State aware representation of the current enabled value. Will trigger recomposition when <a href="enabled.html">enabled</a> changes</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1766217440%2FProperties%2F-654899660" anchor-label="error" id="1766217440%2FProperties%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="error.html"><span><span>error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1766217440%2FProperties%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@get:</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">val </span><a href="error.html">error</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">State aware representation of the current error value. Will trigger recomposition when <a href="error.html">error</a> changes. The error will be converted to a <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a> using <a href="../../com.idscodelabs.compose_form.form.fields.strings/as-display-string.html">asDisplayString</a></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2028947286%2FProperties%2F-654899660" anchor-label="setModelProperty" id="2028947286%2FProperties%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-model-property.html"><span>set</span><wbr></wbr><span>Model</span><wbr></wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2028947286%2FProperties%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="set-model-property.html">setModelProperty</a><span class="token operator">: </span><a href="index.html">Model</a><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></div><div class="brief "><p class="paragraph">Set the property on <a href="index.html">Model</a></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1365675927%2FProperties%2F-654899660" anchor-label="value" id="1365675927%2FProperties%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value.html"><span><span>value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1365675927%2FProperties%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@get:</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">val </span><a href="value.html">value</a><span class="token operator">: </span><a href="index.html">Value</a></div><div class="brief "><p class="paragraph">State aware representation of the current value. Will trigger recomposition when <a href="value.html">value</a> changes</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1788017613%2FProperties%2F-654899660" anchor-label="valueSnapshot" id="-1788017613%2FProperties%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-snapshot.html"><span>value</span><wbr></wbr><span><span>Snapshot</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1788017613%2FProperties%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="value-snapshot.html">valueSnapshot</a><span class="token operator">: </span><a href="index.html">Value</a></div><div class="brief "><p class="paragraph">Snapshot of the current value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="141657632%2FFunctions%2F-654899660" anchor-label="collectEnabledAsState" id="141657632%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="collect-enabled-as-state.html"><span>collect</span><wbr></wbr><span>Enabled</span><wbr></wbr><span>As</span><wbr></wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="141657632%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="collect-enabled-as-state.html"><span class="token function">collectEnabledAsState</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/State.html">State</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="686548263%2FFunctions%2F-654899660" anchor-label="collectErrorAsState" id="686548263%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="collect-error-as-state.html"><span>collect</span><wbr></wbr><span>Error</span><wbr></wbr><span>As</span><wbr></wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="686548263%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="collect-error-as-state.html"><span class="token function">collectErrorAsState</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/State.html">State</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1620295824%2FFunctions%2F-654899660" anchor-label="collectValueAsState" id="1620295824%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="collect-value-as-state.html"><span>collect</span><wbr></wbr><span>Value</span><wbr></wbr><span>As</span><wbr></wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1620295824%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="collect-value-as-state.html"><span class="token function">collectValueAsState</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/State.html">State</a><span class="token operator">&lt;</span><a href="index.html">Value</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1158357119%2FFunctions%2F-654899660" anchor-label="DefaultDateEntry" id="1158357119%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.idscodelabs.compose_form.form.fields.default.date/-default-date-entry.html"><span>Default</span><wbr></wbr><span>Date</span><wbr></wbr><span><span>Entry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1158357119%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/input/TextFieldValue.html">TextFieldValue</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../com.idscodelabs.compose_form.form.fields.default.date/-default-date-entry.html"><span class="token function">DefaultDateEntry</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.fillMaxWidth()<span class="token punctuation">, </span></span><span class="parameter ">hint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">placeholder<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">isLast<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">leadingIcon<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">datePickerState<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/material3/DatePickerState.html">DatePickerState</a><span class="token operator"> = </span>rememberDatePickerState()<span class="token punctuation">, </span></span><span class="parameter ">allowTyping<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">entry<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/input/TextFieldValue.html">TextFieldValue</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="../../com.idscodelabs.compose_form.form.fields.default.date/-date-picker-controller/index.html">DatePickerController</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{
+        val enabled = enabled
+        DefaultTextEntry(
+            hint = hint,
+            modifier =
+                modifier.onFocusChanged { focusState -&gt;
+                    if (focusState.isFocused &amp;&amp; !allowTyping &amp;&amp; enabled) {
+                        it.setPickerVisible(true)
+                    }
+                },
+            icon =
+                if (enabled) {
+                    FormScope.IconParams(
+                        Icons.Filled.DateRange,
+                    ) {
+                        it.setPickerVisible(true)
+                    }
+                } else {
+                    null
+                },
+            placeholder = placeholder,
+            isLast = isLast,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            leadingIcon = leadingIcon,
+            readOnly = !(allowTyping &amp;&amp; enabled),
+        )
+    }<span class="token punctuation">, </span></span><span class="parameter ">dialog<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/input/TextFieldValue.html">TextFieldValue</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="../../com.idscodelabs.compose_form.form.fields.default.date/-date-picker-controller/index.html">DatePickerController</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{
+        DefaultDatePickerDialog(
+            it.datePickerState,
+            ::setValue,
+        ) {
+            it.setPickerVisible(false)
+        }
+    }</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1486465412%2FFunctions%2F-654899660" anchor-label="DefaultFormCheckBoxEntry" id="-1486465412%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.idscodelabs.compose_form.form.fields.default.checkbox/-default-form-check-box-entry.html"><span>Default</span><wbr></wbr><span>Form</span><wbr></wbr><span>Check</span><wbr></wbr><span>Box</span><wbr></wbr><span><span>Entry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1486465412%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../com.idscodelabs.compose_form.form.fields.default.checkbox/-default-form-check-box-entry.html"><span class="token function">DefaultFormCheckBoxEntry</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.fillMaxWidth()<span class="token punctuation">, </span></span><span class="parameter ">checkboxModifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.minimumInteractiveComponentSize()<span class="token punctuation">, </span></span><span class="parameter ">textModifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.minimumInteractiveComponentSize()<span class="token punctuation">, </span></span><span class="parameter ">errorModifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.fillMaxWidth()</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="80160238%2FFunctions%2F-654899660" anchor-label="DefaultFormSliderEntry" id="80160238%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.idscodelabs.compose_form.form.fields.default.slider/-default-form-slider-entry.html"><span>Default</span><wbr></wbr><span>Form</span><wbr></wbr><span>Slider</span><wbr></wbr><span><span>Entry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="80160238%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../com.idscodelabs.compose_form.form.fields.default.slider/-default-form-slider-entry.html"><span class="token function">DefaultFormSliderEntry</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">start<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">end<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">100</span><span class="token punctuation">, </span></span><span class="parameter ">hint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-696342451%2FFunctions%2F-654899660" anchor-label="DefaultFormSwitchEntry" id="-696342451%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.idscodelabs.compose_form.form.fields.default.switch/-default-form-switch-entry.html"><span>Default</span><wbr></wbr><span>Form</span><wbr></wbr><span>Switch</span><wbr></wbr><span><span>Entry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-696342451%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../com.idscodelabs.compose_form.form.fields.default.switch/-default-form-switch-entry.html"><span class="token function">DefaultFormSwitchEntry</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">leftLabel<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">rightLabel<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.fillMaxWidth()<span class="token punctuation">, </span></span><span class="parameter ">switchModifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.minimumInteractiveComponentSize()<span class="token punctuation">, </span></span><span class="parameter ">hintModifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.fillMaxWidth()<span class="token punctuation">, </span></span><span class="parameter ">leftLabelModifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.minimumInteractiveComponentSize()<span class="token punctuation">, </span></span><span class="parameter ">rightLabelModifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.minimumInteractiveComponentSize()<span class="token punctuation">, </span></span><span class="parameter ">errorModifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.fillMaxWidth()</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="118964293%2FFunctions%2F-654899660" anchor-label="DefaultTextEntry" id="118964293%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.idscodelabs.compose_form.form.fields.default.text/-default-text-entry.html"><span>Default</span><wbr></wbr><span>Text</span><wbr></wbr><span><span>Entry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="118964293%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/input/TextFieldValue.html">TextFieldValue</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../com.idscodelabs.compose_form.form.fields.default.text/-default-text-entry.html"><span class="token function">DefaultTextEntry</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">icon<span class="token operator">: </span><a href="../../com.idscodelabs.compose_form.form.core/-form-scope/-icon-params/index.html">FormScope.IconParams</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">placeholder<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">isLast<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">keyboardOptions<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/KeyboardOptions.html">KeyboardOptions</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">prefix<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator"> = </span><span class="token string">&quot;&quot;</span><span class="token punctuation">, </span></span><span class="parameter ">readOnly<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">style<span class="token operator">: </span><a href="../../com.idscodelabs.compose_form.styles/-form-field-style/index.html">FormFieldStyle</a><span class="token operator"> = </span>LocalFormFieldStyle.current<span class="token punctuation">, </span></span><span class="parameter ">onValueChange<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/input/TextFieldValue.html">TextFieldValue</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}<span class="token punctuation">, </span></span><span class="parameter ">leadingIcon<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/input/TextFieldValue.html">TextFieldValue</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../com.idscodelabs.compose_form.form.fields.default.text/-default-text-entry.html"><span class="token function">DefaultTextEntry</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.fillMaxWidth()<span class="token punctuation">, </span></span><span class="parameter ">icons<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../com.idscodelabs.compose_form.form.core/-form-scope/-icon-params/index.html">FormScope.IconParams</a><span class="token operator">&gt;</span><span class="token operator"> = </span>emptyList()<span class="token punctuation">, </span></span><span class="parameter ">placeholder<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">isLast<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">keyboardOptions<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/KeyboardOptions.html">KeyboardOptions</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">prefix<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator"> = </span><span class="token string">&quot;&quot;</span><span class="token punctuation">, </span></span><span class="parameter ">readOnly<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">style<span class="token operator">: </span><a href="../../com.idscodelabs.compose_form.styles/-form-field-style/index.html">FormFieldStyle</a><span class="token operator"> = </span>LocalFormFieldStyle.current<span class="token punctuation">, </span></span><span class="parameter ">onValueChange<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/input/TextFieldValue.html">TextFieldValue</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}<span class="token punctuation">, </span></span><span class="parameter ">leadingIcon<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1250419168%2FFunctions%2F-654899660" anchor-label="DefaultTimeEntry" id="1250419168%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.idscodelabs.compose_form.form.fields.default.time/-default-time-entry.html"><span>Default</span><wbr></wbr><span>Time</span><wbr></wbr><span><span>Entry</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1250419168%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-experimental-time/index.html"><span class="token annotation builtin">ExperimentalTime</span></a></div><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/input/TextFieldValue.html">TextFieldValue</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../com.idscodelabs.compose_form.form.fields.default.time/-default-time-entry.html"><span class="token function">DefaultTimeEntry</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier.fillMaxWidth()<span class="token punctuation">, </span></span><span class="parameter ">hint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">placeholder<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">isLast<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">leadingIcon<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">timePickerState<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/material3/TimePickerState.html">TimePickerState</a><span class="token operator"> = </span>rememberTimePickerState()<span class="token punctuation">, </span></span><span class="parameter ">allowTyping<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">entry<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/input/TextFieldValue.html">TextFieldValue</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="../../com.idscodelabs.compose_form.form.fields.default.time/-time-picker-controller/index.html">TimePickerController</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{
+        DefaultTextEntry(
+            hint = hint,
+            modifier = modifier,
+            icon =
+                if (enabled) {
+                    FormScope.IconParams(
+                        Icons.Outlined.Timer,
+                    ) {
+                        it.setPickerVisible(true)
+                    }
+                } else {
+                    null
+                },
+            placeholder = placeholder,
+            isLast = isLast,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+            leadingIcon = leadingIcon,
+            readOnly = !(allowTyping &amp;&amp; enabled),
+        )
+    }<span class="token punctuation">, </span></span><span class="parameter ">dialog<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><a href="index.html">FormBox</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/text/input/TextFieldValue.html">TextFieldValue</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="../../com.idscodelabs.compose_form.form.fields.default.time/-time-picker-controller/index.html">TimePickerController</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{
+        DefaultTimePickerDialog(
+            it.timepickerState,
+            ::setValue,
+        ) {
+            it.setPickerVisible(false)
+        }
+    }</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1155285870%2FFunctions%2F-654899660" anchor-label="FieldValueChangedEffect" id="1155285870%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-field-value-changed-effect.html"><span>Field</span><wbr></wbr><span>Value</span><wbr></wbr><span>Changed</span><wbr></wbr><span><span>Effect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1155285870%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-field-value-changed-effect.html"><span class="token function">FieldValueChangedEffect</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.coroutines/-coroutine-context/index.html">CoroutineContext</a><span class="token operator"> = </span>EmptyCoroutineContext<span class="token punctuation">, </span></span><span class="parameter ">debounceMillis<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span class="token keyword">suspend </span><a href="index.html">Value</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1619394424%2FFunctions%2F-654899660" anchor-label="getStringValue" id="-1619394424%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-string-value.html"><span>get</span><wbr></wbr><span>String</span><wbr></wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1619394424%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-string-value.html"><span class="token function">getStringValue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1012828314%2FFunctions%2F-654899660" anchor-label="onFieldValueChanged" id="-1012828314%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-field-value-changed.html"><span>on</span><wbr></wbr><span>Field</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1012828314%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="on-field-value-changed.html"><span class="token function">onFieldValueChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">debounceMills<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span class="token keyword">suspend </span><a href="index.html">Value</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1040773742%2FFunctions%2F-654899660" anchor-label="primaryFocusable" id="-1040773742%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="primary-focusable.html"><span>primary</span><wbr></wbr><span><span>Focusable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1040773742%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token punctuation">.</span><a href="primary-focusable.html"><span class="token function">primaryFocusable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1950645464%2FFunctions%2F-654899660" anchor-label="setEnabled" id="1950645464%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-enabled.html"><span>set</span><wbr></wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1950645464%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-enabled.html"><span class="token function">setEnabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1947897046%2FFunctions%2F-654899660" anchor-label="setError" id="1947897046%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-error.html"><span>set</span><wbr></wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1947897046%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-error.html"><span class="token function">setError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">error<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set the error of this <a href="index.html">FormBox</a></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2037228956%2FFunctions%2F-654899660" anchor-label="setValidator" id="-2037228956%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-validator.html"><span>set</span><wbr></wbr><span><span>Validator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2037228956%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-validator.html"><span class="token function">setValidator</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">validator<span class="token operator">: </span><a href="../../com.idscodelabs.compose_form.validators.core/-validator/index.html">Validator</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set validator for the <a href="index.html">FormBox</a></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="419568955%2FFunctions%2F-654899660" anchor-label="setValue" id="419568955%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-value.html"><span>set</span><wbr></wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="419568955%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-value.html"><span class="token function">setValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="index.html">Value</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set the value of this <a href="index.html">FormBox</a></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1589212091%2FFunctions%2F-654899660" anchor-label="validate" id="1589212091%2FFunctions%2F-654899660" data-filterable-set=":library/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="validate.html"><span><span>validate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1589212091%2FFunctions%2F-654899660"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="validate.html"><span class="token function">validate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">s<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">otherFieldValues<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator"> = </span>mapOf()</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Validate this <a href="index.html">FormBox</a></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2025 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

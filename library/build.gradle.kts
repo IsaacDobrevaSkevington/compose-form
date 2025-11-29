@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.net.URI
@@ -10,8 +9,9 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
     id("maven-publish")
+    alias(libs.plugins.dokka)
 }
-version = "0.0.2"
+version = "0.0.4"
 
 kotlin {
     androidTarget {
@@ -54,6 +54,7 @@ kotlin {
             implementation(libs.filekit.dialogs)
             implementation(libs.filekit.dialogs.compose)
             implementation(libs.filekit.coil)
+            implementation(libs.kotlin.reflect)
         }
     }
 }
@@ -101,5 +102,17 @@ publishing {
                 password = System.getenv("TOKEN")
             }
         }
+    }
+}
+
+dokka {
+    moduleName.set("Compose Form")
+    dokkaPublications.html {
+        suppressInheritedMembers.set(true)
+        failOnWarning.set(true)
+        outputDirectory.set(File("${rootProject.projectDir}/docs"))
+    }
+    dokkaSourceSets.commonMain {
+        samples.from("${rootProject.projectDir}/composeApp/src/commonMain/kotlin/com/idscodelabs/compose_form/examples")
     }
 }

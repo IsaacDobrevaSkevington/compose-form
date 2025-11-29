@@ -4,4 +4,4 @@ import com.idscodelabs.compose_form.examples.helpers.ExampleModel
 
 data class FormCheckBoxExampleModel(
     override var value: Boolean? = null,
-) : ExampleModel<Boolean>
+) : com.idscodelabs.compose_form.examples.helpers.ExampleModel<Boolean>
