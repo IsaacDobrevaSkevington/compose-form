@@ -13,6 +13,7 @@ plugins {
 }
 version = "0.0.4"
 
+
 kotlin {
     androidTarget {
         compilerOptions {
@@ -96,7 +97,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = URI("https://maven.pkg.github.com/IsaacSkevington/compose-form")
+            url = URI("https://maven.pkg.github.com/IsaacDobrevaSkevington/compose-form")
             credentials {
                 username = System.getenv("USERNAME")
                 password = System.getenv("TOKEN")

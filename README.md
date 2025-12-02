@@ -17,6 +17,12 @@ ___
 
 ## Quick Start
 
+### Setup
+
+#### Android
+
+`implementation`
+
 ### Basic Usage
 
 ```kotlin
