@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.net.URI
@@ -9,10 +10,11 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
     id("maven-publish")
+    id("com.vanniktech.maven.publish") version "0.31.0"
     alias(libs.plugins.dokka)
+    signing
 }
-version = "0.0.4"
-
+version = "0.0.5"
 
 kotlin {
     androidTarget {
@@ -87,6 +89,15 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    publishing {
+        singleVariant("release") {
+            withJavadocJar()
+            withSourcesJar()
+        }
+
+        singleVariant("debug") {
+        }
+    }
 }
 
 dependencies {
@@ -116,4 +127,44 @@ dokka {
     dokkaSourceSets.commonMain {
         samples.from("${rootProject.projectDir}/composeApp/src/commonMain/kotlin/com/idscodelabs/compose_form/examples")
     }
+}
+
+mavenPublishing {
+    coordinates(
+        groupId = "io.github.idscodelabs",
+        artifactId = "compose-form",
+        version = version.toString(),
+    )
+
+    pom {
+        name.set("Compose Form")
+        description.set("Multiplatform form library for Compose")
+        inceptionYear.set("2025")
+        url.set("https://github.com/IsaacDobrevaSkevington/compose-form")
+
+        licenses {
+            license {
+                name.set("MIT")
+                url.set("https://opensource.org/licenses/MIT")
+            }
+        }
+
+        developers {
+            developer {
+                id.set("Isaac-Dobreva-Skevington")
+                name.set("Isaac-Dobreva-Skevington")
+                email.set("-")
+            }
+        }
+
+        scm {
+            url.set("https://github.com/IsaacDobrevaSkevington/compose-form")
+        }
+    }
+
+    // Configure publishing to Maven Central
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    // Enable GPG signing for all publications
+    signAllPublications()
 }

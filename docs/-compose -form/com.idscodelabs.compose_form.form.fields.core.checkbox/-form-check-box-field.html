@@ -44,7 +44,7 @@
         </button>
         <div class="navigation-controls--break ui-kit_mobile-only"></div>
         <div class="library-version" id="library-version">
-0.0.2        </div>
+0.0.5        </div>
         <div class="navigation-controls">
         <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
                 <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true"
@@ -122,12 +122,12 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun main() { 
    //sampleStart 
    FormCheckBoxField(
-    modelProperty = FormCheckBoxExampleModel::value,
-    validator = MustBeTickedValidator(),
-    updateModel = { value = it },
-) {
-    DefaultFormCheckBoxEntry(hint = &quot;Check Me&quot;)
-} 
+        modelProperty = FormCheckBoxExampleModel::value,
+        validator = MustBeTickedValidator(),
+        updateModel = { value = it },
+    ) {
+        DefaultFormCheckBoxEntry(hint = &quot;Check Me&quot;)
+    } 
    //sampleEnd
 }</code></pre></div></div></div>
 </div>

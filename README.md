@@ -21,7 +21,39 @@ ___
 
 #### Android
 
-`implementation`
+```kotlin 
+dependencies{
+    ...
+    implementation("io.github.idscodelabs:compose-form:$version")
+}
+```
+
+#### Multiplatform
+```kotlin 
+commonMain.dependencies{
+    ...
+    implementation("io.github.idscodelabs:compose-form:$version")
+}
+```
+
+#### Version catalog
+
+##### TOML
+```toml
+[versions]
+compose-form = "<version>"
+
+[libraries]
+compose-form = { module = "io.github.idscodelabs:compose-form", version.ref = "compose-form" }
+```
+
+##### build.gradle.kts
+```kotlin
+commonMain.dependencies{
+    ...
+    implementation(libs.compose.form)
+}
+```
 
 ### Basic Usage
 

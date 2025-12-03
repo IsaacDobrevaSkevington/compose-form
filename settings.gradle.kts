@@ -33,4 +33,4 @@ plugins {
 }
 
 include(":composeApp")
-include(":compose-form-core")
+include(":library")
