@@ -76,16 +76,10 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            ${{ env.main_project_module }}/build/outputs/apk/debug/
+            ${{ env.main_project_module }}/build/outputs/apk/debug/composeApp-debug.apk
 
       - name: Release with Notes
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            ${{ env.main_project_module }}/build/outputs/apk/release/
-
-      - name: Release with Notes
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            ${{ env.main_project_module }}/build/outputs/bundle/release/
+            ${{ env.main_project_module }}/build/outputs/apk/release/composeApp-release.apk
