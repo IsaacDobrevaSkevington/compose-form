@@ -36,6 +36,11 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew :library:build
 
+    - name: Copy GPG key to file
+      run: (echo $GPG_KEY | base64 --decode) > signing.gpg
+      env:
+        GPG_KEY: ${{ secrets.GPG_KEY }}
+
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle
     - name: Publish to GitHub Packages
@@ -44,10 +49,6 @@ jobs:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Copy GPG key to file
-      run: (echo $GPG_KEY | base64 --decode) > signing.gpg
-      env:
-        GPG_KEY: ${{ secrets.GPG_KEY }}
     - name: Publish to Maven Central
       run: ./gradlew publishAndReleaseToMavenCentral
       env:
