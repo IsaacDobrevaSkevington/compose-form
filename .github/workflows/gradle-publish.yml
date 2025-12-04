@@ -34,12 +34,12 @@ jobs:
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
     - name: Copy GPG key to file
-      run: |
-        (echo $GPG_KEY | base64 --decode) > ${{ github.workspace }}/signing.gpg
-        chmod 700 ${{ github.workspace }}/signing.gpg
-        gpg --batch --yes --import ${{ github.workspace }}/signing.gpg
+      run: (echo $GPG_KEY | base64 --decode) > ${{ github.workspace }}/signing.gpg
       env:
         GPG_KEY: ${{ secrets.GPG_KEY }}
+
+    - name: Import GPG key
+      run: gpg --batch --yes --import ${{ github.workspace }}/signing.gpg
 
 
     - name: Build with Gradle
