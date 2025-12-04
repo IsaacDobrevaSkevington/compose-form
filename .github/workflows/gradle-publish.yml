@@ -39,7 +39,7 @@ jobs:
         GPG_KEY: ${{ secrets.GPG_KEY }}
 
     - name: Import GPG Key
-      run: chmod 700 ~/.gnupg/private-keys-v1.d && export GPG_TTY=$(tty) && gpg --import ~/signing.gpg
+      run: mkdir -p ~/.gnupg/private-keys-v1.d && chmod 700 ~/.gnupg/private-keys-v1.d && export GPG_TTY=$(tty) && gpg --import ~/signing.gpg
 
     - name: Build with Gradle
       run: ./gradlew :library:build
