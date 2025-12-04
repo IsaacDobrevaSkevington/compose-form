@@ -128,6 +128,14 @@ dokka {
         samples.from("${rootProject.projectDir}/composeApp/src/commonMain/kotlin/com/idscodelabs/compose_form/examples")
     }
 }
+signing {
+    val signingKey: String? by project
+    val signingPassword: String? by project
+    useInMemoryPgpKeys(
+        signingKey ?: System.getenv("GPG_KEY"),
+        signingPassword ?: System.getenv("GPG_PASSWORD")
+    )
+}
 
 mavenPublishing {
     coordinates(
