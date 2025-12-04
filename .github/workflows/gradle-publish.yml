@@ -34,7 +34,7 @@ jobs:
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
     - name: Copy GPG key to file
-      run: (echo $GPG_KEY | base64 --decode) > /signing.gpg && chmod 700 /signing.gpg && export GPG_TTY=$(tty) && sudo gpg --import /signing.gpg
+      run: (echo $GPG_KEY | base64 --decode) > ${{ github.workspace }}/signing.gpg && chmod 700 ${{ github.workspace }}/signing.gpg && export GPG_TTY=$(tty) && sudo gpg --import ${{ github.workspace }}/signing.gpg
       env:
         GPG_KEY: ${{ secrets.GPG_KEY }}
 
@@ -56,4 +56,4 @@ jobs:
         ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_PASSWORD }}
         ORG_GRADLE_PROJECT_signing.keyId: ${{ secrets.GPG_ID }}
         ORG_GRADLE_PROJECT_signing.password: ${{ secrets.GPG_PASSWORD }}
-        ORG_GRADLE_PROJECT_signing.secretKeyRingFile: /signing.gpg
+        ORG_GRADLE_PROJECT_signing.secretKeyRingFile: ${{ github.workspace }}/signing.gpg
