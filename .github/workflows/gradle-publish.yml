@@ -33,14 +33,6 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
-    - name: Copy GPG key to file
-      run: (echo $GPG_KEY | base64 --decode) > ${{ github.workspace }}/signing.gpg
-      env:
-        GPG_KEY: ${{ secrets.GPG_KEY }}
-
-    - name: Import GPG key
-      run: gpg --batch --yes --import ${{ github.workspace }}/signing.gpg
-
 
     #- name: Build with Gradle
     #  run: ./gradlew :library:build
@@ -54,4 +46,11 @@ jobs:
     #    TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Publish to Maven Central
-      run: ./gradlew publishAndReleaseToMavenCentral -DmavenCentralUsername=${{ secrets.MAVEN_USERNAME }} -DmavenCentralPassword=${{ secrets.MAVEN_PASSWORD }} -Dsiging.keyId=${{ secrets.GPG_ID }} -Dsigning.password=${{ secrets.GPG_PASSWORD }} -Dsigning.secretKeyRingFile=${{ github.workspace }}/signing.gpg
+      run: ./gradlew publishAndReleaseToMavenCentral 
+      env:
+        ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_USERNAME }}
+        ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_PASSWORD }}
+        GPG_KEY: ${{ secrets.GPG_KEY }}
+        GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
+
+
