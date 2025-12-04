@@ -34,7 +34,7 @@ jobs:
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
     - name: Copy GPG key to file
-      run: (echo $GPG_KEY | base64 --decode) > /signing.gpg && chmod 700 /signing.gpg && export GPG_TTY=$(tty) && gpg --import /signing.gpg
+      run: (echo $GPG_KEY | base64 --decode) > /signing.gpg && chmod 700 /signing.gpg && export GPG_TTY=$(tty) && sudo gpg --import /signing.gpg
       env:
         GPG_KEY: ${{ secrets.GPG_KEY }}
 
