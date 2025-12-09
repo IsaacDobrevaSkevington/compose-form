@@ -23,67 +23,51 @@ enum class ExampleField(
     override val contents: @Composable () -> Unit,
 ) : Example {
     CHECKBOX("Checkbox", {
-        com.idscodelabs.compose_form.examples.fields.checkbox
-            .FormCheckBoxFieldExample()
+        FormCheckBoxFieldExample()
     }),
     DATE("Date", {
-        com.idscodelabs.compose_form.examples.fields.date
-            .FormDateFieldExample()
+        FormDateFieldExample()
     }),
     AUTOCOMPLETE_DROPDOWN("Autocomplete Dropdown", {
-        com.idscodelabs.compose_form.examples.fields.dropdown.normal
-            .FormAutocompleteDropdownFieldExample()
+        FormAutocompleteDropdownFieldExample()
     }),
     DROPDOWN("Dropdown", {
-        com.idscodelabs.compose_form.examples.fields.dropdown.normal
-            .FormDropdownFieldExample()
+        FormDropdownFieldExample()
     }),
     AUTOCOMPLETE_DROPDOWN_LARGE("Autocomplete Dropdown (Long List)", {
-        com.idscodelabs.compose_form.examples.fields.dropdown.large
-            .FormAutocompleteDropdownFieldExampleLarge()
+        FormAutocompleteDropdownFieldExampleLarge()
     }),
     DROPDOWN_LARGE("Dropdown (Long List)", {
-        com.idscodelabs.compose_form.examples.fields.dropdown.large
-            .FormDropdownFieldExampleLarge()
+        FormDropdownFieldExampleLarge()
     }),
     RADIO("Radio", {
-        com.idscodelabs.compose_form.examples.fields.radio
-            .FormRadioFieldExample()
+        FormRadioFieldExample()
     }),
     SLIDER("Slider", {
-        com.idscodelabs.compose_form.examples.fields.slider
-            .FormSliderFieldExample()
+        FormSliderFieldExample()
     }),
     TEXT_FIELD("Text Field", {
-        com.idscodelabs.compose_form.examples.fields.textfield
-            .FormTextFieldExample()
+        FormTextFieldExample()
     }),
     TIME("Time", {
-        com.idscodelabs.compose_form.examples.fields.time
-            .FormTimeFieldExample()
+        FormTimeFieldExample()
     }),
     VALUE_CHANGE("Value Change", {
-        com.idscodelabs.compose_form.examples.logic.valuechange
-            .FormValueChangeExample()
+        FormValueChangeExample()
     }),
     VIEW_MODEL("ViewModel", {
-        com.idscodelabs.compose_form.examples.logic.viewmodel
-            .FormViewModelExample()
+        FormViewModelExample()
     }),
     STYLE("Styling", {
-        com.idscodelabs.compose_form.examples.ui.style
-            .FormStyleExample()
+        FormStyleExample()
     }),
     CUSTOM_ENTRY("Custom Entry", {
-        com.idscodelabs.compose_form.examples.fields.custom.entry
-            .CustomFormFieldEntryExample()
+        CustomFormFieldEntryExample()
     }),
     CUSTOM_FIELD("Custom Field", {
-        com.idscodelabs.compose_form.examples.fields.custom.field
-            .CustomFormFieldExample()
+        CustomFormFieldExample()
     }),
     MULTISELECT("Multiselect", {
-        com.idscodelabs.compose_form.examples.fields.multiselect
-            .FormMultiselectFieldExample()
+        FormMultiselectFieldExample()
     }),
 }

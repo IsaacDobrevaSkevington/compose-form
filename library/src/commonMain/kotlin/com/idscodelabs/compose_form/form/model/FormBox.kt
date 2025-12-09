@@ -35,12 +35,12 @@ import kotlin.coroutines.EmptyCoroutineContext
  */
 open class FormBox<Model, Value>(
     protected val enabledFlow: MutableStateFlow<Boolean>,
-    protected var currentValidator: Validator?,
+    protected var currentValidator: Validator<Value>?,
     val setModelProperty: Model.(String?) -> Unit,
     protected val valueToString: (Value?) -> String?,
     protected val valueFlow: MutableStateFlow<Value>,
     protected val errorFlow: MutableStateFlow<Any?> = MutableStateFlow(null),
-    protected val focusRequester: FocusRequester,
+    val focusRequester: FocusRequester,
     protected val mapValue: (value: Value) -> Value,
 ) {
     /**
@@ -104,11 +104,8 @@ open class FormBox<Model, Value>(
      * @return `true` if the field was valid, `false` otherwise
      * @see [Validator]
      */
-    fun validate(
-        s: String?,
-        otherFieldValues: Map<String, String?> = mapOf(),
-    ): Boolean {
-        val error = currentValidator?.validate(s, otherFieldValues)
+    fun validate(): Boolean {
+        val error = currentValidator?.validate(valueToString, otherFieldValues)
         setError(error)
         return error == null
     }
@@ -130,6 +127,7 @@ open class FormBox<Model, Value>(
     fun setValidator(validator: Validator?) {
         this.currentValidator = validator
     }
+
 
     /**
      * Set the value of this [FormBox]

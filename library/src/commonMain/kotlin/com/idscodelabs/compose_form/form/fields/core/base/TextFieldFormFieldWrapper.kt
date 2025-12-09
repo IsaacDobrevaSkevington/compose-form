@@ -32,7 +32,7 @@ fun <Model, Value, FormBoxImpl : FormBox<Model, TextFieldValue>> FormScope<Model
     modelProperty: KProperty<*>,
     initialValue: Value?,
     enabled: Boolean,
-    validator: Validator?,
+    validator: Validator<Value>?,
     updateModel: Model.(Value?) -> Unit,
     implementation: IFormFieldImplementation<FormBoxImpl>,
     valueToString: (Value?) -> String?,
@@ -43,7 +43,9 @@ fun <Model, Value, FormBoxImpl : FormBox<Model, TextFieldValue>> FormScope<Model
     modelProperty = modelProperty,
     initialValue = valueToString(initialValue)?.let(::TextFieldValue),
     enabled = enabled,
-    validator = validator,
+    validator = Validator<TextFieldValue> {
+
+    },
     updateModel = {
         updateModel(stringToValue(it?.text))
     },

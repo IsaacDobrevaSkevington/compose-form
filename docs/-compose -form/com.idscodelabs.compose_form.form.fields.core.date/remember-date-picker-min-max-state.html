@@ -109,7 +109,44 @@
   <div class="cover ">
     <h1 class="cover"><span>remember</span><wbr></wbr><span>Date</span><wbr></wbr><span>Picker</span><wbr></wbr><span>Min</span><wbr></wbr><span>Max</span><wbr></wbr><span><span>State</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="remember-date-picker-min-max-state.html"><span class="token function">rememberDatePickerMinMaxState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">min<span class="token operator">: </span><span data-unresolved-link="kotlinx.datetime/LocalDate///PointingToDeclaration/">LocalDate</span><span class="token punctuation">, </span></span><span class="parameter ">max<span class="token operator">: </span><span data-unresolved-link="kotlinx.datetime/LocalDate///PointingToDeclaration/">LocalDate</span><span class="token punctuation">, </span></span><span class="parameter ">initialDisplayMode<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/material3/DisplayMode.html">DisplayMode</a><span class="token operator"> = </span>DisplayMode.Picker</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/material3/DatePickerState.html">DatePickerState</a></div><p class="paragraph">Date picker state with min and max selectable values</p><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>min</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The min value selectable (inclusive)</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>max</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The max value selectable (inclusive)</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>initial</span><wbr></wbr><span>Display</span><wbr></wbr><span><span>Mode</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Initial <a href="https://developer.android.com/reference/kotlin/androidx/compose/material3/DisplayMode.html">DisplayMode</a> for the <a href="https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary.html">androidx.compose.material3.DatePicker</a></p></div></div></div></div></div></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="remember-date-picker-min-max-state.html"><span class="token function">rememberDatePickerMinMaxState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">min<span class="token operator">: </span><span data-unresolved-link="kotlinx.datetime/LocalDate///PointingToDeclaration/">LocalDate</span><span class="token punctuation">, </span></span><span class="parameter ">max<span class="token operator">: </span><span data-unresolved-link="kotlinx.datetime/LocalDate///PointingToDeclaration/">LocalDate</span><span class="token punctuation">, </span></span><span class="parameter ">initialDisplayMode<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/material3/DisplayMode.html">DisplayMode</a><span class="token operator"> = </span>DisplayMode.Picker</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/material3/DatePickerState.html">DatePickerState</a></div><p class="paragraph">Date picker state with min and max selectable values</p><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>min</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The min value selectable (inclusive)</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>max</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The max value selectable (inclusive)</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":library/commonMain" data-filterable-set=":library/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>initial</span><wbr></wbr><span>Display</span><wbr></wbr><span><span>Mode</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Initial <a href="https://developer.android.com/reference/kotlin/androidx/compose/material3/DisplayMode.html">DisplayMode</a> for the <a href="https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary.html">androidx.compose.material3.DatePicker</a></p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import androidx.compose.runtime.Composable
+import com.idscodelabs.compose_form.examples.fields.date.FormDateFieldExampleModel
+import com.idscodelabs.compose_form.examples.helpers.ExampleForm
+import com.idscodelabs.compose_form.examples.helpers.ExampleModel
+import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
+import com.idscodelabs.compose_form.form.fields.core.date.FormDateField
+import com.idscodelabs.compose_form.form.fields.core.date.rememberDatePickerMinMaxState
+import com.idscodelabs.compose_form.form.fields.default.date.DefaultDateEntry
+import com.idscodelabs.compose_form.validators.DateAfterValidator
+import com.idscodelabs.compose_form.validators.DateBeforeValidator
+import com.idscodelabs.compose_form.validators.NotEmptyValidator
+import kotlinx.datetime.LocalDate
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import kotlin.time.ExperimentalTime
+
+fun main() { 
+   //sampleStart 
+   ExampleScreen {
+        ExampleForm(emptyModel = ::FormDateFieldExampleModel) {
+            val min = LocalDate(2020, 1, 1)
+            val max = LocalDate(2025, 2, 1)
+            FormDateField(
+                modelProperty = FormDateFieldExampleModel::value,
+                validator =
+                    NotEmptyValidator() +
+                        DateBeforeValidator(min) +
+                        DateAfterValidator(max),
+                updateModel = { value = it },
+            ) {
+                DefaultDateEntry(
+                    hint = &quot;Date&quot;,
+                    datePickerState = rememberDatePickerMinMaxState(min, max),
+                )
+            }
+        }
+    } 
+   //sampleEnd
+}</code></pre></div></div></div>
 </div>
     <div class="footer">
         <div class="footer--container">

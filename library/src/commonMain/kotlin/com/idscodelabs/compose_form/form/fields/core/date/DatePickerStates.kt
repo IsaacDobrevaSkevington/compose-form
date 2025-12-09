@@ -15,6 +15,8 @@ import kotlin.time.ExperimentalTime
  * @param min The min value selectable (inclusive)
  * @param max The max value selectable (inclusive)
  * @param initialDisplayMode Initial [DisplayMode] for the [androidx.compose.material3.DatePicker]
+ * @sample com.idscodelabs.compose_form.examples.fields.date.FormDateFieldExample
+ *
  */
 @OptIn(ExperimentalTime::class)
 @Composable

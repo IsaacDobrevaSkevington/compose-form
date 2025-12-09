@@ -15,6 +15,20 @@ import com.idscodelabs.compose_form.validators.InvalidOptionValidator
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
+/**
+ * A multiselect form field
+ *
+ * @param Model The Model of the form
+ * @param modelProperty The [KProperty] of the [Model] which this field updates.
+ * @param initialValue The initial value for this field
+ * @param enabled Whether the field is enabled
+ * @param validator The [Validator] for this field
+ * @param updateModel Function called which should set the correct property on the model. Most often should be `{ <variable> = it }`
+ * @param implementation The implementation of the form field UI
+ * @param itemDelimiter The delimiter to use for the item, both when displayed and when stored. The [Item] label  must not contain this charater
+ * @see [ListDisplayable]
+ * @sample com.idscodelabs.compose_form.examples.fields.multiselect.FormMultiselectFieldExample
+ */
 @Composable
 fun <Model, Item : ListDisplayable> FormScope<Model>.FormMultiselectField(
     modelProperty: KProperty<*>,

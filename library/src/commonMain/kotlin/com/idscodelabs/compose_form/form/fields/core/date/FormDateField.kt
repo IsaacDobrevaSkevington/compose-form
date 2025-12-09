@@ -28,13 +28,14 @@ import kotlin.reflect.KProperty
  * @see [LocalFormDateFormatter]
  * @see [sanitizeDate]
  * @see [com.idscodelabs.compose_form.form.fields.default.date.DefaultDateEntry]
+ * @sample com.idscodelabs.compose_form.examples.fields.date.FormDateFieldExample
  */
 @Composable
 fun <Model> FormScope<Model>.FormDateField(
     modelProperty: KProperty<*>,
     updateModel: Model.(LocalDate?) -> Unit,
     initialValue: LocalDate? = null,
-    validator: Validator? = null,
+    validator: Validator<LocalDate>? = null,
     enabled: Boolean = true,
     invalidDateMessage: Any = "Invalid date format",
     cleanDate: (String) -> String = { sanitizeDate(it) },

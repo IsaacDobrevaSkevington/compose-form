@@ -5,12 +5,12 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 
 data class FormValueChangeExampleModel(
-    var option: com.idscodelabs.compose_form.examples.logic.valuechange.FormValueChangeExampleOption? = null,
+    var option: FormValueChangeExampleOption? = null,
     var date: LocalDate? = null,
     var time: LocalTime? = null,
-) : com.idscodelabs.compose_form.examples.helpers.ExampleModel<Triple<com.idscodelabs.compose_form.examples.logic.valuechange.FormValueChangeExampleOption?, LocalDate?, LocalTime?>> {
+) : ExampleModel<Triple<FormValueChangeExampleOption?, LocalDate?, LocalTime?>> {
     override var value:
-        Triple<com.idscodelabs.compose_form.examples.logic.valuechange.FormValueChangeExampleOption?, LocalDate?, LocalTime?>? = null
+        Triple<FormValueChangeExampleOption?, LocalDate?, LocalTime?>? = null
         get() =
             Triple(
                 option,

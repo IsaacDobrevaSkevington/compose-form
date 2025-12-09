@@ -22,15 +22,15 @@ fun <Model, Item : ListDisplayable> DropdownFormBox<Model, Item>.DefaultAutocomp
     isLast: Boolean = false,
     leadingIcon: (@Composable DropdownFormBox<Model, Item>.() -> Unit)? = null,
     filterFunction: (item: String, value: String) -> Boolean = { item, value -> item.startsWith(value, ignoreCase = true) },
-    clearIcon: ((onClick: () -> Unit) -> FormScope.IconParams)? = null,
-    expandIcon: (expanded: Boolean) -> FormScope.IconParams = {
+    clearIcon: (DropdownFormBox<Model, Item>.(onClick: () -> Unit) -> FormScope.IconParams)? = null,
+    expandIcon: DropdownFormBox<Model, Item>.(expanded: Boolean) -> FormScope.IconParams = {
         FormScope.IconParams(
             Icons.Filled.ArrowDropDown,
             if (it) 180f else 0f,
         ) {}
     },
-    menuItem: @Composable DisplayableOption<Item>.(setExpanded: (Boolean) -> Unit) -> Unit = {
-        DefaultDropdownMenuItem(this, it)
+    menuItem: @Composable DropdownFormBox<Model, Item>.(item: DisplayableOption<Item>, setExpanded: (Boolean) -> Unit) -> Unit = {item, setExpanded ->
+        DefaultDropdownMenuItem(item, setExpanded)
     },
 ) = DefaultBaseFormDropdownEntry(
     textFieldModifier = textFieldModifier,

@@ -1,7 +1,12 @@
-package com.idscodelabs.compose_form.form.fields.core.dropdown
+package com.idscodelabs.compose_form.form.fields.default.dropdown
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementation
@@ -10,6 +15,7 @@ import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.core.base.TextFieldFormFieldWrapper
 import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
 import com.idscodelabs.compose_form.form.fields.core.date.sanitizeDate
+import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.validators.InvalidOptionValidator
 import com.idscodelabs.compose_form.validators.core.Validator
@@ -39,7 +45,28 @@ fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
     validator: Validator? = null,
     enabled: Boolean = true,
     invalidOptionError: Any = "Invalid Option",
-    implementation: IFormFieldImplementation<DropdownFormBox<Model, Item>>,
+    textFieldModifier: Modifier = Modifier.fillMaxWidth(),
+    exposedDropdownBoxModifier: Modifier = Modifier,
+    exposedDropdownMenuModifier: Modifier = Modifier,
+    hint: Any? = null,
+    placeholder: Any? = hint,
+    isLast: Boolean = false,
+    leadingIcon: (@Composable DropdownFormBox<Model, Item>.() -> Unit)? = null,
+    clearIcon: (DropdownFormBox<Model, Item>.(onClick: () -> Unit) -> FormScope.IconParams)? = {
+        FormScope.IconParams(
+            Icons.Filled.Close,
+            onClick = it,
+        )
+    },
+    expandIcon: DropdownFormBox<Model, Item>.(expanded: Boolean) -> FormScope.IconParams = {
+        FormScope.IconParams(
+            Icons.Filled.ArrowDropDown,
+            if (it) 180f else 0f,
+        ) {}
+    },
+    menuItem: @Composable DropdownFormBox<Model, Item>.(item: DisplayableOption<Item>, setExpanded: (Boolean) -> Unit) -> Unit = {item, setExpanded ->
+        DefaultDropdownMenuItem(item, setExpanded)
+    },
 ) {
     val displayableOptions =
         remember(options) {

@@ -9,10 +9,8 @@ import kotlinx.datetime.format.DateTimeFormat
 @Composable
 fun DateAfterValidator(
     after: LocalDate,
-    formatter: DateTimeFormat<LocalDate> = LocalFormDateFormatter.current,
-    error: Any = "Must be after ${formatter.format(after)}",
-) = Validator { s, _ ->
-    if (s == null) return@Validator null
-    val date = formatter.parse(s)
-    return@Validator if (date > after) null else error
+    error: Any = "Must be after ${LocalFormDateFormatter.current.format(after)}",
+) = Validator<LocalDate> { value, _ ->
+    if (value == null) return@Validator null
+    return@Validator if (value > after) null else error
 }

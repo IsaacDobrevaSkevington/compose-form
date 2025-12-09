@@ -4,4 +4,4 @@ import com.idscodelabs.compose_form.examples.helpers.ExampleModel
 
 data class CustomFormFieldExampleModel(
     override var value: String? = null,
-) : com.idscodelabs.compose_form.examples.helpers.ExampleModel<String>
+) : ExampleModel<String>

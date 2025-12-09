@@ -32,7 +32,7 @@ fun <Model, Value : Any, FormBoxImpl : FormBox<*, Value>> FormScope<Model>.FormF
     modelProperty: KProperty<*>,
     initialValue: Value?,
     enabled: Boolean,
-    validator: Validator?,
+    validator: Validator<Value>?,
     updateModel: Model.(Value?) -> Unit,
     implementation: IFormFieldImplementation<FormBoxImpl>,
     valueToString: (Value?) -> String?,

@@ -4,4 +4,4 @@ import com.idscodelabs.compose_form.examples.helpers.ExampleModel
 
 data class FormSliderExampleModel(
     override var value: Int? = null,
-) : com.idscodelabs.compose_form.examples.helpers.ExampleModel<Int>
+) : ExampleModel<Int>

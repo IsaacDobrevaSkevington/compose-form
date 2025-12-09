@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.idscodelabs.compose_form.form.core.exceptions.FormSubmissionFailedError
 import com.idscodelabs.compose_form.form.model.FormBox
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
@@ -140,22 +141,57 @@ open class FormScope<Model> : ViewModel() {
      * @param onSuccess Called when the form submission succeeds.
      * The resulting [Model] is provided as a parameter to avoid having to call [valueSnapshot] again.
      */
-    open fun submit(
+    fun submit(
         onFailure: (List<FormBox<Model, *>>) -> Unit = {},
         onError: (Throwable) -> Unit = {},
         onSuccess: (Model) -> Unit = {},
     ) {
         try {
-            val failedBoxes = validate()
-            if (failedBoxes.isEmpty()) {
-                onSuccess(valueSnapshot)
-            } else {
-                onFailure(failedBoxes)
+            try {
+                onSuccess(submitForModel())
+            } catch (e: FormSubmissionFailedError) {
+                e.cause?.let(onError) ?: onFailure(e.boxes as List<FormBox<Model, *>>)
             }
         } catch (e: Throwable) {
             onError(e)
         }
     }
+
+    @Throws(FormSubmissionFailedError::class)
+    open fun submitForModel(): Model{
+        return try {
+            val failedBoxes = validate()
+            if (failedBoxes.isEmpty()) {
+                valueSnapshot
+            } else {
+                throw FormSubmissionFailedError(failedBoxes, null)
+            }
+        } catch (e: Throwable) {
+            throw FormSubmissionFailedError(emptyList(), e)
+        }
+    }
+    fun submitForModelOrNull(): Model?{
+        return try {
+            submitForModel()
+        } catch (_: Throwable) {
+            null
+        }
+    }
+
+    fun submit(): FormSubmissionResult<Model> {
+        return try {
+            FormSubmissionResult.Success(submitForModel())
+        } catch (e: FormSubmissionFailedError) {
+            e.cause?.let {
+                FormSubmissionResult.Error(it)
+            } ?: FormSubmissionResult.Failure(e.boxes as List<FormBox<Model, *>>)
+        }
+    }
+    fun submitFunction(
+        onFailure: (List<FormBox<Model, *>>) -> Unit = {},
+        onError: (Throwable) -> Unit = {},
+        onSuccess: (Model) -> Unit = {},
+    ): ()->Unit =  { submit(onFailure, onError, onSuccess) }
 
     protected val valueFlow by lazy {
         MutableStateFlow(valueSnapshot)

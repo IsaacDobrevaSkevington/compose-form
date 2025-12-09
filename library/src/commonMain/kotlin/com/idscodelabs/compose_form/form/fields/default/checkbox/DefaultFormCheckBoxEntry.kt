@@ -13,6 +13,15 @@ import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 
+/**
+ * Default form check box entry
+ *
+ * @param hint The hint to display next to the checkbox
+ * @param modifier The [Modifier] for the whole container
+ * @param checkboxModifier The [Modifier] applied to the checkbox
+ * @param textModifier The [Modifier] applied to the text
+ * @param errorModifier The [Modifier] applied to the error
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormBox<*, Boolean>.DefaultFormCheckBoxEntry(

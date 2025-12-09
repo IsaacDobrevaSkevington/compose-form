@@ -22,20 +22,20 @@ fun <Model, Item : ListDisplayable> DropdownFormBox<Model, Item>.DefaultFormDrop
     placeholder: Any? = hint,
     isLast: Boolean = false,
     leadingIcon: (@Composable DropdownFormBox<Model, Item>.() -> Unit)? = null,
-    clearIcon: ((onClick: () -> Unit) -> FormScope.IconParams)? = {
+    clearIcon: (DropdownFormBox<Model, Item>.(onClick: () -> Unit) -> FormScope.IconParams)? = {
         FormScope.IconParams(
             Icons.Filled.Close,
             onClick = it,
         )
     },
-    expandIcon: (expanded: Boolean) -> FormScope.IconParams = {
+    expandIcon: DropdownFormBox<Model, Item>.(expanded: Boolean) -> FormScope.IconParams = {
         FormScope.IconParams(
             Icons.Filled.ArrowDropDown,
             if (it) 180f else 0f,
         ) {}
     },
-    menuItem: @Composable DisplayableOption<Item>.(setExpanded: (Boolean) -> Unit) -> Unit = {
-        DefaultDropdownMenuItem(this, it)
+    menuItem: @Composable DropdownFormBox<Model, Item>.(item: DisplayableOption<Item>, setExpanded: (Boolean) -> Unit) -> Unit = {item, setExpanded ->
+        DefaultDropdownMenuItem(item, setExpanded)
     },
 ) = DefaultBaseFormDropdownEntry(
     textFieldModifier = textFieldModifier,

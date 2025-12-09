@@ -12,6 +12,19 @@ import com.idscodelabs.compose_form.validators.InvalidOptionValidator
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
+/**
+ * A radio form field
+ *
+ * @param Model The Model of the form
+ * @param modelProperty The [KProperty] of the [Model] which this field updates.
+ * @param initialValue The initial value for this field
+ * @param enabled Whether the field is enabled
+ * @param validator The [Validator] for this field
+ * @param updateModel Function called which should set the correct property on the model. Most often should be `{ <variable> = it }`
+ * @param implementation The implementation of the form field UI
+ * @see [ListDisplayable]
+ * @sample com.idscodelabs.compose_form.examples.fields.radio.FormRadioFieldExample
+ */
 @Composable
 fun <Model, Item : ListDisplayable> FormScope<Model>.FormRadioField(
     modelProperty: KProperty<*>,

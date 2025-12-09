@@ -37,59 +37,45 @@ enum class ExampleValidator(
     override val contents: @Composable () -> Unit,
 ) : Example {
     DATE_AFTER("Date After", {
-        com.idscodelabs.compose_form.examples.validators
-            .DateAfterValidatorExample()
+        DateAfterValidatorExample()
     }),
     DATE_BEFORE("Date Before", {
-        com.idscodelabs.compose_form.examples.validators
-            .DateBeforeValidatorExample()
+        DateBeforeValidatorExample()
     }),
     EVERY_CHARACTER("Characterwise", {
-        com.idscodelabs.compose_form.examples.validators
-            .EveryCharacterValidatorExampleCustom()
+        EveryCharacterValidatorExampleCustom()
     }),
     MAX_LENGTH("Max Length", {
-        com.idscodelabs.compose_form.examples.validators
-            .MaxLengthValidatorExample()
+        MaxLengthValidatorExample()
     }),
     MIN_LENGTH("Min Length", {
-        com.idscodelabs.compose_form.examples.validators
-            .MinLengthValidatorExample()
+        MinLengthValidatorExample()
     }),
     MULTIPLE("Multiple", {
-        com.idscodelabs.compose_form.examples.validators
-            .MultipleValidatorExample()
+        MultipleValidatorExample()
     }),
     MUST_BE_TICKED("Must be Ticked", {
-        com.idscodelabs.compose_form.examples.validators
-            .MustBeTickedValidatorExample()
+        MustBeTickedValidatorExample()
     }),
     NOT_EMPTY_IF_OTHER_NOT_POPULATED("Required if other empty", {
-        com.idscodelabs.compose_form.examples.validators
-            .NotEmptyIfOtherNotPopulatedValidatorExample()
+        NotEmptyIfOtherNotPopulatedValidatorExample()
     }),
     NOT_EMPTY_IF_OTHER_POPULATED("Required if other populated", {
-        com.idscodelabs.compose_form.examples.validators
-            .NotEmptyIfOtherPopulatedValidatorExample()
+        NotEmptyIfOtherPopulatedValidatorExample()
     }),
     NOT_EMPTY("Required", {
-        com.idscodelabs.compose_form.examples.validators
-            .NotEmptyValidatorExample()
+        NotEmptyValidatorExample()
     }),
     NUMBER_ONLY("Numbers only", {
-        com.idscodelabs.compose_form.examples.validators
-            .NumberOnlyValidatorExample()
+        NumberOnlyValidatorExample()
     }),
     REGEX("Regex", {
-        com.idscodelabs.compose_form.examples.validators
-            .RegexValidatorExample()
+        RegexValidatorExample()
     }),
     TIME_AFTER("Time After", {
-        com.idscodelabs.compose_form.examples.validators
-            .TimeAfterValidatorExample()
+        TimeAfterValidatorExample()
     }),
     TIME_BEFORE("Time Before", {
-        com.idscodelabs.compose_form.examples.validators
-            .TimeBeforeValidatorExample()
+        TimeBeforeValidatorExample()
     }),
 }

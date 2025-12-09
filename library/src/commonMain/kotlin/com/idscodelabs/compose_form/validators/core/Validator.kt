@@ -1,18 +1,18 @@
 package com.idscodelabs.compose_form.validators.core
 
-fun interface Validator {
+fun interface Validator<Value> {
     fun validate(
-        s: String?,
-        otherFieldValues: Map<String, String?>,
+        value: Value?,
+        stringRepresentation: String?,
     ): Any?
 
-    operator fun plus(other: Validator?) =
-        Validator { s, otherFieldValues ->
-            this.validate(s, otherFieldValues) ?: other?.validate(s, otherFieldValues)
+    operator fun plus(other: Validator<Value>?) =
+        Validator<Value> { value, stringRepresentation ->
+            this.validate(value, stringRepresentation) ?: other?.validate(value, stringRepresentation)
         }
 }
 
-infix fun Validator?.and(other: Validator?) =
-    Validator { s, otherFieldValues ->
-        this?.validate(s, otherFieldValues) ?: other?.validate(s, otherFieldValues)
+infix fun <Value> Validator<Value>?.and(other: Validator<Value>?) =
+    Validator<Value> { value, stringRepresentation ->
+        this?.validate(value, stringRepresentation) ?: other?.validate(value, stringRepresentation)
     }
