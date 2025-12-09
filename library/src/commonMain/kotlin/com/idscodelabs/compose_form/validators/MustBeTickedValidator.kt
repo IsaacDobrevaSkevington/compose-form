@@ -4,12 +4,12 @@ import com.idscodelabs.compose_form.validators.core.Validator
 
 class MustBeTickedValidator(
     val error: Any = "Required",
-) : Validator {
+) : Validator<Boolean> {
     override fun validate(
-        s: String?,
-        otherFieldValues: Map<String, String?>,
+        value: Boolean?,
+        stringRepresentation: String?,
     ): Any? =
-        if (s == "false") {
+        if (value == false) {
             error
         } else {
             null

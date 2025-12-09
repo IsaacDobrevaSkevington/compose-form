@@ -18,7 +18,7 @@ fun <Model, Suggestion : ListDisplayable> FormScope<Model>.SuggestionField(
     updateModel: Model.(String?) -> Unit,
     suggestions: List<Suggestion>,
     initialValue: String? = null,
-    validator: Validator? = null,
+    validator: Validator<String>? = null,
     enabled: Boolean = true,
     implementation: IFormFieldImplementation<DropdownFormBox<Model, Suggestion>>,
 ) {

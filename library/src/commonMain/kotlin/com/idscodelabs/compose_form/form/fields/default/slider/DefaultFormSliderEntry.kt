@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.styles.LocalFormStyle

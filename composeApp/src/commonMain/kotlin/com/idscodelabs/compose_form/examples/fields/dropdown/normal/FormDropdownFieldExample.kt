@@ -5,7 +5,6 @@ import com.idscodelabs.compose_form.examples.fields.dropdown.normal.FormDropdown
 import com.idscodelabs.compose_form.examples.helpers.ExampleForm
 import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
 import com.idscodelabs.compose_form.form.fields.core.dropdown.FormDropdownField
-import com.idscodelabs.compose_form.form.fields.default.dropdown.DefaultAutocompleteFormDropdownEntry
 import com.idscodelabs.compose_form.form.fields.default.dropdown.DefaultFormDropdownEntry
 import com.idscodelabs.compose_form.validators.NotEmptyValidator
 import org.jetbrains.compose.ui.tooling.preview.Preview

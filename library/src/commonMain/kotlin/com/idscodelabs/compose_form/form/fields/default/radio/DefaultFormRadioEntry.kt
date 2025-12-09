@@ -9,7 +9,6 @@ import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.core.radio.RadioFormBox

@@ -43,9 +43,12 @@ fun <Model, Value, FormBoxImpl : FormBox<Model, TextFieldValue>> FormScope<Model
     modelProperty = modelProperty,
     initialValue = valueToString(initialValue)?.let(::TextFieldValue),
     enabled = enabled,
-    validator = Validator<TextFieldValue> {
-
-    },
+    validator =
+        validator?.let {
+            { _, stringValue ->
+                it.validate(stringToValue(stringValue), stringValue)
+            }
+        },
     updateModel = {
         updateModel(stringToValue(it?.text))
     },

@@ -1,16 +1,17 @@
 package com.idscodelabs.compose_form.validators
 
+import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.validators.core.Validator
 
-class InvalidOptionValidator(
+class InvalidOptionValidator<Item : ListDisplayable>(
     val possibleOptions: List<String>,
     val error: Any = "Invalid Option Selected",
-) : Validator {
+) : Validator<Item> {
     override fun validate(
-        s: String?,
-        otherFieldValues: Map<String, String?>,
+        value: Item?,
+        stringRepresentation: String?,
     ): Any? =
-        if (s.isNullOrBlank() || possibleOptions.any { it.equals(s, true) }) {
+        if (stringRepresentation.isNullOrBlank() || possibleOptions.any { it.equals(stringRepresentation, true) }) {
             null
         } else {
             error

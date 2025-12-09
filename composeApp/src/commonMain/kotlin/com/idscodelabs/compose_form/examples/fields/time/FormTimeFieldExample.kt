@@ -5,7 +5,6 @@ import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import com.idscodelabs.compose_form.examples.fields.time.FormTimeFieldExampleModel
 import com.idscodelabs.compose_form.examples.helpers.ExampleForm
-import com.idscodelabs.compose_form.examples.helpers.ExampleModel
 import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
 import com.idscodelabs.compose_form.form.fields.core.time.FormTimeField
 import com.idscodelabs.compose_form.form.fields.default.time.DefaultTimeEntry
@@ -27,9 +26,9 @@ fun FormTimeFieldExample() =
             FormTimeField(
                 modelProperty = FormTimeFieldExampleModel::value,
                 validator =
-                    NotEmptyValidator() +
-                        TimeAfterValidator(min) +
-                        TimeBeforeValidator(max),
+                    TimeAfterValidator(min) +
+                        TimeBeforeValidator(max) +
+                        NotEmptyValidator(),
                 updateModel = { value = it },
             ) {
                 DefaultTimeEntry(

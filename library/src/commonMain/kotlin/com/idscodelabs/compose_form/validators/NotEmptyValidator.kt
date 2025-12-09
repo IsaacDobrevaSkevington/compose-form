@@ -2,14 +2,14 @@ package com.idscodelabs.compose_form.validators
 
 import com.idscodelabs.compose_form.validators.core.Validator
 
-class NotEmptyValidator(
+class NotEmptyValidator<Value>(
     private val error: Any = "Required",
-) : Validator {
+) : Validator<Value> {
     override fun validate(
-        s: String?,
-        otherFieldValues: Map<String, String?>,
+        value: Value?,
+        stringRepresentation: String?,
     ): Any? =
-        if (s.isNullOrBlank()) {
+        if (stringRepresentation.isNullOrBlank()) {
             error
         } else {
             null

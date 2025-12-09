@@ -4,12 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
-import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.core.base.IFormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.core.base.TextFieldFormFieldWrapper
-import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
-import com.idscodelabs.compose_form.form.fields.core.date.sanitizeDate
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.validators.InvalidOptionValidator
 import com.idscodelabs.compose_form.validators.core.Validator
@@ -36,7 +33,7 @@ fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
     updateModel: Model.(Item?) -> Unit,
     options: List<Item>,
     initialValue: Item? = null,
-    validator: Validator? = null,
+    validator: Validator<Item>? = null,
     enabled: Boolean = true,
     invalidOptionError: Any = "Invalid Option",
     implementation: IFormFieldImplementation<DropdownFormBox<Model, Item>>,
@@ -55,7 +52,7 @@ fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
         modelProperty = modelProperty,
         initialValue = initialValue,
         enabled = enabled,
-        validator = InvalidOptionValidator(displayableOptionsListString, invalidOptionError) + validator,
+        validator = InvalidOptionValidator<Item>(displayableOptionsListString, invalidOptionError) + validator,
         updateModel = updateModel,
         implementation = implementation,
         formImplementationMapper = { DropdownFormBox(this, displayableOptions) },

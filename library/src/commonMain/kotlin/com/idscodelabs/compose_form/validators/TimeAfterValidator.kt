@@ -11,8 +11,7 @@ fun TimeAfterValidator(
     after: LocalTime,
     formatter: DateTimeFormat<LocalTime> = LocalFormTimeFormatter.current,
     error: Any = "Must be after ${formatter.format(after)}",
-) = Validator { s, _ ->
-    if (s == null) return@Validator null
-    val date = formatter.parse(s)
-    if (date > after) null else error
+) = Validator<LocalTime> { value, _ ->
+    if (value == null) return@Validator null
+    if (value > after) null else error
 }

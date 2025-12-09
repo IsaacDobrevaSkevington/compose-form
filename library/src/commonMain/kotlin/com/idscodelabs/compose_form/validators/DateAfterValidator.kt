@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.format.DateTimeFormat
 
 @Composable
 fun DateAfterValidator(

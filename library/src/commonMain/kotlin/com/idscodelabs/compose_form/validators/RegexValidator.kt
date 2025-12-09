@@ -1,22 +1,19 @@
 package com.idscodelabs.compose_form.validators
 
-import com.idscodelabs.compose_form.validators.core.Validator
+import com.idscodelabs.compose_form.validators.core.StringValidator
 
 open class RegexValidator(
     private val pattern: Regex,
     private val error: Any = "Invalid format",
-) : Validator {
+) : StringValidator {
     constructor(
         pattern: String,
         error: Any = "Invalid format",
     ) : this(pattern.toRegex(), error)
 
-    override fun validate(
-        s: String?,
-        otherFieldValues: Map<String, String?>,
-    ): Any? {
-        if (s.isNullOrBlank()) return null
-        return if (pattern.matches(s)) {
+    override fun validate(value: String?): Any? {
+        if (value.isNullOrBlank()) return null
+        return if (pattern.matches(value)) {
             null
         } else {
             error

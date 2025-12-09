@@ -102,14 +102,10 @@ open class FormScope<Model> : ViewModel() {
      *
      * This function will handle setting and clearing errors on the correct boxes
      */
-    open fun validate(): List<FormBox<Model, *>> {
-        val values = boxes.map { it.key to it.value.getStringValue() }.toMap()
-        return boxes
-            .filter { (k, v) ->
-                val text: String? = values[k]
-                !v.validate(text?.trim(), values)
-            }.map { it.value }
-    }
+    open fun validate(): List<FormBox<Model, *>> =
+        boxes
+            .filter { (_, v) -> !v.validate() }
+            .map { it.value }
 
     /**
      * The current value of the form. Any incomplete fields (e.g. wrong format) will not be populated,
@@ -158,8 +154,8 @@ open class FormScope<Model> : ViewModel() {
     }
 
     @Throws(FormSubmissionFailedError::class)
-    open fun submitForModel(): Model{
-        return try {
+    open fun submitForModel(): Model =
+        try {
             val failedBoxes = validate()
             if (failedBoxes.isEmpty()) {
                 valueSnapshot
@@ -169,29 +165,30 @@ open class FormScope<Model> : ViewModel() {
         } catch (e: Throwable) {
             throw FormSubmissionFailedError(emptyList(), e)
         }
-    }
-    fun submitForModelOrNull(): Model?{
-        return try {
+
+    fun submitForModelOrNull(): Model? =
+        try {
             submitForModel()
         } catch (_: Throwable) {
             null
         }
-    }
 
-    fun submit(): FormSubmissionResult<Model> {
-        return try {
+    fun submit(): FormSubmissionResult<Model> =
+        try {
             FormSubmissionResult.Success(submitForModel())
         } catch (e: FormSubmissionFailedError) {
             e.cause?.let {
                 FormSubmissionResult.Error(it)
             } ?: FormSubmissionResult.Failure(e.boxes as List<FormBox<Model, *>>)
         }
-    }
+
     fun submitFunction(
         onFailure: (List<FormBox<Model, *>>) -> Unit = {},
         onError: (Throwable) -> Unit = {},
         onSuccess: (Model) -> Unit = {},
-    ): ()->Unit =  { submit(onFailure, onError, onSuccess) }
+    ): () -> Unit = { submit(onFailure, onError, onSuccess) }
+
+    fun field(property: KProperty<*>) = boxes[property.name]
 
     protected val valueFlow by lazy {
         MutableStateFlow(valueSnapshot)

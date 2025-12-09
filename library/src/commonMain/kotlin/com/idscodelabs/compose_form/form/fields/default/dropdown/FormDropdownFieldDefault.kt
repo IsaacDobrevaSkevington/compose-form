@@ -1,23 +1,6 @@
 package com.idscodelabs.compose_form.form.fields.default.dropdown
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import com.idscodelabs.compose_form.form.core.FormScope
-import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
-import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementation
-import com.idscodelabs.compose_form.form.fields.core.base.IFormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
-import com.idscodelabs.compose_form.form.fields.core.base.TextFieldFormFieldWrapper
-import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
-import com.idscodelabs.compose_form.form.fields.core.date.sanitizeDate
-import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
-import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
-import com.idscodelabs.compose_form.validators.InvalidOptionValidator
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
@@ -36,13 +19,14 @@ import kotlin.reflect.KProperty
  * @sample com.idscodelabs.compose_form.examples.fields.dropdown.large.FormDropdownFieldExampleLarge
  * @sample com.idscodelabs.compose_form.examples.fields.dropdown.large.FormAutocompleteDropdownFieldExampleLarge
  */
+/*
 @Composable
 fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
     modelProperty: KProperty<*>,
     updateModel: Model.(Item?) -> Unit,
     options: List<Item>,
     initialValue: Item? = null,
-    validator: Validator? = null,
+    validator: Validator<Item>? = null,
     enabled: Boolean = true,
     invalidOptionError: Any = "Invalid Option",
     textFieldModifier: Modifier = Modifier.fillMaxWidth(),
@@ -67,34 +51,9 @@ fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
     menuItem: @Composable DropdownFormBox<Model, Item>.(item: DisplayableOption<Item>, setExpanded: (Boolean) -> Unit) -> Unit = {item, setExpanded ->
         DefaultDropdownMenuItem(item, setExpanded)
     },
-) {
-    val displayableOptions =
-        remember(options) {
-            options.sortedBy { it.position }
-        }.map { DisplayableOption(it, it.label.asDisplayString()) }
+) = FormDropdownField(
+    modelProperty = modelProperty,
+    updateModel = updateModel,
 
-    val displayableOptionsListString =
-        remember(displayableOptions) {
-            displayableOptions.map { it.label }
-        }
-
-    TextFieldFormFieldWrapper(
-        modelProperty = modelProperty,
-        initialValue = initialValue,
-        enabled = enabled,
-        validator = InvalidOptionValidator(displayableOptionsListString, invalidOptionError) + validator,
-        updateModel = updateModel,
-        implementation = implementation,
-        formImplementationMapper = { DropdownFormBox(this, displayableOptions) },
-        valueToString = { item ->
-            displayableOptions
-                .firstOrNull { it.item.key == item?.key }
-                ?.label
-                ?.trim()
-                ?.ifBlank { null }
-        },
-        stringToValue = { string ->
-            displayableOptions.firstOrNull { it.label == string?.trim() }?.item
-        },
-    )
-}
+)
+*/

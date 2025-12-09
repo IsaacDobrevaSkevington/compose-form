@@ -23,7 +23,7 @@ fun <Model> FormScope<Model>.FloatFieldFormFieldWrapper(
     modelProperty: KProperty<*>,
     initialValue: Float?,
     enabled: Boolean,
-    validator: Validator?,
+    validator: Validator<Float>?,
     updateModel: Model.(Float?) -> Unit,
     implementation: FormFieldImplementation<Float>,
 ) = FormFieldWrapper(

@@ -12,7 +12,7 @@ fun <Model> FormScope<Model>.FormSwitchField(
     modelProperty: KProperty<*>,
     updateModel: Model.(Boolean?) -> Unit,
     initialValue: Boolean? = null,
-    validator: Validator? = null,
+    validator: Validator<Boolean>? = null,
     enabled: Boolean = true,
     implementation: FormFieldImplementation<Boolean>,
 ) = BooleanFieldFormFieldWrapper(

@@ -1,9 +1,6 @@
 package com.idscodelabs.compose_form.form.fields.default.multiselect
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -21,6 +18,7 @@ import com.idscodelabs.compose_form.form.fields.default.dropdown.lazyDropdown
 import com.idscodelabs.compose_form.form.fields.default.dropdown.rememberLazyDropdownScope
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
+import com.idscodelabs.compose_form.form.icons.Icons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,13 +32,13 @@ fun <Model, Item : ListDisplayable> MultiselectFormBox<Model, Item>.DefaultFormM
     leadingIcon: (@Composable MultiselectFormBox<Model, Item>.() -> Unit)? = null,
     clearIcon: ((onClick: () -> Unit) -> FormScope.IconParams)? = {
         FormScope.IconParams(
-            Icons.Filled.Close,
+            Icons.Close,
             onClick = it,
         )
     },
     expandIcon: (expanded: Boolean) -> FormScope.IconParams = {
         FormScope.IconParams(
-            Icons.Filled.ArrowDropDown,
+            Icons.ArrowDropDown,
             if (it) 180f else 0f,
         ) {}
     },

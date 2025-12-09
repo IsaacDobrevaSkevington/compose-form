@@ -23,7 +23,7 @@ fun <Model> FormScope<Model>.DoubleFieldFormFieldWrapper(
     modelProperty: KProperty<*>,
     initialValue: Double?,
     enabled: Boolean,
-    validator: Validator?,
+    validator: Validator<Double>?,
     updateModel: Model.(Double?) -> Unit,
     implementation: FormFieldImplementation<Double>,
 ) = FormFieldWrapper(

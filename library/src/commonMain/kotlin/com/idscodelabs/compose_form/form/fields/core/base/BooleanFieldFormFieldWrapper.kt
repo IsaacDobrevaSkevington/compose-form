@@ -23,7 +23,7 @@ fun <Model> FormScope<Model>.BooleanFieldFormFieldWrapper(
     modelProperty: KProperty<*>,
     initialValue: Boolean?,
     enabled: Boolean,
-    validator: Validator?,
+    validator: Validator<Boolean>?,
     updateModel: Model.(Boolean?) -> Unit,
     implementation: FormFieldImplementation<Boolean>,
 ) = FormFieldWrapper(

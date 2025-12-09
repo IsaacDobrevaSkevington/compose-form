@@ -1,9 +1,6 @@
 package com.idscodelabs.compose_form.form.fields.default.dropdown
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -19,6 +16,7 @@ import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
+import com.idscodelabs.compose_form.form.icons.Icons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,17 +32,20 @@ fun <Model, Item : ListDisplayable> DropdownFormBox<Model, Item>.DefaultBaseForm
     filterFunction: ((item: String, value: String) -> Boolean)? = null,
     clearIcon: (DropdownFormBox<Model, Item>.(onClick: () -> Unit) -> FormScope.IconParams)? = {
         FormScope.IconParams(
-            Icons.Filled.Close,
+            Icons.Close,
             onClick = it,
         )
     },
     expandIcon: DropdownFormBox<Model, Item>.(expanded: Boolean) -> FormScope.IconParams = {
         FormScope.IconParams(
-            Icons.Filled.ArrowDropDown,
+            Icons.ArrowDropDown,
             if (it) 180f else 0f,
         ) {}
     },
-    menuItem: @Composable DropdownFormBox<Model, Item>.(item: DisplayableOption<Item>, setExpanded: (Boolean) -> Unit) -> Unit = {item, setExpanded ->
+    menuItem: @Composable DropdownFormBox<Model, Item>.(
+        item: DisplayableOption<Item>,
+        setExpanded: (Boolean) -> Unit,
+    ) -> Unit = { item, setExpanded ->
         DefaultDropdownMenuItem(item, setExpanded)
     },
 ) {
@@ -75,7 +76,7 @@ fun <Model, Item : ListDisplayable> DropdownFormBox<Model, Item>.DefaultBaseForm
         },
     ) {
         val clearIconResolved =
-            clearIcon?.invoke {
+            clearIcon?.invoke(this@DefaultBaseFormDropdownEntry) {
                 setValue(TextFieldValue())
             }
 

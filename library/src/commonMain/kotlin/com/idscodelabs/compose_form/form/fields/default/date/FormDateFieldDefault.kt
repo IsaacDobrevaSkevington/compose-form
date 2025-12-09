@@ -2,28 +2,23 @@ package com.idscodelabs.compose_form.form.fields.default.date
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementation
-import com.idscodelabs.compose_form.form.fields.core.base.TextFieldFormFieldWrapper
 import com.idscodelabs.compose_form.form.fields.core.date.FormDateField
 import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
 import com.idscodelabs.compose_form.form.fields.core.date.sanitizeDate
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
+import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.form.model.FormBox
-import com.idscodelabs.compose_form.validators.DateValidator
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.format
 import kotlin.reflect.KProperty
 
 /**
@@ -49,7 +44,7 @@ fun <Model> FormScope<Model>.FormDateField(
     modelProperty: KProperty<*>,
     updateModel: Model.(LocalDate?) -> Unit,
     initialValue: LocalDate? = null,
-    validator: Validator? = null,
+    validator: Validator<LocalDate>? = null,
     enabled: Boolean = true,
     invalidDateMessage: Any = "Invalid date format",
     cleanDate: (String) -> String = { sanitizeDate(it) },
@@ -73,7 +68,7 @@ fun <Model> FormScope<Model>.FormDateField(
             icon =
                 if (enabled) {
                     FormScope.IconParams(
-                        Icons.Filled.DateRange,
+                        Icons.DateRange,
                     ) {
                         it.setPickerVisible(true)
                     }
@@ -102,8 +97,8 @@ fun <Model> FormScope<Model>.FormDateField(
     validator,
     enabled,
     invalidDateMessage,
-    cleanDate
-){
+    cleanDate,
+) {
     DefaultDateEntry(
         modifier,
         hint,
@@ -113,6 +108,6 @@ fun <Model> FormScope<Model>.FormDateField(
         datePickerState,
         allowTyping,
         entry,
-        dialog
+        dialog,
     )
 }

@@ -13,7 +13,7 @@ fun <Model> FormScope<Model>.FormTextField(
     modelProperty: KProperty<*>,
     updateModel: Model.(String?) -> Unit,
     initialValue: String? = null,
-    validator: Validator? = null,
+    validator: Validator<String>? = null,
     enabled: Boolean = true,
     implementation: FormFieldImplementation<TextFieldValue>,
 ) {

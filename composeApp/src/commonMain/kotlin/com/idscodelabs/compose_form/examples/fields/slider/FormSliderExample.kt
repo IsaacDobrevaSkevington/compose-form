@@ -3,7 +3,6 @@ package com.idscodelabs.compose_form.examples.fields.slider
 import androidx.compose.runtime.Composable
 import com.idscodelabs.compose_form.examples.fields.slider.FormSliderExampleModel
 import com.idscodelabs.compose_form.examples.helpers.ExampleForm
-import com.idscodelabs.compose_form.examples.helpers.ExampleModel
 import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
 import com.idscodelabs.compose_form.form.fields.core.slider.FormSliderField
 import com.idscodelabs.compose_form.form.fields.default.slider.DefaultFormSliderEntry

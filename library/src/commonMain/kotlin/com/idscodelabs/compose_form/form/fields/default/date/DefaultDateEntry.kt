@@ -2,12 +2,13 @@ package com.idscodelabs.compose_form.form.fields.default.date
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberDatePickerState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.KeyboardType
@@ -15,6 +16,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
+import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.form.model.FormBox
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
@@ -43,7 +45,7 @@ fun FormBox<*, TextFieldValue>.DefaultDateEntry(
             icon =
                 if (enabled) {
                     FormScope.IconParams(
-                        Icons.Filled.DateRange,
+                        Icons.DateRange,
                     ) {
                         it.setPickerVisible(true)
                     }

@@ -2,8 +2,6 @@ package com.idscodelabs.compose_form.form.fields.default.time
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberTimePickerState
@@ -17,6 +15,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.form.fields.core.time.LocalFormTimeFormatter
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
+import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.form.model.FormBox
 import kotlin.time.ExperimentalTime
 
@@ -38,7 +37,7 @@ fun FormBox<*, TextFieldValue>.DefaultTimeEntry(
             icon =
                 if (enabled) {
                     FormScope.IconParams(
-                        Icons.Outlined.Timer,
+                        Icons.Timer,
                     ) {
                         it.setPickerVisible(true)
                     }

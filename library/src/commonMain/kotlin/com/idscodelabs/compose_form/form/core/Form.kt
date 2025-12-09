@@ -27,13 +27,11 @@ fun <Model : Any> Form(
             it()
         }
     },
-    validator: FormLevelValidator? = null,
     contents: @Composable FormScope<Model>.() -> Unit = {},
 ) {
     remember(emptyModel, viewModel) {
         viewModel.emptyModel = emptyModel
     }
-    remember()
     container(viewModel) {
         contents()
     }

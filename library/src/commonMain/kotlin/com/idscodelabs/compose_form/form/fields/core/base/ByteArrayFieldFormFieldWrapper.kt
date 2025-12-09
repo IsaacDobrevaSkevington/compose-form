@@ -24,7 +24,7 @@ fun <Model> FormScope<Model>.ByteArrayFieldFormFieldWrapper(
     modelProperty: KProperty<*>,
     initialValue: ByteArray?,
     enabled: Boolean,
-    validator: Validator?,
+    validator: Validator<ByteArray>?,
     updateModel: Model.(ByteArray?) -> Unit,
     implementation: FormFieldImplementation<ByteArray>,
 ) = FormFieldWrapper(

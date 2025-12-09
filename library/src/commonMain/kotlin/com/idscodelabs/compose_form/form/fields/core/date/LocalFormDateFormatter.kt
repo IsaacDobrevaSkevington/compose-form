@@ -11,12 +11,13 @@ import kotlinx.datetime.format.char
  *
  * @see kotlinx.datetime.format.DateTimeFormat
  */
-val defaultDateFormat = LocalDate.Format {
-    day()
-    char('/')
-    monthNumber()
-    char('/')
-    year()
-}
+val defaultDateFormat =
+    LocalDate.Format {
+        day()
+        char('/')
+        monthNumber()
+        char('/')
+        year()
+    }
 val LocalFormDateFormatter =
     compositionLocalOf { defaultDateFormat }

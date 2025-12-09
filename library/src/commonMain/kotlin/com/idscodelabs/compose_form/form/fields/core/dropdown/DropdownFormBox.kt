@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
-import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.model.FormBox
 
 /**

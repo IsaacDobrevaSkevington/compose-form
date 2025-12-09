@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import com.idscodelabs.compose_form.examples.fields.custom.field.CustomFormFieldExampleModel
 import com.idscodelabs.compose_form.examples.fields.custom.field.SuggestionField
 import com.idscodelabs.compose_form.examples.fields.dropdown.large.FormDropdownFieldExampleOptionLarge
-import com.idscodelabs.compose_form.examples.fields.dropdown.normal.FormDropdownFieldExampleOption
 import com.idscodelabs.compose_form.examples.helpers.ExampleForm
 import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
 import com.idscodelabs.compose_form.form.fields.default.dropdown.DefaultAutocompleteFormDropdownEntry

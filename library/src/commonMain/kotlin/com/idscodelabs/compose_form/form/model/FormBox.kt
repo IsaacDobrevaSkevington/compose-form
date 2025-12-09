@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
-import com.idscodelabs.compose_form.utils.mapSync
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -105,7 +104,7 @@ open class FormBox<Model, Value>(
      * @see [Validator]
      */
     fun validate(): Boolean {
-        val error = currentValidator?.validate(valueToString, otherFieldValues)
+        val error = currentValidator?.validate(valueSnapshot, getStringValue())
         setError(error)
         return error == null
     }
@@ -124,10 +123,9 @@ open class FormBox<Model, Value>(
      *
      * @param validator The new [Validator], can be `null` to clear the [Validator]
      */
-    fun setValidator(validator: Validator?) {
+    fun setValidator(validator: Validator<Value>?) {
         this.currentValidator = validator
     }
-
 
     /**
      * Set the value of this [FormBox]
@@ -187,7 +185,7 @@ open class FormBox<Model, Value>(
 
     class Saver<Model, Value>(
         val enabled: Boolean,
-        val validator: Validator?,
+        val validator: Validator<Value>?,
         val setModelProperty: Model.(String?) -> Unit,
         val valueToString: (Value?) -> String?,
         val stringToValue: (String?) -> Value,
@@ -215,7 +213,7 @@ open class FormBox<Model, Value>(
 @Composable
 fun <Model, Value> rememberFormBox(
     enabled: Boolean,
-    validator: Validator?,
+    validator: Validator<Value>?,
     setModelProperty: Model.(String?) -> Unit,
     valueToString: (Value?) -> String?,
     stringToValue: (String?) -> Value,

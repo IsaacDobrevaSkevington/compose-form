@@ -10,10 +10,10 @@ import kotlinx.datetime.format.DateTimeFormat
 fun TimeValidator(
     error: Any = "Invalid time format",
     formatter: DateTimeFormat<LocalTime> = LocalFormTimeFormatter.current,
-) = Validator { s, _ ->
-    if (s == null) return@Validator null
+) = Validator<LocalTime> { _, stringRepresentation ->
+    if (stringRepresentation.isNullOrBlank()) return@Validator null
     try {
-        formatter.parse(s)
+        formatter.parse(stringRepresentation)
         null
     } catch (_: Throwable) {
         error

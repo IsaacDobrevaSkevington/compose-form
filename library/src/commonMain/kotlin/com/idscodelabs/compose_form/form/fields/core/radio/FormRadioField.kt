@@ -8,8 +8,8 @@ import com.idscodelabs.compose_form.form.fields.core.base.FormFieldWrapper
 import com.idscodelabs.compose_form.form.fields.core.base.IFormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
-import com.idscodelabs.compose_form.validators.InvalidOptionValidator
 import com.idscodelabs.compose_form.validators.core.Validator
+import kotlin.let
 import kotlin.reflect.KProperty
 
 /**
@@ -31,7 +31,7 @@ fun <Model, Item : ListDisplayable> FormScope<Model>.FormRadioField(
     updateModel: Model.(Item?) -> Unit,
     options: List<Item>,
     initialValue: Item? = null,
-    validator: Validator? = null,
+    validator: Validator<Item>? = null,
     enabled: Boolean = true,
     implementation: IFormFieldImplementation<RadioFormBox<Model, Item>>,
 ) {
@@ -44,7 +44,12 @@ fun <Model, Item : ListDisplayable> FormScope<Model>.FormRadioField(
         modelProperty = modelProperty,
         initialValue = displayableOptions.indexOfFirst { it.item.key == initialValue?.key }.takeIf { it != -1 },
         enabled = enabled,
-        validator = validator,
+        validator =
+            validator?.let {
+                { value, stringRepresentation ->
+                    validator.validate(displayableOptions.getOrNull(value ?: -1)?.item, stringRepresentation)
+                }
+            },
         updateModel = {
             updateModel(it?.let { index -> displayableOptions.getOrNull(index) }?.item)
         },

@@ -31,7 +31,7 @@ fun <Model> FormScope<Model>.FormCheckBoxField(
     hint: Any,
     updateModel: Model.(Boolean?) -> Unit,
     initialValue: Boolean? = null,
-    validator: Validator? = null,
+    validator: Validator<Boolean>? = null,
     enabled: Boolean = true,
     modifier: Modifier = Modifier.fillMaxWidth(),
     checkboxModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
@@ -42,8 +42,8 @@ fun <Model> FormScope<Model>.FormCheckBoxField(
     updateModel,
     initialValue,
     validator,
-    enabled
-){
+    enabled,
+) {
     DefaultFormCheckBoxEntry(
         hint,
         modifier,

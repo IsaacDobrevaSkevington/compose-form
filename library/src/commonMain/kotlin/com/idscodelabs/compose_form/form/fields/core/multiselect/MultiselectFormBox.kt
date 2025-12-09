@@ -22,7 +22,6 @@ open class MultiselectFormBox<Model, Item : ListDisplayable>(
     val options: List<DisplayableOption<Item>>,
     private val itemDelimiter: String,
 ) : FormBox<Model, TextFieldValue>(field) {
-
     /**
      * If an item is selected
      * When the items selected changes, this will be recalculated and cause recomposition
@@ -51,7 +50,6 @@ open class MultiselectFormBox<Model, Item : ListDisplayable>(
         split(itemDelimiter).mapNotNull { itemString ->
             options.firstOrNull { it.label == itemString.trim() }?.item
         }
-
 
     /**
      * Convert a list of [Item]s to a string for storage and display

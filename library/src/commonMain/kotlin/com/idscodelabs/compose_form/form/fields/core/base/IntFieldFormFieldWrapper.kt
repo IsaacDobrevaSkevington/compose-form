@@ -23,7 +23,7 @@ fun <Model> FormScope<Model>.IntFieldFormFieldWrapper(
     modelProperty: KProperty<*>,
     initialValue: Int?,
     enabled: Boolean,
-    validator: Validator?,
+    validator: Validator<Int>?,
     updateModel: Model.(Int?) -> Unit,
     implementation: FormFieldImplementation<Int>,
 ) = FormFieldWrapper(

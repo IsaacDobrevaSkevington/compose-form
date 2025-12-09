@@ -17,7 +17,7 @@ fun <Model> FormScope<Model>.FormTimeField(
     modelProperty: KProperty<*>,
     updateModel: Model.(LocalTime?) -> Unit,
     initialValue: LocalTime? = null,
-    validator: Validator? = null,
+    validator: Validator<LocalTime>? = null,
     enabled: Boolean = true,
     invalidTimeMessage: Any = "Invalid time format",
     cleanTime: (String) -> String = { sanitizeTime(it) },

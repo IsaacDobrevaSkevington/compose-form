@@ -12,7 +12,7 @@ fun <Model> FormScope<Model>.FormSliderField(
     modelProperty: KProperty<*>,
     updateModel: Model.(Int?) -> Unit,
     initialValue: Int? = null,
-    validator: Validator? = null,
+    validator: Validator<Int>? = null,
     enabled: Boolean = true,
     implementation: FormFieldImplementation<Int>,
 ) = IntFieldFormFieldWrapper(

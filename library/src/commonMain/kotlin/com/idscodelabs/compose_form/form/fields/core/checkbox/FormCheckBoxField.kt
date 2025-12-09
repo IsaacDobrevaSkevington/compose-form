@@ -26,7 +26,7 @@ fun <Model> FormScope<Model>.FormCheckBoxField(
     modelProperty: KProperty<*>,
     updateModel: Model.(Boolean?) -> Unit,
     initialValue: Boolean? = null,
-    validator: Validator? = null,
+    validator: Validator<Boolean>? = null,
     enabled: Boolean = true,
     implementation: FormFieldImplementation<Boolean>,
 ) = BooleanFieldFormFieldWrapper(
