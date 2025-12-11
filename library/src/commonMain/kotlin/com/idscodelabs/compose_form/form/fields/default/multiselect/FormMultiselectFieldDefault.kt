@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.form.fields.default.dropdown
+package com.idscodelabs.compose_form.form.fields.default.multiselect
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -6,53 +6,51 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import com.idscodelabs.compose_form.form.core.FormScope
 import com.idscodelabs.compose_form.form.core.IconButton
-import com.idscodelabs.compose_form.form.core.IconParams
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
-import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
-import com.idscodelabs.compose_form.form.fields.core.dropdown.FormDropdownField
+import com.idscodelabs.compose_form.form.fields.core.multiselect.FormMultiselectField
+import com.idscodelabs.compose_form.form.fields.core.multiselect.MultiselectFormBox
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
 @Composable
-fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
+fun <Model, Item : ListDisplayable> FormScope<Model>.FormMultiselectField(
     modelProperty: KProperty<*>,
-    updateModel: Model.(Item?) -> Unit,
+    updateModel: Model.(List<Item>) -> Unit,
     options: List<Item>,
-    initialValue: Item? = null,
-    validator: Validator<Item>? = null,
+    initialValue: List<Item> = emptyList(),
+    validator: Validator<List<Item>>? = null,
     enabled: Boolean = true,
-    invalidOptionError: Any = "Invalid Option",
+    itemDelimiter: String = ", ",
     textFieldModifier: Modifier = Modifier.fillMaxWidth(),
     exposedDropdownBoxModifier: Modifier = Modifier,
     exposedDropdownMenuModifier: Modifier = Modifier,
     hint: Any? = null,
     placeholder: Any? = hint,
     isLast: Boolean = false,
-    leadingIcon: (@Composable DropdownFormBox<Model, Item>.() -> Unit)? = null,
-    clearIcon: (@Composable DropdownFormBox<Model, Item>.(onClick: () -> Unit) -> Unit)? = {
+    leadingIcon: (@Composable MultiselectFormBox<Model, Item>.() -> Unit)? = null,
+    clearIcon: (@Composable MultiselectFormBox<Model, Item>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable DropdownFormBox<Model, Item>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable MultiselectFormBox<Model, Item>.(expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable DropdownFormBox<Model, Item>.(
+    menuItem: @Composable MultiselectFormBox<Model, Item>.(
         item: DisplayableOption<Item>,
-        setExpanded: (Boolean) -> Unit,
-    ) -> Unit = { item, setExpanded ->
-        DefaultDropdownMenuItem(item, setExpanded)
+    ) -> Unit = { item ->
+        DefaultMultiselectMenuItem(item)
     },
-) = FormDropdownField(
+) = FormMultiselectField(
     modelProperty = modelProperty,
     updateModel = updateModel,
     options = options,
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-    invalidOptionError = invalidOptionError,
+    itemDelimiter = itemDelimiter,
 ) {
-    DefaultFormDropdownEntry(
+    DefaultFormMultiselectEntry(
         textFieldModifier = textFieldModifier,
         exposedDropdownBoxModifier = exposedDropdownBoxModifier,
         exposedDropdownMenuModifier = exposedDropdownMenuModifier,

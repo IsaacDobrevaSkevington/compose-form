@@ -42,8 +42,8 @@ fun <Model, Item : ListDisplayable> MultiselectFormBox<Model, Item>.DefaultFormM
     expandIcon: @Composable MultiselectFormBox<Model, Item>.(expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable DisplayableOption<Item>.() -> Unit = {
-        DefaultMultiselectMenuItem(this)
+    menuItem: @Composable MultiselectFormBox<Model, Item>.(item: DisplayableOption<Item>) -> Unit = {
+        DefaultMultiselectMenuItem(it)
     },
 ) {
     val (allowExpanded, setExpanded) = remember { mutableStateOf(false) }

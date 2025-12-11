@@ -1,22 +1,39 @@
 package com.idscodelabs.compose_form.form.fields.default.radio
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
+import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.IconButton
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
+import com.idscodelabs.compose_form.form.fields.core.multiselect.FormMultiselectField
+import com.idscodelabs.compose_form.form.fields.core.multiselect.MultiselectFormBox
+import com.idscodelabs.compose_form.form.fields.core.radio.FormRadioField
 import com.idscodelabs.compose_form.form.fields.core.radio.RadioFormBox
-import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
+import com.idscodelabs.compose_form.form.fields.default.multiselect.DefaultFormMultiselectEntry
+import com.idscodelabs.compose_form.form.fields.default.multiselect.DefaultMultiselectMenuItem
+import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.styles.LocalFormStyle
+import com.idscodelabs.compose_form.validators.core.Validator
+import kotlin.reflect.KProperty
 
 @Composable
-fun <Model, Item : ListDisplayable> RadioFormBox<Model, Item>.DefaultFormRadioEntry(
+fun <Model, Item : ListDisplayable> FormScope<Model>.FormRadioField(
+    modelProperty: KProperty<*>,
+    updateModel: Model.(Item?) -> Unit,
+    options: List<Item>,
+    initialValue: Item? = null,
+    validator: Validator<Item>? = null,
+    enabled: Boolean = true,
     hint: Any?,
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
@@ -48,29 +65,19 @@ fun <Model, Item : ListDisplayable> RadioFormBox<Model, Item>.DefaultFormRadioEn
             )
         }
     },
+) = FormRadioField(
+    modelProperty = modelProperty,
+    updateModel = updateModel,
+    options = options,
+    initialValue = initialValue,
+    validator = validator,
+    enabled = enabled,
 ) {
-    Column(
-        modifier = modifier.primaryFocusable(),
-        verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldColumnSpacing),
-    ) {
-        hint?.let {
-            Text(
-                modifier = textModifier,
-                text = it.asDisplayString(),
-                style = MaterialTheme.typography.titleMedium,
-            )
-        }
-
-        options.forEachIndexed { index, item ->
-            radioButton(item, index)
-        }
-
-        error?.let {
-            Text(
-                modifier = errorModifier,
-                text = it,
-                color = MaterialTheme.colorScheme.error,
-            )
-        }
-    }
+    DefaultFormRadioEntry(
+        hint = hint,
+        radioButton = radioButton,
+        modifier = modifier,
+        textModifier = textModifier,
+        errorModifier = errorModifier,
+    )
 }

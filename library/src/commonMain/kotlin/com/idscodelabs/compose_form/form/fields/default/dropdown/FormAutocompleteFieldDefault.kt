@@ -16,7 +16,7 @@ import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
 @Composable
-fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
+fun <Model, Item : ListDisplayable> FormScope<Model>.FormAutocompleteField(
     modelProperty: KProperty<*>,
     updateModel: Model.(Item?) -> Unit,
     options: List<Item>,
@@ -31,6 +31,7 @@ fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
     placeholder: Any? = hint,
     isLast: Boolean = false,
     leadingIcon: (@Composable DropdownFormBox<Model, Item>.() -> Unit)? = null,
+    filterFunction: (item: String, value: String) -> Boolean = { item, value -> item.startsWith(value, ignoreCase = true) },
     clearIcon: (@Composable DropdownFormBox<Model, Item>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
@@ -52,7 +53,7 @@ fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
     enabled = enabled,
     invalidOptionError = invalidOptionError,
 ) {
-    DefaultFormDropdownEntry(
+    DefaultAutocompleteFormDropdownEntry(
         textFieldModifier = textFieldModifier,
         exposedDropdownBoxModifier = exposedDropdownBoxModifier,
         exposedDropdownMenuModifier = exposedDropdownMenuModifier,
@@ -63,5 +64,6 @@ fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
         clearIcon = clearIcon,
         expandIcon = expandIcon,
         menuItem = menuItem,
+        filterFunction = filterFunction,
     )
 }

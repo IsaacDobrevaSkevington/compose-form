@@ -14,7 +14,7 @@ plugins {
     alias(libs.plugins.dokka)
     signing
 }
-version = "0.0.5"
+version = "0.0.6"
 
 kotlin {
     androidTarget {
