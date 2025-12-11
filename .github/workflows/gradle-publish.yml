@@ -44,6 +44,8 @@ jobs:
       env:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GPG_KEY: ${{ secrets.GPG_KEY }}
+        GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
 
     - name: Publish to Maven Central
       run: ./gradlew publishAndReleaseToMavenCentral 
