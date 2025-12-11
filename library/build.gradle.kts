@@ -132,7 +132,7 @@ signing {
     val signingPassword: String? by project
     useInMemoryPgpKeys(
         signingKey ?: System.getenv("GPG_KEY"),
-        signingPassword ?: System.getenv("GPG_PASSWORD")
+        signingPassword ?: System.getenv("GPG_PASSWORD"),
     )
 }
 

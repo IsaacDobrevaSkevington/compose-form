@@ -36,14 +36,14 @@ fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
     placeholder: Any? = hint,
     isLast: Boolean = false,
     leadingIcon: (@Composable DropdownFormBox<Model, Item>.() -> Unit)? = null,
-    clearIcon: (DropdownFormBox<Model, Item>.(onClick: () -> Unit) -> FormScope.IconParams)? = {
-        FormScope.IconParams(
+    clearIcon: (DropdownFormBox<Model, Item>.(onClick: () -> Unit) -> IconParams)? = {
+        IconParams(
             Icons.Filled.Close,
             onClick = it,
         )
     },
-    expandIcon: DropdownFormBox<Model, Item>.(expanded: Boolean) -> FormScope.IconParams = {
-        FormScope.IconParams(
+    expandIcon: DropdownFormBox<Model, Item>.(expanded: Boolean) -> IconParams = {
+        IconParams(
             Icons.Filled.ArrowDropDown,
             if (it) 180f else 0f,
         ) {}

@@ -10,6 +10,8 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.IconButton
+import com.idscodelabs.compose_form.form.core.IconParams
 import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.core.date.FormDateField
 import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
@@ -65,12 +67,15 @@ fun <Model> FormScope<Model>.FormDateField(
                         it.setPickerVisible(true)
                     }
                 },
-            icon =
+            trailingIcon =
                 if (enabled) {
-                    FormScope.IconParams(
-                        Icons.DateRange,
-                    ) {
-                        it.setPickerVisible(true)
+                    {
+                        IconButton(
+                            Icons.DateRange,
+                            "Calendar Icon",
+                        ) {
+                            it.setPickerVisible(true)
+                        }
                     }
                 } else {
                     null

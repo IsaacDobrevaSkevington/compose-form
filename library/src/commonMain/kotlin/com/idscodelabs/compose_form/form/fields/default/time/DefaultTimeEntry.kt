@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.IconButton
+import com.idscodelabs.compose_form.form.core.IconParams
 import com.idscodelabs.compose_form.form.fields.core.time.LocalFormTimeFormatter
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.icons.Icons
@@ -34,12 +36,12 @@ fun FormBox<*, TextFieldValue>.DefaultTimeEntry(
         DefaultTextEntry(
             hint = hint,
             modifier = modifier,
-            icon =
+            trailingIcon =
                 if (enabled) {
-                    FormScope.IconParams(
-                        Icons.Timer,
-                    ) {
-                        it.setPickerVisible(true)
+                    {
+                        IconButton(Icons.Timer, "Clock Icon") {
+                            it.setPickerVisible(true)
+                        }
                     }
                 } else {
                     null

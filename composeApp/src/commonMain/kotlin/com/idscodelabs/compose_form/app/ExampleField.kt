@@ -12,6 +12,7 @@ import com.idscodelabs.compose_form.examples.fields.dropdown.normal.FormDropdown
 import com.idscodelabs.compose_form.examples.fields.multiselect.FormMultiselectFieldExample
 import com.idscodelabs.compose_form.examples.fields.radio.FormRadioFieldExample
 import com.idscodelabs.compose_form.examples.fields.slider.FormSliderFieldExample
+import com.idscodelabs.compose_form.examples.fields.suggestion.FormSuggestionFieldExample
 import com.idscodelabs.compose_form.examples.fields.textfield.FormTextFieldExample
 import com.idscodelabs.compose_form.examples.fields.time.FormTimeFieldExample
 import com.idscodelabs.compose_form.examples.logic.valuechange.FormValueChangeExample
@@ -69,5 +70,8 @@ enum class ExampleField(
     }),
     MULTISELECT("Multiselect", {
         FormMultiselectFieldExample()
+    }),
+    SUGGESTION("Suggestion", {
+        FormSuggestionFieldExample()
     }),
 }

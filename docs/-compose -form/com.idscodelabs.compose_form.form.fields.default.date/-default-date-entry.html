@@ -119,12 +119,15 @@
                         it.setPickerVisible(true)
                     }
                 },
-            icon =
+            trailingIcon =
                 if (enabled) {
-                    FormScope.IconParams(
-                        Icons.Filled.DateRange,
-                    ) {
-                        it.setPickerVisible(true)
+                    {
+                        IconButton(
+                            Icons.DateRange,
+                            null,
+                        ) {
+                            it.setPickerVisible(true)
+                        }
                     }
                 } else {
                     null

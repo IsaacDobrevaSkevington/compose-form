@@ -113,12 +113,12 @@
         DefaultTextEntry(
             hint = hint,
             modifier = modifier,
-            icon =
+            trailingIcon =
                 if (enabled) {
-                    FormScope.IconParams(
-                        Icons.Outlined.Timer,
-                    ) {
-                        it.setPickerVisible(true)
+                    {
+                        IconButton(Icons.Timer, &quot;Clock Icon&quot;) {
+                            it.setPickerVisible(true)
+                        }
                     }
                 } else {
                     null

@@ -22,23 +22,23 @@ import kotlin.coroutines.EmptyCoroutineContext
  *
  * @param Model The Model the form outputs
  * @param Value The Value which is stored in this [FormBox]
- * @property enabledFlow A [MutableStateFlow] defining if this box is enabled
+ * @property enabledState A [MutableStateFlow] defining if this box is enabled
  * @property currentValidator The current [Validator] for this [FormBox], can be changed using [setValidator]
  * @property setModelProperty Set the property on [Model]
  * @param valueToString Convert [Value] to a [String]. This will be used in [Validator]s and used for state saving
- * @property valueFlow A flow of the current value
- * @property errorFlow A flow of the current error
+ * @property valueState A flow of the current value
+ * @property errorState A flow of the current error
  * @property focusRequester A [FocusRequester] for this [FormBox]. Use [primaryFocusable] to specify this element which should gain focus
  * @property mapValue Map the value on set to another [Value], for example, to clean the input
  * @constructor Create empty Form box
  */
 open class FormBox<Model, Value>(
-    protected val enabledFlow: MutableStateFlow<Boolean>,
+    protected val enabledState: MutableStateFlow<Boolean>,
     protected var currentValidator: Validator<Value>?,
     val setModelProperty: Model.(String?) -> Unit,
     protected val valueToString: (Value?) -> String?,
-    protected val valueFlow: MutableStateFlow<Value>,
-    protected val errorFlow: MutableStateFlow<Any?> = MutableStateFlow(null),
+    protected val valueState: MutableStateFlow<Value>,
+    protected val errorState: MutableStateFlow<Any?> = MutableStateFlow(null),
     val focusRequester: FocusRequester,
     protected val mapValue: (value: Value) -> Value,
 ) {
@@ -46,12 +46,12 @@ open class FormBox<Model, Value>(
      * Use this constructor to copy a form box, or when inheriting to avoid needing access to non-visible properties
      */
     constructor(field: FormBox<Model, Value>) : this(
-        field.enabledFlow,
+        field.enabledState,
         field.currentValidator,
         field.setModelProperty,
         field.valueToString,
-        field.valueFlow,
-        field.errorFlow,
+        field.valueState,
+        field.errorState,
         field.focusRequester,
         field.mapValue,
     )
@@ -62,7 +62,7 @@ open class FormBox<Model, Value>(
      * Don't use this in Composable functions due to the risk of unnecessary recomposition, or stale values.
      * Instead, use [value] or [collectValueAsState]
      */
-    val valueSnapshot: Value get() = valueFlow.value
+    val valueSnapshot: Value get() = valueState.value
 
     /**
      * State aware representation of the current value. Will trigger recomposition when [value] changes
@@ -115,7 +115,7 @@ open class FormBox<Model, Value>(
      * @param error The new error to set. [asDisplayString] can be called in the UI to display the error
      */
     open fun setError(error: Any?) {
-        errorFlow.update { error }
+        errorState.update { error }
     }
 
     /**
@@ -137,35 +137,35 @@ open class FormBox<Model, Value>(
      * @param value The new value
      */
     open fun setValue(value: Value) {
-        errorFlow.update { null }
-        if (enabledFlow.value) {
-            valueFlow.update {
+        errorState.update { null }
+        if (enabledState.value) {
+            valueState.update {
                 mapValue(value)
             }
         }
     }
 
-    fun getStringValue() = valueToString(valueFlow.value)
+    fun getStringValue() = valueToString(valueState.value)
 
     open fun setEnabled(enabled: Boolean) {
-        enabledFlow.update { enabled }
+        enabledState.update { enabled }
     }
 
     @Composable
-    fun collectValueAsState(): State<Value> = valueFlow.collectAsState()
+    fun collectValueAsState(): State<Value> = valueState.collectAsState()
 
     @Composable
-    fun collectEnabledAsState(): State<Boolean> = enabledFlow.collectAsState()
+    fun collectEnabledAsState(): State<Boolean> = enabledState.collectAsState()
 
     @Composable
-    fun collectErrorAsState(): State<Any?> = errorFlow.collectAsState()
+    fun collectErrorAsState(): State<Any?> = errorState.collectAsState()
 
     @OptIn(FlowPreview::class)
     suspend fun onFieldValueChanged(
         debounceMills: Long = 0,
         block: suspend Value.() -> Unit,
     ) {
-        valueFlow.debounce(debounceMills).collectLatest(block)
+        valueState.debounce(debounceMills).collectLatest(block)
     }
 
     @Composable

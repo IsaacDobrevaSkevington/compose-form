@@ -35,20 +35,6 @@ import kotlin.reflect.KProperty
  *
  */
 open class FormScope<Model> : ViewModel() {
-    /**
-     * Icon parameters for forms
-     *
-     * @property icon The icon vector
-     * @property rotation The rotation of the icon
-     * @property onClick Action to perform when the icon is clicked
-     * @constructor Create empty Icon params
-     */
-    class IconParams(
-        val icon: ImageVector,
-        val rotation: Float = 0f,
-        val onClick: () -> Unit,
-    )
-
     private val boxes: MutableMap<String, FormBox<Model, *>> = mutableMapOf()
     private val observerJobs: MutableMap<String, Job> = mutableMapOf()
     lateinit var emptyModel: () -> Model
