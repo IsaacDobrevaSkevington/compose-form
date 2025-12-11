@@ -1,5 +1,8 @@
 name: Generated APK AAB (Upload - Create Artifact To Github Action)
 
+permissions:
+  contents: write
+  
 env:
   main_project_module: composeApp
 
