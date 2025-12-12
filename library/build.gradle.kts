@@ -10,13 +10,14 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
     id("maven-publish")
-    id("com.vanniktech.maven.publish") version "0.31.0"
+    alias(libs.plugins.vanniktech.maven.publish)
     alias(libs.plugins.dokka)
     signing
 }
-version = "0.0.6"
+version = "0.0.7"
 
 kotlin {
+    withSourcesJar(publish = true)
     androidTarget {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
@@ -52,7 +53,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.kotlinx.datetime)
-            implementation(libs.filekit.core)
+            api(libs.filekit.core)
             implementation(libs.filekit.dialogs)
             implementation(libs.filekit.dialogs.compose)
             implementation(libs.filekit.coil)

@@ -12,12 +12,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.input.TextFieldValue
-import com.idscodelabs.compose_form.form.core.FormScope
-import com.idscodelabs.compose_form.form.core.IconButton
-import com.idscodelabs.compose_form.form.core.IconParams
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
-import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
 import com.idscodelabs.compose_form.form.fields.core.multiselect.MultiselectFormBox
 import com.idscodelabs.compose_form.form.fields.default.dropdown.LazyDropdownColumn
 import com.idscodelabs.compose_form.form.fields.default.dropdown.lazyDropdown
@@ -25,6 +21,7 @@ import com.idscodelabs.compose_form.form.fields.default.dropdown.rememberLazyDro
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.icons.Icons
+import com.idscodelabs.compose_form.utils.IconButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

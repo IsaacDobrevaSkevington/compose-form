@@ -1,10 +1,10 @@
 package com.idscodelabs.compose_form.validators
 
-import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
-fun <Value> FormScope<*>.NotEmptyIfOtherNotPopulatedValidator(
+fun <Value> FormController<*>.NotEmptyIfOtherNotPopulatedValidator(
     other: KProperty<*>,
     error: Any = "Required if ${other.name} is empty.",
 ) = Validator<Value> { _, stringRepresentation ->

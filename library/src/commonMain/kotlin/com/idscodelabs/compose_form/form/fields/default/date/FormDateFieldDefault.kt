@@ -9,9 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
-import com.idscodelabs.compose_form.form.core.FormScope
-import com.idscodelabs.compose_form.form.core.IconButton
-import com.idscodelabs.compose_form.form.core.IconParams
+import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.core.date.FormDateField
 import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
@@ -19,6 +17,7 @@ import com.idscodelabs.compose_form.form.fields.core.date.sanitizeDate
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.form.model.FormBox
+import com.idscodelabs.compose_form.utils.IconButton
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlinx.datetime.LocalDate
 import kotlin.reflect.KProperty
@@ -42,7 +41,7 @@ import kotlin.reflect.KProperty
  * @sample com.idscodelabs.compose_form.examples.fields.date.FormDateFieldExample
  */
 @Composable
-fun <Model> FormScope<Model>.FormDateField(
+fun <Model> FormController<Model>.FormDateField(
     modelProperty: KProperty<*>,
     updateModel: Model.(LocalDate?) -> Unit,
     initialValue: LocalDate? = null,

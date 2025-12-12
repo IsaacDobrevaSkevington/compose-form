@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.styles.LocalFormStyle
+import com.idscodelabs.compose_form.utils.StandardErrorDisplay
+import io.github.vinceglb.filekit.PlatformFile
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -22,6 +24,9 @@ fun FormBox<*, Int>.DefaultFormSliderEntry(
     start: Int = 0,
     end: Int = 100,
     hint: Any? = null,
+    errorDisplay: @Composable FormBox<*, Int>.(error: String) -> Unit = {
+        StandardErrorDisplay(it)
+    },
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldColumnSpacing)) {
         Row(
@@ -44,10 +49,7 @@ fun FormBox<*, Int>.DefaultFormSliderEntry(
         )
 
         error?.let {
-            Text(
-                it,
-                color = MaterialTheme.colorScheme.error,
-            )
+            errorDisplay(it)
         }
     }
 }

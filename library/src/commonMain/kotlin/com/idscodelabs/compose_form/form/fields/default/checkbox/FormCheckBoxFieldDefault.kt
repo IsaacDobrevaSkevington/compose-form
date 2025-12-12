@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.checkbox.FormCheckBoxField
+import com.idscodelabs.compose_form.form.model.FormBox
+import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
@@ -26,7 +28,7 @@ import kotlin.reflect.KProperty
  * @sample com.idscodelabs.compose_form.examples.fields.checkbox.FormCheckBoxFieldSample
  */
 @Composable
-fun <Model> FormScope<Model>.FormCheckBoxField(
+fun <Model> FormController<Model>.FormCheckBoxField(
     modelProperty: KProperty<*>,
     hint: Any,
     updateModel: Model.(Boolean?) -> Unit,
@@ -36,7 +38,9 @@ fun <Model> FormScope<Model>.FormCheckBoxField(
     modifier: Modifier = Modifier.fillMaxWidth(),
     checkboxModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     textModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
-    errorModifier: Modifier = Modifier.fillMaxWidth(),
+    errorDisplay: @Composable FormBox<*, Boolean>.(error: String) -> Unit = {
+        StandardErrorDisplay(it)
+    },
 ) = FormCheckBoxField(
     modelProperty,
     updateModel,
@@ -49,6 +53,6 @@ fun <Model> FormScope<Model>.FormCheckBoxField(
         modifier,
         checkboxModifier,
         textModifier,
-        errorModifier,
+        errorDisplay = errorDisplay,
     )
 }

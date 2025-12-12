@@ -2,7 +2,7 @@ package com.idscodelabs.compose_form.form.fields.core.base
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.form.model.rememberFormBox
 import com.idscodelabs.compose_form.validators.core.Validator
@@ -28,7 +28,7 @@ import kotlin.reflect.KProperty
  *
  */
 @Composable
-fun <Model, Value : Any, FormBoxImpl : FormBox<*, Value>> FormScope<Model>.FormFieldWrapper(
+fun <Model, Value, FormBoxImpl : FormBox<*, Value>> FormController<Model>.FormFieldWrapper(
     modelProperty: KProperty<*>,
     initialValue: Value?,
     enabled: Boolean,

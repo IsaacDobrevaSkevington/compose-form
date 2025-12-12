@@ -2,7 +2,7 @@ package com.idscodelabs.compose_form.form.fields.core.dropdown
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.IFormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
@@ -28,7 +28,7 @@ import kotlin.reflect.KProperty
  * @sample com.idscodelabs.compose_form.examples.fields.dropdown.large.FormAutocompleteDropdownFieldExampleLarge
  */
 @Composable
-fun <Model, Item : ListDisplayable> FormScope<Model>.FormDropdownField(
+fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
     modelProperty: KProperty<*>,
     updateModel: Model.(Item?) -> Unit,
     options: List<Item>,

@@ -3,7 +3,7 @@ package com.idscodelabs.compose_form.form.fields.core.base
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
@@ -28,7 +28,7 @@ import kotlin.reflect.KProperty
  *
  */
 @Composable
-fun <Model, Value, FormBoxImpl : FormBox<Model, TextFieldValue>> FormScope<Model>.TextFieldFormFieldWrapper(
+fun <Model, Value, FormBoxImpl : FormBox<Model, TextFieldValue>> FormController<Model>.TextFieldFormFieldWrapper(
     modelProperty: KProperty<*>,
     initialValue: Value?,
     enabled: Boolean,

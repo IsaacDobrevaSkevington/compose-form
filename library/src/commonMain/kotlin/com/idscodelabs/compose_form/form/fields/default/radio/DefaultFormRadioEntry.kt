@@ -13,14 +13,15 @@ import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.core.radio.RadioFormBox
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
+import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.styles.LocalFormStyle
+import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 
 @Composable
 fun <Model, Item : ListDisplayable> RadioFormBox<Model, Item>.DefaultFormRadioEntry(
     hint: Any?,
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
-    errorModifier: Modifier = Modifier,
     radioButton: @Composable RadioFormBox<Model, Item>.(DisplayableOption<Item>, Int) -> Unit = { item, index ->
         Row(
             Modifier
@@ -48,6 +49,9 @@ fun <Model, Item : ListDisplayable> RadioFormBox<Model, Item>.DefaultFormRadioEn
             )
         }
     },
+    errorDisplay: @Composable RadioFormBox<Model, Item>.(error: String) -> Unit = {
+        StandardErrorDisplay(it)
+    },
 ) {
     Column(
         modifier = modifier.primaryFocusable(),
@@ -66,11 +70,7 @@ fun <Model, Item : ListDisplayable> RadioFormBox<Model, Item>.DefaultFormRadioEn
         }
 
         error?.let {
-            Text(
-                modifier = errorModifier,
-                text = it,
-                color = MaterialTheme.colorScheme.error,
-            )
+            errorDisplay(it)
         }
     }
 }

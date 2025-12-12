@@ -9,6 +9,7 @@ import com.idscodelabs.compose_form.examples.fields.dropdown.large.FormAutocompl
 import com.idscodelabs.compose_form.examples.fields.dropdown.large.FormDropdownFieldExampleLarge
 import com.idscodelabs.compose_form.examples.fields.dropdown.normal.FormAutocompleteDropdownFieldExample
 import com.idscodelabs.compose_form.examples.fields.dropdown.normal.FormDropdownFieldExample
+import com.idscodelabs.compose_form.examples.fields.file.FormFileFieldExample
 import com.idscodelabs.compose_form.examples.fields.multiselect.FormMultiselectFieldExample
 import com.idscodelabs.compose_form.examples.fields.radio.FormRadioFieldExample
 import com.idscodelabs.compose_form.examples.fields.slider.FormSliderFieldExample
@@ -73,5 +74,8 @@ enum class ExampleField(
     }),
     SUGGESTION("Suggestion", {
         FormSuggestionFieldExample()
+    }),
+    FILE("File", {
+        FormFileFieldExample()
     }),
 }

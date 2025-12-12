@@ -3,7 +3,7 @@ package com.idscodelabs.compose_form.form.fields.core.date
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.core.base.TextFieldFormFieldWrapper
 import com.idscodelabs.compose_form.validators.DateValidator
@@ -31,7 +31,7 @@ import kotlin.reflect.KProperty
  * @sample com.idscodelabs.compose_form.examples.fields.date.FormDateFieldExample
  */
 @Composable
-fun <Model> FormScope<Model>.FormDateField(
+fun <Model> FormController<Model>.FormDateField(
     modelProperty: KProperty<*>,
     updateModel: Model.(LocalDate?) -> Unit,
     initialValue: LocalDate? = null,

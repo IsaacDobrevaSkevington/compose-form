@@ -3,7 +3,7 @@ package com.idscodelabs.compose_form.examples.ui.style
 import androidx.compose.runtime.Composable
 import com.idscodelabs.compose_form.examples.fields.textfield.FormTextFieldExampleModel
 import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
-import com.idscodelabs.compose_form.form.core.Form
+import com.idscodelabs.compose_form.form.core.ui.Form
 import com.idscodelabs.compose_form.form.fields.core.text.FormTextField
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.styles.FormFieldStyle

@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.styles.LocalFormStyle
+import com.idscodelabs.compose_form.utils.StandardErrorDisplay
+import io.github.vinceglb.filekit.PlatformFile
 
 /**
  * Default form check box entry
@@ -29,7 +31,9 @@ fun FormBox<*, Boolean>.DefaultFormCheckBoxEntry(
     modifier: Modifier = Modifier.fillMaxWidth(),
     checkboxModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     textModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
-    errorModifier: Modifier = Modifier.fillMaxWidth(),
+    errorDisplay: @Composable FormBox<*, Boolean>.(error: String) -> Unit = {
+        StandardErrorDisplay(it)
+    },
 ) {
     Column(
         modifier,
@@ -56,11 +60,7 @@ fun FormBox<*, Boolean>.DefaultFormCheckBoxEntry(
         }
 
         error?.let {
-            Text(
-                modifier = errorModifier,
-                text = it,
-                color = MaterialTheme.colorScheme.error,
-            )
+            errorDisplay(it)
         }
     }
 }

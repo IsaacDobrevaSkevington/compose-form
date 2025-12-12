@@ -13,6 +13,8 @@ import androidx.compose.ui.text.style.TextAlign
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.styles.LocalFormStyle
+import com.idscodelabs.compose_form.utils.StandardErrorDisplay
+import io.github.vinceglb.filekit.PlatformFile
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,7 +27,9 @@ fun FormBox<*, Boolean>.DefaultFormSwitchEntry(
     hintModifier: Modifier = Modifier.fillMaxWidth(),
     leftLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     rightLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
-    errorModifier: Modifier = Modifier.fillMaxWidth(),
+    errorDisplay: @Composable FormBox<*, Boolean>.(error: String) -> Unit = {
+        StandardErrorDisplay(it)
+    },
 ) {
     Column(
         modifier.primaryFocusable(),
@@ -75,11 +79,7 @@ fun FormBox<*, Boolean>.DefaultFormSwitchEntry(
         }
 
         error?.let {
-            Text(
-                modifier = errorModifier,
-                text = it.asDisplayString(),
-                color = MaterialTheme.colorScheme.error,
-            )
+            errorDisplay(it)
         }
     }
 }

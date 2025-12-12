@@ -10,24 +10,18 @@ import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
-import com.idscodelabs.compose_form.form.core.FormScope
-import com.idscodelabs.compose_form.form.core.IconButton
+import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
-import com.idscodelabs.compose_form.form.fields.core.multiselect.FormMultiselectField
-import com.idscodelabs.compose_form.form.fields.core.multiselect.MultiselectFormBox
 import com.idscodelabs.compose_form.form.fields.core.radio.FormRadioField
 import com.idscodelabs.compose_form.form.fields.core.radio.RadioFormBox
-import com.idscodelabs.compose_form.form.fields.default.multiselect.DefaultFormMultiselectEntry
-import com.idscodelabs.compose_form.form.fields.default.multiselect.DefaultMultiselectMenuItem
-import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.styles.LocalFormStyle
+import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
 @Composable
-fun <Model, Item : ListDisplayable> FormScope<Model>.FormRadioField(
+fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
     modelProperty: KProperty<*>,
     updateModel: Model.(Item?) -> Unit,
     options: List<Item>,
@@ -65,6 +59,9 @@ fun <Model, Item : ListDisplayable> FormScope<Model>.FormRadioField(
             )
         }
     },
+    errorDisplay: @Composable RadioFormBox<Model, Item>.(error: String) -> Unit = {
+        StandardErrorDisplay(it)
+    },
 ) = FormRadioField(
     modelProperty = modelProperty,
     updateModel = updateModel,
@@ -78,6 +75,6 @@ fun <Model, Item : ListDisplayable> FormScope<Model>.FormRadioField(
         radioButton = radioButton,
         modifier = modifier,
         textModifier = textModifier,
-        errorModifier = errorModifier,
+        errorDisplay = errorDisplay,
     )
 }

@@ -9,14 +9,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.backhandler.BackHandler
-import com.idscodelabs.compose_form.form.core.Form
-import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.controller.FormController
+import com.idscodelabs.compose_form.form.core.ui.Form
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun <Model : ExampleModel<*>> ExampleForm(
     emptyModel: () -> Model,
-    contents: @Composable FormScope<Model>.() -> Unit = {},
+    contents: @Composable FormController<Model>.() -> Unit = {},
 ) {
     val (result, setResult) =
         remember {

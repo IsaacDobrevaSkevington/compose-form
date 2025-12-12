@@ -2,7 +2,7 @@ package com.idscodelabs.compose_form.form.fields.core.radio
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.FormFieldWrapper
 import com.idscodelabs.compose_form.form.fields.core.base.IFormFieldImplementation
@@ -26,7 +26,7 @@ import kotlin.reflect.KProperty
  * @sample com.idscodelabs.compose_form.examples.fields.radio.FormRadioFieldExample
  */
 @Composable
-fun <Model, Item : ListDisplayable> FormScope<Model>.FormRadioField(
+fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
     modelProperty: KProperty<*>,
     updateModel: Model.(Item?) -> Unit,
     options: List<Item>,

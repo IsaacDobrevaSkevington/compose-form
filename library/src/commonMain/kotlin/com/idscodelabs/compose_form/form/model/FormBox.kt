@@ -8,6 +8,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.validators.core.Validator
+import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -257,4 +258,20 @@ fun <Model, Value> rememberFormBox(
         formBox.setEnabled(enabled)
     }
     return formBox
+}
+
+fun <Item> FormBox<*, List<Item>>.setValue(item: Item) {
+    setValue(listOf(item))
+}
+
+fun <Item> FormBox<*, List<Item>>.add(item: Item) {
+    val current = valueSnapshot.toMutableList()
+    current.add(item)
+    setValue(current)
+}
+
+fun <Item> FormBox<*, List<Item>>.remove(item: Item) {
+    val current = valueSnapshot.toMutableList()
+    current.remove(item)
+    setValue(current)
 }

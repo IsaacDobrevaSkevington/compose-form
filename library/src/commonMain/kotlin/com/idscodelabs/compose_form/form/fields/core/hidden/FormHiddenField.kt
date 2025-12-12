@@ -1,7 +1,7 @@
 package com.idscodelabs.compose_form.form.fields.core.hidden
 
 import androidx.compose.runtime.Composable
-import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.model.rememberFormBox
 import kotlin.reflect.KProperty
 
@@ -14,7 +14,7 @@ import kotlin.reflect.KProperty
  * @param updateModel Function called which should set the correct property on the model. Most often should be `{ <variable> = it }`
  */
 @Composable
-fun <Model> FormScope<Model>.FormHiddenField(
+fun <Model> FormController<Model>.FormHiddenField(
     modelProperty: KProperty<*>,
     value: String? = null,
     updateModel: Model.(String?) -> Unit = {},

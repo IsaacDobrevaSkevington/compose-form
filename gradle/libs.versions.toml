@@ -17,6 +17,7 @@ kotlin = "2.2.21"
 kotlinx-coroutines = "1.10.2"
 kotlinxDatetime="0.7.1"
 dokka = "2.1.0"
+vanniktechMavenPublish = "0.31.0"
 
 
 [libraries]
@@ -47,3 +48,4 @@ composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMul
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 dokka = {id = "org.jetbrains.dokka", version.ref = "dokka" }
+vanniktech-maven-publish = {id = "com.vanniktech.maven.publish", version.ref = "vanniktechMavenPublish"}

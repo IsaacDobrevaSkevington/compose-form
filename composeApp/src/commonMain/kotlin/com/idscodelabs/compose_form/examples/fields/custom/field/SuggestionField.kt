@@ -2,7 +2,7 @@ package com.idscodelabs.compose_form.examples.fields.custom.field
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.IFormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
@@ -13,7 +13,7 @@ import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
 @Composable
-fun <Model, Suggestion : ListDisplayable> FormScope<Model>.SuggestionField(
+fun <Model, Suggestion : ListDisplayable> FormController<Model>.SuggestionField(
     modelProperty: KProperty<*>,
     updateModel: Model.(String?) -> Unit,
     suggestions: List<Suggestion>,

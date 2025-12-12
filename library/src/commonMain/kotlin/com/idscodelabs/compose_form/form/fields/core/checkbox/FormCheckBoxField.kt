@@ -1,7 +1,7 @@
 package com.idscodelabs.compose_form.form.fields.core.checkbox
 
 import androidx.compose.runtime.Composable
-import com.idscodelabs.compose_form.form.core.FormScope
+import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.BooleanFieldFormFieldWrapper
 import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementation
 import com.idscodelabs.compose_form.validators.core.Validator
@@ -22,7 +22,7 @@ import kotlin.reflect.KProperty
  * @sample com.idscodelabs.compose_form.examples.fields.checkbox.FormCheckBoxFieldSample
  */
 @Composable
-fun <Model> FormScope<Model>.FormCheckBoxField(
+fun <Model> FormController<Model>.FormCheckBoxField(
     modelProperty: KProperty<*>,
     updateModel: Model.(Boolean?) -> Unit,
     initialValue: Boolean? = null,
