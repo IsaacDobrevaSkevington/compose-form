@@ -2,7 +2,7 @@ package com.idscodelabs.compose_form.examples.fields.dropdown.large
 
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 
-class FormDropdownFieldExampleOptionLarge(
+data class FormDropdownFieldExampleOptionLarge(
     override val key: Any,
     override val label: Any,
     override val position: Int,

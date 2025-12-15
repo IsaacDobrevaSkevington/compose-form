@@ -13,9 +13,9 @@ import com.idscodelabs.compose_form.form.fields.core.multiselect.MultiselectForm
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <Model, Item : ListDisplayable> MultiselectFormBox<Model, Item>.DefaultMultiselectMenuItem(
+fun <Item : ListDisplayable> MultiselectFormBox<*, Item>.DefaultMultiselectMenuItem(
     item: DisplayableOption<Item>,
-    selectedIndicator: @Composable MultiselectFormBox<Model, Item>.() -> Unit = {
+    selectedIndicator: @Composable MultiselectFormBox<*, Item>.() -> Unit = {
         Checkbox(
             checked = isItemSelected(item.item),
             onCheckedChange = {

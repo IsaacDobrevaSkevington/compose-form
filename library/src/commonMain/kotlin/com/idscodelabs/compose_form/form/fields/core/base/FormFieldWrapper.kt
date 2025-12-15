@@ -42,6 +42,7 @@ fun <Model, Value, FormBoxImpl : FormBox<*, Value>> FormController<Model>.FormFi
 ) {
     val formBox =
         rememberFormBox<Model, Value>(
+            initialValue = initialValue,
             enabled = enabled,
             validator = validator,
             setModelProperty = {
@@ -52,12 +53,6 @@ fun <Model, Value, FormBoxImpl : FormBox<*, Value>> FormController<Model>.FormFi
             key = modelProperty.name,
             mapValue = mapValue,
         )
-
-    LaunchedEffect(initialValue) {
-        if (initialValue != null) {
-            formBox.setValue(initialValue)
-        }
-    }
 
     val params = formBox.formImplementationMapper()
 

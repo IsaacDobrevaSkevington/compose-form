@@ -213,6 +213,7 @@ open class FormBox<Model, Value>(
 
 @Composable
 fun <Model, Value> rememberFormBox(
+    initialValue: Value?,
     enabled: Boolean,
     validator: Validator<Value>?,
     setModelProperty: Model.(String?) -> Unit,
@@ -251,6 +252,13 @@ fun <Model, Value> rememberFormBox(
                 mapValue,
             )
         }
+
+    rememberSaveable(initialValue) {
+        if (initialValue != null) {
+            formBox.setValue(initialValue)
+        }
+        0
+    }
     LaunchedEffect(validator) {
         formBox.setValidator(validator)
     }

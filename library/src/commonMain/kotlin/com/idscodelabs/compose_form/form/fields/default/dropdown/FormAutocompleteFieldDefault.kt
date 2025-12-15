@@ -29,15 +29,15 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormAutocompleteField(
     hint: Any? = null,
     placeholder: Any? = hint,
     isLast: Boolean = false,
-    leadingIcon: (@Composable DropdownFormBox<Model, Item>.() -> Unit)? = null,
+    leadingIcon: (@Composable DropdownFormBox<*, Item>.() -> Unit)? = null,
     filterFunction: (item: String, value: String) -> Boolean = { item, value -> item.startsWith(value, ignoreCase = true) },
-    clearIcon: (@Composable DropdownFormBox<Model, Item>.(onClick: () -> Unit) -> Unit)? = {
+    clearIcon: (@Composable DropdownFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable DropdownFormBox<Model, Item>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable DropdownFormBox<*, Item>.(expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable DropdownFormBox<Model, Item>.(
+    menuItem: @Composable DropdownFormBox<*, Item>.(
         item: DisplayableOption<Item>,
         setExpanded: (Boolean) -> Unit,
     ) -> Unit = { item, setExpanded ->

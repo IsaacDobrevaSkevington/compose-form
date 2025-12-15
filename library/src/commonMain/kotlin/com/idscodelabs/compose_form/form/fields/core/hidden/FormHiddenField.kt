@@ -20,12 +20,13 @@ fun <Model> FormController<Model>.FormHiddenField(
     updateModel: Model.(String?) -> Unit = {},
 ) {
     rememberFormBox(
+        value,
         true,
         null,
         updateModel,
-        { value },
-        { value },
-        { value },
+        { it },
+        { it },
+        { it },
         modelProperty.name,
     ).BindLifecycle(modelProperty)
 }

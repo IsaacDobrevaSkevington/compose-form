@@ -16,7 +16,7 @@ import com.idscodelabs.compose_form.form.model.FormBox
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <Model, Item : ListDisplayable> FormBox<Model, TextFieldValue>.DefaultDropdownMenuItem(
+fun <Item : ListDisplayable> FormBox<*, TextFieldValue>.DefaultDropdownMenuItem(
     item: DisplayableOption<Item>,
     setExpanded: (Boolean) -> Unit,
     modifier: Modifier = Modifier,

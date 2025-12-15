@@ -34,14 +34,14 @@ fun <Model, Suggestion : ListDisplayable> FormController<Model>.FormSuggestionFi
     hint: Any? = null,
     placeholder: Any? = hint,
     isLast: Boolean = false,
-    leadingIcon: (@Composable SuggestionFormBox<Model, Suggestion>.() -> Unit)? = null,
-    clearIcon: (@Composable SuggestionFormBox<Model, Suggestion>.(onClick: () -> Unit) -> Unit)? = {
+    leadingIcon: (@Composable SuggestionFormBox<*, Suggestion>.() -> Unit)? = null,
+    clearIcon: (@Composable SuggestionFormBox<*, Suggestion>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable SuggestionFormBox<Model, Suggestion>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable SuggestionFormBox<*, Suggestion>.(expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable SuggestionFormBox<Model, Suggestion>.(
+    menuItem: @Composable SuggestionFormBox<*, Suggestion>.(
         item: DisplayableOption<Suggestion>,
         setExpanded: (Boolean) -> Unit,
     ) -> Unit = { item, setExpanded ->

@@ -2,7 +2,7 @@ package com.idscodelabs.compose_form.examples.fields.suggestion
 
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 
-class FormSuggestionFieldExampleOption(
+data class FormSuggestionFieldExampleOption(
     override val key: Any,
     override val label: String,
     override val position: Int,

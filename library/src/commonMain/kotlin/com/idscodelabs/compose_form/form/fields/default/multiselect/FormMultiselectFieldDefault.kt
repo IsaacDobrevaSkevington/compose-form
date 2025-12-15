@@ -29,14 +29,14 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormMultiselectField(
     hint: Any? = null,
     placeholder: Any? = hint,
     isLast: Boolean = false,
-    leadingIcon: (@Composable MultiselectFormBox<Model, Item>.() -> Unit)? = null,
-    clearIcon: (@Composable MultiselectFormBox<Model, Item>.(onClick: () -> Unit) -> Unit)? = {
+    leadingIcon: (@Composable MultiselectFormBox<*, Item>.() -> Unit)? = null,
+    clearIcon: (@Composable MultiselectFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable MultiselectFormBox<Model, Item>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable MultiselectFormBox<*, Item>.(expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable MultiselectFormBox<Model, Item>.(
+    menuItem: @Composable MultiselectFormBox<*, Item>.(
         item: DisplayableOption<Item>,
     ) -> Unit = { item ->
         DefaultMultiselectMenuItem(item)

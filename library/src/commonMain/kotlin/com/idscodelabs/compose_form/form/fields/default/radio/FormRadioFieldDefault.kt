@@ -31,8 +31,7 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
     hint: Any?,
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
-    errorModifier: Modifier = Modifier,
-    radioButton: @Composable RadioFormBox<Model, Item>.(DisplayableOption<Item>, Int) -> Unit = { item, index ->
+    radioButton: @Composable RadioFormBox<*, Item>.(DisplayableOption<Item>, Int) -> Unit = { item, index ->
         Row(
             Modifier
                 .fillMaxWidth()
@@ -59,7 +58,7 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
             )
         }
     },
-    errorDisplay: @Composable RadioFormBox<Model, Item>.(error: String) -> Unit = {
+    errorDisplay: @Composable RadioFormBox<*, Item>.(error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
 ) = FormRadioField(

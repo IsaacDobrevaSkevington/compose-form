@@ -30,7 +30,7 @@ import com.idscodelabs.compose_form.utils.IconButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <Model, Item : ListDisplayable> SuggestionFormBox<Model, Item>.DefaultSuggestionDropdownEntry(
+fun <Item : ListDisplayable> SuggestionFormBox<*, Item>.DefaultSuggestionDropdownEntry(
     textFieldModifier: Modifier = Modifier.fillMaxWidth(),
     exposedDropdownBoxModifier: Modifier = Modifier,
     exposedDropdownMenuModifier: Modifier = Modifier,
@@ -38,14 +38,14 @@ fun <Model, Item : ListDisplayable> SuggestionFormBox<Model, Item>.DefaultSugges
     placeholder: Any? = hint,
     isLast: Boolean = false,
     readOnly: Boolean = false,
-    leadingIcon: (@Composable SuggestionFormBox<Model, Item>.() -> Unit)? = null,
-    clearIcon: (@Composable SuggestionFormBox<Model, Item>.(onClick: () -> Unit) -> Unit)? = {
+    leadingIcon: (@Composable SuggestionFormBox<*, Item>.() -> Unit)? = null,
+    clearIcon: (@Composable SuggestionFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable SuggestionFormBox<Model, Item>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable SuggestionFormBox<*, Item>.(expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable SuggestionFormBox<Model, Item>.(
+    menuItem: @Composable SuggestionFormBox<*, Item>.(
         item: DisplayableOption<Item>,
         setExpanded: (Boolean) -> Unit,
     ) -> Unit = { item, setExpanded ->

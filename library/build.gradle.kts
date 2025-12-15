@@ -122,7 +122,7 @@ dokka {
     dokkaPublications.html {
         suppressInheritedMembers.set(true)
         failOnWarning.set(true)
-        outputDirectory.set(File("${rootProject.projectDir}/docs"))
+        outputDirectory.set(File("${rootProject.projectDir}/docs/dokka"))
     }
     dokkaSourceSets.commonMain {
         samples.from("${rootProject.projectDir}/composeApp/src/commonMain/kotlin/com/idscodelabs/compose_form/examples")

@@ -18,11 +18,11 @@ import com.idscodelabs.compose_form.styles.LocalFormStyle
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 
 @Composable
-fun <Model, Item : ListDisplayable> RadioFormBox<Model, Item>.DefaultFormRadioEntry(
+fun <Item : ListDisplayable> RadioFormBox<*, Item>.DefaultFormRadioEntry(
     hint: Any?,
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
-    radioButton: @Composable RadioFormBox<Model, Item>.(DisplayableOption<Item>, Int) -> Unit = { item, index ->
+    radioButton: @Composable RadioFormBox<*, Item>.(DisplayableOption<Item>, Int) -> Unit = { item, index ->
         Row(
             Modifier
                 .fillMaxWidth()
@@ -49,7 +49,7 @@ fun <Model, Item : ListDisplayable> RadioFormBox<Model, Item>.DefaultFormRadioEn
             )
         }
     },
-    errorDisplay: @Composable RadioFormBox<Model, Item>.(error: String) -> Unit = {
+    errorDisplay: @Composable RadioFormBox<*, Item>.(error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
 ) {

@@ -68,21 +68,19 @@ data class FormTextFieldExampleModel(
 
 // Create the form
 Form(emptyModel = ::FormTextFieldExampleModel) {
+    
     // Add fields
     FormTextField(
         modelProperty = FormTextFieldExampleModel::value,
         validator = NotEmptyValidator(), // Add validation
         updateModel = { value = it },
-    ) {
-        // Use default UI, or implement your own
-        DefaultTextEntry(hint = "Value")
-    }
+        hint = "Value"
+    )
+    
     // Submit the form
-    Button(onClick = {
-        submit {
-            // Do something with the result
-        }
-    }){
+    Button(onClick = submitFunction {
+        // Do something with the result
+    }) {
         Text("Submit")
     }
 }

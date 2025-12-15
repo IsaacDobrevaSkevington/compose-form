@@ -81,7 +81,7 @@ interface FormController<Model> {
      *
      * @param property The unique property of this form field
      */
-    fun FormBox<Model, *>.addToForm(property: KProperty<*>) {
+    private fun FormBox<Model, *>.addToForm(property: KProperty<*>) {
         boxes[property.name] = this
         observerJobs[property.name] =
             lifecycleScope.launch {
@@ -96,7 +96,7 @@ interface FormController<Model> {
      *
      * @param property The unique property which this [FormBox] is associated with
      */
-    fun removeFromForm(property: KProperty<*>) {
+    private fun removeFromForm(property: KProperty<*>) {
         boxes.remove(property.name)
         observerJobs.remove(property.name)?.cancel()
     }

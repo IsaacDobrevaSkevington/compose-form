@@ -25,21 +25,21 @@ import com.idscodelabs.compose_form.utils.IconButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <Model, Item : ListDisplayable> MultiselectFormBox<Model, Item>.DefaultFormMultiselectEntry(
+fun <Item : ListDisplayable> MultiselectFormBox<*, Item>.DefaultFormMultiselectEntry(
     textFieldModifier: Modifier = Modifier.fillMaxWidth(),
     exposedDropdownBoxModifier: Modifier = Modifier,
     exposedDropdownMenuModifier: Modifier = Modifier,
     hint: Any? = null,
     placeholder: Any? = hint,
     isLast: Boolean = false,
-    leadingIcon: (@Composable MultiselectFormBox<Model, Item>.() -> Unit)? = null,
-    clearIcon: (@Composable MultiselectFormBox<Model, Item>.(onClick: () -> Unit) -> Unit)? = {
+    leadingIcon: (@Composable MultiselectFormBox<*, Item>.() -> Unit)? = null,
+    clearIcon: (@Composable MultiselectFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable MultiselectFormBox<Model, Item>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable MultiselectFormBox<*, Item>.(expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable MultiselectFormBox<Model, Item>.(item: DisplayableOption<Item>) -> Unit = {
+    menuItem: @Composable MultiselectFormBox<*, Item>.(item: DisplayableOption<Item>) -> Unit = {
         DefaultMultiselectMenuItem(it)
     },
 ) {

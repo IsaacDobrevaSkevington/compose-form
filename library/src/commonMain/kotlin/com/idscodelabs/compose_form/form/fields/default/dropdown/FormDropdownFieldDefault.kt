@@ -29,14 +29,14 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
     hint: Any? = null,
     placeholder: Any? = hint,
     isLast: Boolean = false,
-    leadingIcon: (@Composable DropdownFormBox<Model, Item>.() -> Unit)? = null,
-    clearIcon: (@Composable DropdownFormBox<Model, Item>.(onClick: () -> Unit) -> Unit)? = {
+    leadingIcon: (@Composable DropdownFormBox<*, Item>.() -> Unit)? = null,
+    clearIcon: (@Composable DropdownFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable DropdownFormBox<Model, Item>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable DropdownFormBox<*, Item>.(expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable DropdownFormBox<Model, Item>.(
+    menuItem: @Composable DropdownFormBox<*, Item>.(
         item: DisplayableOption<Item>,
         setExpanded: (Boolean) -> Unit,
     ) -> Unit = { item, setExpanded ->
