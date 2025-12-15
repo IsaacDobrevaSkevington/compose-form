@@ -36,7 +36,7 @@ jobs:
           distribution: 'zulu'
       - run: ./gradlew dokkaGenerate
       - run: pip install mkdocs-material 
-      - run: cd ./docs/mkdocs && mkdocs build
+      - run: mkdocs build
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
