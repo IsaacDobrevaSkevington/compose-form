@@ -87,7 +87,7 @@ Form(emptyModel = ::FormTextFieldExampleModel) {
 
 ```
 
-### [Full Documentation](../../dokka/index.html)
+### [Full Documentation](./dokka/index.html)
 
 
 
