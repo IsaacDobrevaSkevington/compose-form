@@ -34,7 +34,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
-      - run: ./gradle dokkaGenerate
+      - run: ./gradlew dokkaGenerate
       - run: pip install mkdocs-material 
       - run: cd ./docs/mkdocs && mkdocs build
       - name: Setup Pages
