@@ -9,7 +9,6 @@ import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.validators.MaxLengthValidator
 import com.idscodelabs.compose_form.validators.MinLengthValidator
 import com.idscodelabs.compose_form.validators.MultipleValidator
-import com.idscodelabs.compose_form.validators.core.and
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Preview
