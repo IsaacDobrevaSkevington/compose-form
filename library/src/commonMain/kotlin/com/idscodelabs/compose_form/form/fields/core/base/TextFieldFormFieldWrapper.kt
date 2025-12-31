@@ -37,7 +37,7 @@ fun <Model, Value, FormBoxImpl : FormBox<Model, TextFieldValue>> FormController<
     implementation: IFormFieldImplementation<FormBoxImpl>,
     valueToString: (Value?) -> String?,
     stringToValue: (String?) -> Value?,
-    formImplementationMapper: FormBox<Model, TextFieldValue>.() -> FormBoxImpl,
+    formImplementationMapper: @Composable FormBox<Model, TextFieldValue>.() -> FormBoxImpl,
     mapValue: (TextFieldValue) -> TextFieldValue = { it },
 ) = FormFieldWrapper(
     modelProperty = modelProperty,

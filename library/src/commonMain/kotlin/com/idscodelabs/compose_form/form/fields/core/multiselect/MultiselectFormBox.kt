@@ -2,9 +2,11 @@ package com.idscodelabs.compose_form.form.fields.core.multiselect
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
+import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
 import com.idscodelabs.compose_form.form.model.FormBox
 
 /**
@@ -97,4 +99,12 @@ open class MultiselectFormBox<Model, Item : ListDisplayable>(
         }
         setValue(TextFieldValue(current.distinctBy { it.key }.toItemString()))
     }
+}
+
+@Composable
+fun <Model, Item : ListDisplayable> FormBox<Model, TextFieldValue>.rememberAsMultiselectFormBox(
+    options: List<DisplayableOption<Item>>,
+    itemDelimiter: String,
+) = remember(this, options, itemDelimiter) {
+    MultiselectFormBox(this, options, itemDelimiter)
 }

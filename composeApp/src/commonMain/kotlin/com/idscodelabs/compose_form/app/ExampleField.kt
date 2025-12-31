@@ -16,7 +16,8 @@ import com.idscodelabs.compose_form.examples.fields.slider.FormSliderFieldExampl
 import com.idscodelabs.compose_form.examples.fields.suggestion.FormSuggestionFieldExample
 import com.idscodelabs.compose_form.examples.fields.textfield.FormTextFieldExample
 import com.idscodelabs.compose_form.examples.fields.time.FormTimeFieldExample
-import com.idscodelabs.compose_form.examples.logic.valuechange.FormValueChangeExample
+import com.idscodelabs.compose_form.examples.logic.valuechange.composable.FormComposableValueChangeExample
+import com.idscodelabs.compose_form.examples.logic.valuechange.viewmodel.FormViewModelValueChangeExample
 import com.idscodelabs.compose_form.examples.logic.viewmodel.FormViewModelExample
 import com.idscodelabs.compose_form.examples.ui.style.FormStyleExample
 
@@ -55,9 +56,12 @@ enum class ExampleField(
         FormTimeFieldExample()
     }),
     VALUE_CHANGE("Value Change", {
-        FormValueChangeExample()
+        FormComposableValueChangeExample()
     }),
-    VIEW_MODEL("ViewModel", {
+    VALUE_CHANGE_VIEW_MODEL("Value Change ViewModel", {
+        FormViewModelValueChangeExample()
+    }),
+    COMPOSE_VIEW_MODEL("Compose ViewModel", {
         FormViewModelExample()
     }),
     STYLE("Styling", {

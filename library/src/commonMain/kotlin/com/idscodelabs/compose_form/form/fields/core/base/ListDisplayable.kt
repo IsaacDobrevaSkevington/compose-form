@@ -29,5 +29,14 @@ interface ListDisplayable {
      * a [String]
      */
     val label: Any
+}
 
+fun ListDisplayable(
+    key: Any,
+    label: Any,
+    position: Int = 0,
+) = object : ListDisplayable {
+    override val key: Any = key
+    override val label: Any = label
+    override val position: Int = position
 }

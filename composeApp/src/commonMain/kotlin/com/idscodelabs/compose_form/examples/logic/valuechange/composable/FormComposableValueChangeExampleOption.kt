@@ -1,10 +1,10 @@
-package com.idscodelabs.compose_form.examples.logic.valuechange
+package com.idscodelabs.compose_form.examples.logic.valuechange.composable
 
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 
-enum class FormValueChangeExampleOption : ListDisplayable {
+enum class FormComposableValueChangeExampleOption : ListDisplayable {
     DATE_FIELD,
     TIME_FIELD,
     ;

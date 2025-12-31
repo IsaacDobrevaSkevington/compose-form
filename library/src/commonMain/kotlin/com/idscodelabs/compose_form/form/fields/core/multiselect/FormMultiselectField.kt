@@ -48,7 +48,7 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormMultiselectField(
         validator = validator,
         updateModel = { updateModel(it ?: emptyList()) },
         implementation = implementation,
-        formImplementationMapper = { MultiselectFormBox(this, displayableOptions, itemDelimiter) },
+        formImplementationMapper = { rememberAsMultiselectFormBox(displayableOptions, itemDelimiter) },
         stringToValue = { string ->
             val items = string?.split(itemDelimiter) ?: emptyList()
             items.mapNotNull { itemString ->

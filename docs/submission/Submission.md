@@ -11,6 +11,7 @@ The `submit` function can be called from any location to submit the form immedia
 ### Inline submission
 
 To avoid callback, you can also obtain the Model directly from the return value
+
 - `submitForModel` will return a Model if submission is successful, or throw a `FormSubmissionFailedError`
 if the submission failed. Failing to catch this exception will lead to application crash
 - `submitForModelOrNull` allows you to avoid having to use a try-catch block, instead returning `null` if the 
@@ -94,6 +95,7 @@ the result of the form submission
 This case occurs when one or more of the fields failed validation.
 
 The list of FormBoxes which failed submission are provided:
+
 - As a field of the thrown `FormSubmissionFailedError`
 - As a parameter of the failure callback
 
@@ -103,6 +105,7 @@ The list of FormBoxes which failed submission are provided:
 This case occurs when the submission throws an error. For example, there is
 an error in one of the validators
 
-The `Throwable` is provided
+The `Throwable` is provided:
+
 - As the `cause` field of the `FormSubmissionFailedError`
 - As a parameter of the error callback

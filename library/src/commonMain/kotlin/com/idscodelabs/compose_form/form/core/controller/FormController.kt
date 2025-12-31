@@ -1,23 +1,13 @@
 package com.idscodelabs.compose_form.form.core.controller
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
-import com.idscodelabs.compose_form.form.core.controller.FormSubmissionResult
+import androidx.compose.runtime.*
 import com.idscodelabs.compose_form.form.core.exceptions.FormSubmissionFailedError
 import com.idscodelabs.compose_form.form.model.FormBox
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.idscodelabs.compose_form.form.model.FormBoxFlow
+import com.idscodelabs.compose_form.form.model.FormControllerState
+import com.idscodelabs.compose_form.form.model.MutableFormBoxFlow
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.reflect.KProperty
@@ -34,14 +24,9 @@ import kotlin.reflect.KProperty
  */
 interface FormController<Model> {
     /**
-     * A map of the form boxes. The key should identify a specific field
+     * Scope in which coroutines should run
      */
-    val boxes: MutableMap<String, FormBox<Model, *>>
-
-    /**
-     * Observer jobs a list of jobs for observing field changes
-     */
-    val observerJobs: MutableMap<String, Job>
+    val lifecycleScope: CoroutineScope get() = CoroutineScope(Dispatchers.Default)
 
     /**
      * An empty version of the [Model] to be populated
@@ -49,20 +34,15 @@ interface FormController<Model> {
     var emptyModel: () -> Model
 
     /**
-     * Scope in which coroutines should run
+     * State of the form controller
      */
-    var lifecycleScope: CoroutineScope
-
-    /**
-     * A flow of the current value of the form
-     */
-    val valueFlow: MutableStateFlow<Model>
+    val state: FormControllerState<Model>
 
     /**
      * Clear all the form's values and boxes
      */
     fun clearForm() {
-        boxes.clear()
+        state.boxes.clear()
     }
 
     /**
@@ -72,7 +52,7 @@ interface FormController<Model> {
      */
     fun clearForm(vararg fields: KProperty<*>) {
         fields.forEach {
-            boxes.remove(it.name)
+            state.boxes.remove(it.name)
         }
     }
 
@@ -82,11 +62,12 @@ interface FormController<Model> {
      * @param property The unique property of this form field
      */
     private fun FormBox<Model, *>.addToForm(property: KProperty<*>) {
-        boxes[property.name] = this
-        observerJobs[property.name] =
+        state.boxes[property.name] = this
+        state.boxFlows[property.name]?.value = this
+        state.observerJobs[property.name] =
             lifecycleScope.launch {
                 this@addToForm.onFieldValueChanged {
-                    this@FormController.valueFlow.update { this@FormController.valueSnapshot }
+                    this@FormController.state.valueFlow.update { this@FormController.valueSnapshot }
                 }
             }
     }
@@ -97,8 +78,8 @@ interface FormController<Model> {
      * @param property The unique property which this [FormBox] is associated with
      */
     private fun removeFromForm(property: KProperty<*>) {
-        boxes.remove(property.name)
-        observerJobs.remove(property.name)?.cancel()
+        state.boxes.remove(property.name)
+        state.observerJobs.remove(property.name)?.cancel()
     }
 
     /**
@@ -108,7 +89,7 @@ interface FormController<Model> {
      * This function will handle setting and clearing errors on the correct boxes
      */
     fun validate(): List<FormBox<Model, *>> =
-        boxes
+        state.boxes
             .filter { (_, v) -> !v.validate() }
             .map { it.value }
 
@@ -119,7 +100,7 @@ interface FormController<Model> {
     val valueSnapshot: Model
         get() {
             val updateRequest = emptyModel()
-            boxes.forEach { (k, v) ->
+            state.boxes.forEach { (k, v) ->
                 try {
                     val currentValue = v.getStringValue()
                     v.setModelProperty(updateRequest, currentValue)
@@ -193,15 +174,40 @@ interface FormController<Model> {
         onSuccess: (Model) -> Unit = {},
     ): () -> Unit = { submit(onFailure, onError, onSuccess) }
 
-    fun field(property: KProperty<*>) = boxes[property.name]
+    fun <Value> fieldSnapshotWithType(property: KProperty<*>) =
+        try {
+            fieldSnapshot(property) as? FormBox<Model, Value>?
+        } catch (_: Throwable) {
+            null
+        }
+
+    fun fieldSnapshot(property: KProperty<*>) = state.boxes[property.name]
+
+    fun <Value> fieldWithType(property: KProperty<*>): FormBoxFlow<Model, Value>? =
+        try {
+            field(property) as? FormBoxFlow<Model, Value>?
+        } catch (e: Throwable) {
+            null
+        }
+
+    fun field(property: KProperty<*>): FormBoxFlow<Model, *>? {
+        var currentFlow = state.boxFlows[property.name]
+        if (currentFlow == null) {
+            val newFlow = MutableStateFlow(fieldSnapshot(property))
+            state.boxFlows[property.name] = newFlow
+            currentFlow = newFlow
+        }
+        return currentFlow
+    }
 
     /**
      * Collect the current value as state
      *
+     * @param context [CoroutineContext] to use for collecting.
      * @return [androidx.compose.runtime.State] of the current [Model]. Will only change when the [Model] changes
      */
     @Composable
-    fun collectValueAsState(): State<Model> = valueFlow.collectAsState()
+    fun collectValueAsState(context: CoroutineContext = EmptyCoroutineContext): State<Model> = state.valueFlow.collectAsState(context)
 
     /**
      * Subscribe to [com.idscodelabs.compose_form.form.core.ui.Form] value changes
@@ -217,7 +223,7 @@ interface FormController<Model> {
         debounceMillis: Long = 100,
         block: suspend Model.() -> Unit,
     ) {
-        valueFlow.debounce(debounceMillis).distinctUntilChanged().collectLatest {
+        state.valueFlow.debounce(debounceMillis).distinctUntilChanged().collectLatest {
             block(it)
         }
     }

@@ -4,9 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
+import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.model.FormBox
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -49,4 +51,12 @@ open class SuggestionFormBox<Model, Item : ListDisplayable>(
 
     @Composable
     fun collectSuggestionsAsState(): State<List<Item>> = suggestionsState.collectAsState(emptyList())
+}
+
+@Composable
+fun <Model, Suggestion : ListDisplayable> FormBox<Model, TextFieldValue>.rememberAsSuggestionFormBox(
+    debounce: Long,
+    getSuggestions: suspend (String) -> List<Suggestion>,
+) = remember(this, getSuggestions, debounce) {
+    SuggestionFormBox(this, debounce, getSuggestions)
 }

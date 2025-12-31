@@ -13,6 +13,8 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
@@ -36,13 +38,81 @@ import kotlin.coroutines.EmptyCoroutineContext
 open class FormBox<Model, Value>(
     protected val enabledState: MutableStateFlow<Boolean>,
     protected var currentValidator: Validator<Value>?,
-    val setModelProperty: Model.(String?) -> Unit,
-    protected val valueToString: (Value?) -> String?,
+    var setModelProperty: Model.(String?) -> Unit,
+    protected var valueToString: (Value?) -> String?,
     protected val valueState: MutableStateFlow<Value>,
     protected val errorState: MutableStateFlow<Any?> = MutableStateFlow(null),
     val focusRequester: FocusRequester,
-    protected val mapValue: (value: Value) -> Value,
+    protected var mapValue: (value: Value) -> Value,
 ) {
+    companion object {
+        @Composable
+        fun <Model, Value> remember(
+            initialValue: Value?,
+            enabled: Boolean,
+            validator: Validator<Value>?,
+            setModelProperty: Model.(String?) -> Unit,
+            valueToString: (Value?) -> String?,
+            stringToValue: (String?) -> Value,
+            mapValue: (value: Value) -> Value,
+            key: Any? = Unit,
+        ): FormBox<Model, Value> {
+            val focusRequester =
+                remember(key) {
+                    FocusRequester()
+                }
+
+            val formBox =
+                rememberSaveable(
+                    key,
+                    saver =
+                        Saver(
+                            enabled,
+                            validator,
+                            setModelProperty,
+                            valueToString,
+                            stringToValue,
+                            focusRequester,
+                            mapValue,
+                        ),
+                ) {
+                    FormBox(
+                        MutableStateFlow(enabled),
+                        validator,
+                        setModelProperty,
+                        valueToString,
+                        MutableStateFlow(stringToValue("")),
+                        MutableStateFlow(null),
+                        focusRequester,
+                        mapValue,
+                    )
+                }
+
+            rememberSaveable(initialValue) {
+                if (initialValue != null) {
+                    formBox.setValue(initialValue)
+                }
+                0
+            }
+            LaunchedEffect(validator) {
+                formBox.currentValidator = validator
+            }
+            LaunchedEffect(enabled) {
+                formBox.enabledState.value = enabled
+            }
+            LaunchedEffect(valueToString) {
+                formBox.valueToString = valueToString
+            }
+            LaunchedEffect(mapValue) {
+                formBox.mapValue = mapValue
+            }
+            LaunchedEffect(setModelProperty) {
+                formBox.setModelProperty = setModelProperty
+            }
+            return formBox
+        }
+    }
+
     /**
      * Use this constructor to copy a form box, or when inheriting to avoid needing access to non-visible properties
      */
@@ -120,15 +190,6 @@ open class FormBox<Model, Value>(
     }
 
     /**
-     * Set validator for the [FormBox]
-     *
-     * @param validator The new [Validator], can be `null` to clear the [Validator]
-     */
-    fun setValidator(validator: Validator<Value>?) {
-        this.currentValidator = validator
-    }
-
-    /**
      * Set the value of this [FormBox]
      *
      * If the value has not changed, or the field is not [enabled], then the value will not be set.
@@ -148,25 +209,33 @@ open class FormBox<Model, Value>(
 
     fun getStringValue() = valueToString(valueState.value)
 
-    open fun setEnabled(enabled: Boolean) {
-        enabledState.update { enabled }
-    }
+    @Composable
+    fun collectValueAsState(context: CoroutineContext = EmptyCoroutineContext): State<Value> = valueState.collectAsState(context)
 
     @Composable
-    fun collectValueAsState(): State<Value> = valueState.collectAsState()
+    fun collectEnabledAsState(context: CoroutineContext = EmptyCoroutineContext): State<Boolean> = enabledState.collectAsState(context)
 
     @Composable
-    fun collectEnabledAsState(): State<Boolean> = enabledState.collectAsState()
-
-    @Composable
-    fun collectErrorAsState(): State<Any?> = errorState.collectAsState()
+    fun collectErrorAsState(context: CoroutineContext = EmptyCoroutineContext): State<Any?> = errorState.collectAsState(context)
 
     @OptIn(FlowPreview::class)
     suspend fun onFieldValueChanged(
         debounceMills: Long = 0,
         block: suspend Value.() -> Unit,
     ) {
-        valueState.debounce(debounceMills).collectLatest(block)
+        valueState.debounce(debounceMills).distinctUntilChanged().collectLatest(block)
+    }
+
+    @OptIn(FlowPreview::class)
+    suspend fun onFieldStringValueChanged(
+        debounceMills: Long = 0,
+        block: suspend String?.() -> Unit,
+    ) {
+        valueState
+            .debounce(debounceMills)
+            .map { valueToString(it) }
+            .distinctUntilChanged()
+            .collectLatest(block)
     }
 
     @Composable
@@ -221,52 +290,17 @@ fun <Model, Value> rememberFormBox(
     stringToValue: (String?) -> Value,
     mapValue: (value: Value) -> Value,
     key: Any? = Unit,
-): FormBox<Model, Value> {
-    val focusRequester =
-        remember(key) {
-            FocusRequester()
-        }
-
-    val formBox =
-        rememberSaveable(
-            key,
-            saver =
-                FormBox.Saver(
-                    enabled,
-                    validator,
-                    setModelProperty,
-                    valueToString,
-                    stringToValue,
-                    focusRequester,
-                    mapValue,
-                ),
-        ) {
-            FormBox(
-                MutableStateFlow(enabled),
-                validator,
-                setModelProperty,
-                valueToString,
-                MutableStateFlow(stringToValue("")),
-                MutableStateFlow(null),
-                focusRequester,
-                mapValue,
-            )
-        }
-
-    rememberSaveable(initialValue) {
-        if (initialValue != null) {
-            formBox.setValue(initialValue)
-        }
-        0
-    }
-    LaunchedEffect(validator) {
-        formBox.setValidator(validator)
-    }
-    LaunchedEffect(enabled) {
-        formBox.setEnabled(enabled)
-    }
-    return formBox
-}
+): FormBox<Model, Value> =
+    FormBox.remember(
+        initialValue,
+        enabled,
+        validator,
+        setModelProperty,
+        valueToString,
+        stringToValue,
+        mapValue,
+        key,
+    )
 
 fun <Item> FormBox<*, List<Item>>.setValue(item: Item) {
     setValue(listOf(item))

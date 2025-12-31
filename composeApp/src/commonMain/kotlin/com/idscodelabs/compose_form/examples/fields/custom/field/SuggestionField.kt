@@ -8,6 +8,7 @@ import com.idscodelabs.compose_form.form.fields.core.base.IFormFieldImplementati
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.core.base.TextFieldFormFieldWrapper
 import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
+import com.idscodelabs.compose_form.form.fields.core.dropdown.rememberAsDropdownFormBox
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
@@ -34,7 +35,7 @@ fun <Model, Suggestion : ListDisplayable> FormController<Model>.SuggestionField(
         validator = validator,
         updateModel = updateModel,
         implementation = implementation,
-        formImplementationMapper = { DropdownFormBox(this, displayableOptions) },
+        formImplementationMapper = { rememberAsDropdownFormBox(displayableOptions) },
         valueToString = { it },
         stringToValue = { it },
     )

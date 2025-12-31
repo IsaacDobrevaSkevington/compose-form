@@ -26,7 +26,7 @@ fun <Model, Suggestion : ListDisplayable> FormController<Model>.FormSuggestionFi
         validator = validator,
         updateModel = updateModel,
         implementation = implementation,
-        formImplementationMapper = { SuggestionFormBox(this, debounce, getSuggestions) },
+        formImplementationMapper = { rememberAsSuggestionFormBox(debounce, getSuggestions) },
         valueToString = { it },
         stringToValue = { it },
     )

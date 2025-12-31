@@ -54,7 +54,7 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
             updateModel(it?.let { index -> displayableOptions.getOrNull(index) }?.item)
         },
         implementation = implementation,
-        formImplementationMapper = { RadioFormBox(this, displayableOptions) },
+        formImplementationMapper = { rememberAsRadioFormBox(displayableOptions) },
         valueToString = { item ->
             item?.toString()
         },

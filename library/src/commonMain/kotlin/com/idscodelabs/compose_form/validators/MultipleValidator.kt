@@ -15,13 +15,15 @@ open class MultipleValidator<Value>(
         }
 
     override fun plus(other: Validator<Value>?): Validator<Value> {
-        if(other is MultipleValidator<Value>) {
+        if (other is MultipleValidator<Value>) {
             return MultipleValidator(
-                *this.validators, *other.validators,
+                *this.validators,
+                *other.validators,
             )
         }
         return MultipleValidator(
-            *this.validators, other
+            *this.validators,
+            other,
         )
     }
 }

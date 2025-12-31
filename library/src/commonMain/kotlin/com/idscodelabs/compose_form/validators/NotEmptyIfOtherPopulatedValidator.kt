@@ -8,7 +8,7 @@ fun <Value> FormController<*>.NotEmptyIfOtherPopulatedValidator(
     other: KProperty<*>,
     error: Any = "Required if ${other.name} is empty.",
 ) = Validator<Value> { _, stringRepresentation ->
-    val otherFieldValue = field(other)?.getStringValue()
+    val otherFieldValue = fieldSnapshot(other)?.getStringValue()
     if (otherFieldValue.isNullOrBlank()) {
         null
     } else if (stringRepresentation.isNullOrBlank()) {

@@ -37,7 +37,7 @@ fun <Model, Value, FormBoxImpl : FormBox<*, Value>> FormController<Model>.FormFi
     implementation: IFormFieldImplementation<FormBoxImpl>,
     valueToString: (Value?) -> String?,
     stringToValue: (String?) -> Value,
-    formImplementationMapper: FormBox<Model, Value>.() -> FormBoxImpl,
+    formImplementationMapper: @Composable FormBox<Model, Value>.() -> FormBoxImpl,
     mapValue: (value: Value) -> Value = { it },
 ) {
     val formBox =

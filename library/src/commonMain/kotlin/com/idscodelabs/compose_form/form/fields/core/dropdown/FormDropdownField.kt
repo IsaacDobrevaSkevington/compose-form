@@ -55,7 +55,7 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
         validator = InvalidOptionValidator<Item>(displayableOptionsListString, invalidOptionError) + validator,
         updateModel = updateModel,
         implementation = implementation,
-        formImplementationMapper = { DropdownFormBox(this, displayableOptions) },
+        formImplementationMapper = { rememberAsDropdownFormBox(displayableOptions) },
         valueToString = { item ->
             displayableOptions
                 .firstOrNull { it.item.key == item?.key }

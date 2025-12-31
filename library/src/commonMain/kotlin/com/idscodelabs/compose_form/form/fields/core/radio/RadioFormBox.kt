@@ -1,7 +1,7 @@
 package com.idscodelabs.compose_form.form.fields.core.radio
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.model.FormBox
@@ -16,3 +16,9 @@ open class RadioFormBox<Model, Item : ListDisplayable>(
         }
     }
 }
+
+@Composable
+fun <Model, Item : ListDisplayable> FormBox<Model, Int>.rememberAsRadioFormBox(options: List<DisplayableOption<Item>>) =
+    remember(this, options) {
+        RadioFormBox(this, options)
+    }

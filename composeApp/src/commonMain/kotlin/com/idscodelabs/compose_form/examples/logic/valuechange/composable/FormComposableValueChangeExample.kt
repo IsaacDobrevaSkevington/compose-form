@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.examples.logic.valuechange
+package com.idscodelabs.compose_form.examples.logic.valuechange.composable
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -18,23 +18,23 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 @Preview
 @Composable
-fun FormValueChangeExample() =
+fun FormComposableValueChangeExample() =
     ExampleScreen {
-        ExampleForm(emptyModel = ::FormValueChangeExampleModel) {
+        ExampleForm(emptyModel = ::FormComposableValueChangeExampleModel) {
             val value by collectValueAsState()
             FormDropdownField(
-                modelProperty = FormValueChangeExampleModel::option,
+                modelProperty = FormComposableValueChangeExampleModel::option,
                 validator = NotEmptyValidator(),
                 updateModel = { option = it },
-                options = FormValueChangeExampleOption.entries,
+                options = FormComposableValueChangeExampleOption.entries,
             ) {
                 DefaultFormDropdownEntry(hint = "Select Field Type")
             }
 
             when (value.option) {
-                FormValueChangeExampleOption.DATE_FIELD -> {
+                FormComposableValueChangeExampleOption.DATE_FIELD -> {
                     FormDateField(
-                        modelProperty = FormValueChangeExampleModel::date,
+                        modelProperty = FormComposableValueChangeExampleModel::date,
                         validator =
                             NotEmptyValidator(),
                         updateModel = { date = it },
@@ -46,9 +46,9 @@ fun FormValueChangeExample() =
                     }
                 }
 
-                FormValueChangeExampleOption.TIME_FIELD -> {
+                FormComposableValueChangeExampleOption.TIME_FIELD -> {
                     FormTimeField(
-                        modelProperty = FormValueChangeExampleModel::time,
+                        modelProperty = FormComposableValueChangeExampleModel::time,
                         validator = NotEmptyValidator(),
                         updateModel = { time = it },
                     ) {

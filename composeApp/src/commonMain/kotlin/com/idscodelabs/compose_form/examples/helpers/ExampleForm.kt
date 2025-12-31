@@ -41,3 +41,33 @@ fun <Model : ExampleModel<*>> ExampleForm(
         Text(text = "Result is ${result.value}")
     }
 }
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun <Model : ExampleModel<*>> ExampleForm(
+    controller: FormController<Model>,
+    contents: @Composable FormController<Model>.() -> Unit = {},
+) {
+    val (result, setResult) =
+        remember {
+            mutableStateOf<Model?>(null)
+        }
+    BackHandler(enabled = result != null) {
+        setResult(null)
+    }
+    if (result == null) {
+        Form(controller = controller) {
+            contents()
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    submit { setResult(it) }
+                },
+            ) {
+                Text("Submit")
+            }
+        }
+    } else {
+        Text(text = "Result is ${result.value}")
+    }
+}

@@ -3,6 +3,7 @@ package com.idscodelabs.compose_form.form.core.controller
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.idscodelabs.compose_form.form.model.FormBox
+import com.idscodelabs.compose_form.form.model.FormControllerState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,8 +22,6 @@ abstract class FormControllerViewModel<Model>(
     override var emptyModel: () -> Model,
 ) : ViewModel(),
     FormController<Model> {
-    override val boxes: MutableMap<String, FormBox<Model, *>> = mutableMapOf()
-    override val observerJobs: MutableMap<String, Job> = mutableMapOf()
-    override val valueFlow: MutableStateFlow<Model> = MutableStateFlow(valueSnapshot)
+    override val state: FormControllerState<Model> = FormControllerState(emptyModel())
     override var lifecycleScope: CoroutineScope = viewModelScope
 }
