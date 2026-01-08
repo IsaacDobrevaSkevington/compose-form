@@ -11,18 +11,19 @@ import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.form.model.remove
+import com.idscodelabs.compose_form.form.model.setValue
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
+import com.idscodelabs.compose_form.utils.updateModel
 import com.idscodelabs.compose_form.validators.core.Validator
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.compose.PickerResultLauncher
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.name
-import kotlin.reflect.KProperty
+import kotlin.reflect.KMutableProperty
 
 @Composable
 fun <Model> FormController<Model>.FormFileField(
-    modelProperty: KProperty<*>,
-    updateModel: Model.(List<PlatformFile>) -> Unit,
+    modelProperty: KMutableProperty<List<PlatformFile>>,
     hint: Any,
     initialValue: List<PlatformFile> = emptyList(),
     validator: Validator<List<PlatformFile>>? = null,
@@ -56,19 +57,16 @@ fun <Model> FormController<Model>.FormFileField(
     },
 ) = FormFileField(
     modelProperty = modelProperty,
-    updateModel = updateModel,
+    updateModel = modelProperty.updateModel(),
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
     separator = separator,
-) {
-    DefaultFileEntry(
-        hint = hint,
-        editable = editable,
-        filePickerLauncher = filePickerLauncher,
-        button = button,
-        fileRow = fileRow,
-        modifier = modifier,
-        errorDisplay = errorDisplay,
-    )
-}
+    hint = hint,
+    editable = editable,
+    filePickerLauncher = filePickerLauncher,
+    button = button,
+    fileRow = fileRow,
+    modifier = modifier,
+    errorDisplay = errorDisplay,
+)

@@ -4,13 +4,13 @@ import androidx.compose.runtime.Composable
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
+import com.idscodelabs.compose_form.utils.updateModel
 import com.idscodelabs.compose_form.validators.core.Validator
-import kotlin.reflect.KProperty
+import kotlin.reflect.KMutableProperty
 
 @Composable
 fun <Model> FormController<Model>.FormSliderField(
-    modelProperty: KProperty<*>,
-    updateModel: Model.(Int?) -> Unit,
+    modelProperty: KMutableProperty<Int?>,
     initialValue: Int? = null,
     validator: Validator<Int>? = null,
     enabled: Boolean = true,
@@ -22,15 +22,12 @@ fun <Model> FormController<Model>.FormSliderField(
     },
 ) = FormSliderField(
     modelProperty = modelProperty,
-    updateModel = updateModel,
+    updateModel = modelProperty.updateModel(),
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-) {
-    DefaultFormSliderEntry(
-        hint = hint,
-        start = start,
-        end = end,
-        errorDisplay = errorDisplay,
-    )
-}
+    hint = hint,
+    start = start,
+    end = end,
+    errorDisplay = errorDisplay,
+)

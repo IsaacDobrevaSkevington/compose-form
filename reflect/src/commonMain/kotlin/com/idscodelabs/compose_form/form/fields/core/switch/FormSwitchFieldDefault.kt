@@ -7,13 +7,14 @@ import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
+import com.idscodelabs.compose_form.utils.updateModel
 import com.idscodelabs.compose_form.validators.core.Validator
+import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
 
 @Composable
 fun <Model> FormController<Model>.FormSwitchField(
-    modelProperty: KProperty<*>,
-    updateModel: Model.(Boolean?) -> Unit,
+    modelProperty: KMutableProperty<Boolean?>,
     initialValue: Boolean? = null,
     validator: Validator<Boolean>? = null,
     enabled: Boolean = true,
@@ -30,20 +31,17 @@ fun <Model> FormController<Model>.FormSwitchField(
     },
 ) = FormSwitchField(
     modelProperty = modelProperty,
-    updateModel = updateModel,
+    updateModel = modelProperty.updateModel(),
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-) {
-    DefaultFormSwitchEntry(
-        hint = hint,
-        leftLabel = leftLabel,
-        rightLabel = rightLabel,
-        modifier = modifier,
-        switchModifier = switchModifier,
-        hintModifier = hintModifier,
-        leftLabelModifier = leftLabelModifier,
-        rightLabelModifier = rightLabelModifier,
-        errorDisplay = errorDisplay,
-    )
-}
+    hint = hint,
+    leftLabel = leftLabel,
+    rightLabel = rightLabel,
+    modifier = modifier,
+    switchModifier = switchModifier,
+    hintModifier = hintModifier,
+    leftLabelModifier = leftLabelModifier,
+    rightLabelModifier = rightLabelModifier,
+    errorDisplay = errorDisplay,
+)

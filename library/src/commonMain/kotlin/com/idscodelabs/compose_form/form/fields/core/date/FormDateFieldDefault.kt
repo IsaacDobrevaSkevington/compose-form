@@ -47,7 +47,6 @@ fun <Model> FormController<Model>.FormDateField(
     initialValue: LocalDate? = null,
     validator: Validator<LocalDate>? = null,
     enabled: Boolean = true,
-    invalidDateMessage: Any = "Invalid date format",
     cleanDate: (String) -> String = { sanitizeDate(it) },
     hint: Any? = null,
     modifier: Modifier = Modifier.fillMaxWidth(),
@@ -94,6 +93,7 @@ fun <Model> FormController<Model>.FormDateField(
             it.setPickerVisible(false)
         }
     },
+    invalidDateMessage: Any = "Invalid date format",
 ) = FormDateField(
     modelProperty,
     updateModel,

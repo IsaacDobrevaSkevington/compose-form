@@ -2,7 +2,7 @@ package com.idscodelabs.compose_form.form.fields.core.hidden
 
 import androidx.compose.runtime.Composable
 import com.idscodelabs.compose_form.form.core.controller.FormController
-import com.idscodelabs.compose_form.reflect.form.utils.updateModel
+import com.idscodelabs.compose_form.utils.updateModel
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
 
@@ -17,8 +17,9 @@ import kotlin.reflect.KProperty
 @Composable
 fun <Model, Value> FormController<Model>.FormHiddenField(
     modelProperty: KMutableProperty<Value?>,
-    value: String? = null,
+    value: Value? = null,
 ) = FormHiddenField(
+    value = value,
     modelProperty = modelProperty,
     updateModel = modelProperty.updateModel(),
 )

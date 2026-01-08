@@ -7,15 +7,17 @@ import androidx.compose.ui.draw.rotate
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
+import com.idscodelabs.compose_form.form.fields.default.multiselect.DefaultMultiselectMenuItem
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.utils.IconButton
+import com.idscodelabs.compose_form.utils.updateModel
 import com.idscodelabs.compose_form.validators.core.Validator
+import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
 
 @Composable
 fun <Model, Item : ListDisplayable> FormController<Model>.FormMultiselectField(
-    modelProperty: KProperty<*>,
-    updateModel: Model.(List<Item>) -> Unit,
+    modelProperty: KMutableProperty<List<Item>>,
     options: List<Item>,
     initialValue: List<Item> = emptyList(),
     validator: Validator<List<Item>>? = null,
@@ -41,23 +43,20 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormMultiselectField(
     },
 ) = FormMultiselectField(
     modelProperty = modelProperty,
-    updateModel = updateModel,
+    updateModel = modelProperty.updateModel(),
     options = options,
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
     itemDelimiter = itemDelimiter,
-) {
-    DefaultFormMultiselectEntry(
-        textFieldModifier = textFieldModifier,
-        exposedDropdownBoxModifier = exposedDropdownBoxModifier,
-        exposedDropdownMenuModifier = exposedDropdownMenuModifier,
-        hint = hint,
-        placeholder = placeholder,
-        isLast = isLast,
-        leadingIcon = leadingIcon,
-        clearIcon = clearIcon,
-        expandIcon = expandIcon,
-        menuItem = menuItem,
-    )
-}
+    textFieldModifier = textFieldModifier,
+    exposedDropdownBoxModifier = exposedDropdownBoxModifier,
+    exposedDropdownMenuModifier = exposedDropdownMenuModifier,
+    hint = hint,
+    placeholder = placeholder,
+    isLast = isLast,
+    leadingIcon = leadingIcon,
+    clearIcon = clearIcon,
+    expandIcon = expandIcon,
+    menuItem = menuItem,
+)

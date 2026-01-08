@@ -15,13 +15,13 @@ import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
+import com.idscodelabs.compose_form.utils.updateModel
 import com.idscodelabs.compose_form.validators.core.Validator
-import kotlin.reflect.KProperty
+import kotlin.reflect.KMutableProperty
 
 @Composable
 fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
-    modelProperty: KProperty<*>,
-    updateModel: Model.(Item?) -> Unit,
+    modelProperty: KMutableProperty<Item?>,
     options: List<Item>,
     initialValue: Item? = null,
     validator: Validator<Item>? = null,
@@ -61,17 +61,14 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
     },
 ) = FormRadioField(
     modelProperty = modelProperty,
-    updateModel = updateModel,
+    updateModel = modelProperty.updateModel(),
     options = options,
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-) {
-    DefaultFormRadioEntry(
-        hint = hint,
-        radioButton = radioButton,
-        modifier = modifier,
-        textModifier = textModifier,
-        errorDisplay = errorDisplay,
-    )
-}
+    hint = hint,
+    radioButton = radioButton,
+    modifier = modifier,
+    textModifier = textModifier,
+    errorDisplay = errorDisplay,
+)

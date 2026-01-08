@@ -28,7 +28,6 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
     exposedDropdownMenuModifier: Modifier = Modifier,
     hint: Any? = null,
     placeholder: Any? = hint,
-    isLast: Boolean = false,
     leadingIcon: (@Composable DropdownFormBox<*, Item>.() -> Unit)? = null,
     clearIcon: (@Composable DropdownFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
@@ -42,6 +41,7 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
     ) -> Unit = { item, setExpanded ->
         DefaultDropdownMenuItem(item, setExpanded)
     },
+    isLast: Boolean = false,
 ) = FormDropdownField(
     modelProperty = modelProperty,
     updateModel = updateModel,

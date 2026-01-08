@@ -14,18 +14,18 @@ import kotlin.reflect.KProperty
  * @param updateModel Function called which should set the correct property on the model. Most often should be `{ <variable> = it }`
  */
 @Composable
-fun <Model> FormController<Model>.FormHiddenField(
+fun <Model, Value> FormController<Model>.FormHiddenField(
     modelProperty: KProperty<*>,
-    value: String? = null,
-    updateModel: Model.(String?) -> Unit = {},
+    value: Value?,
+    updateModel: Model.(Value?) -> Unit = {},
 ) {
-    rememberFormBox(
+    rememberFormBox<Model, Value?>(
         value,
         true,
         null,
-        updateModel,
-        { it },
-        { it },
+        { updateModel(value) },
+        { it?.toString() },
+        { value },
         { it },
         modelProperty.name,
     ).BindLifecycle(modelProperty)

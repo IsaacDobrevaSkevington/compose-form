@@ -27,9 +27,9 @@ fun <Model> FormController<Model>.FormTextField(
     keyboardOptions: KeyboardOptions? = null,
     prefix: Any = "",
     readOnly: Boolean = false,
-    style: FormFieldStyle = LocalFormFieldStyle.current,
     onValueChange: (TextFieldValue) -> Unit = {},
     leadingIcon: (@Composable () -> Unit)? = null,
+    style: FormFieldStyle = LocalFormFieldStyle.current,
 ) = FormTextField(
     modelProperty = modelProperty,
     updateModel = updateModel,

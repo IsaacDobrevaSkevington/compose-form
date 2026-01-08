@@ -14,13 +14,14 @@ import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.default.dropdown.DefaultDropdownMenuItem
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.utils.IconButton
+import com.idscodelabs.compose_form.utils.updateModel
 import com.idscodelabs.compose_form.validators.core.Validator
+import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
 
 @Composable
 fun <Model, Suggestion : ListDisplayable> FormController<Model>.FormSuggestionField(
-    modelProperty: KProperty<*>,
-    updateModel: Model.(String?) -> Unit,
+    modelProperty: KMutableProperty<String?>,
     getSuggestions: suspend (String) -> List<Suggestion>,
     debounce: Long = 300L,
     initialValue: String? = null,
@@ -50,24 +51,21 @@ fun <Model, Suggestion : ListDisplayable> FormController<Model>.FormSuggestionFi
     },
 ) = FormSuggestionField(
     modelProperty = modelProperty,
-    updateModel = updateModel,
+    updateModel = modelProperty.updateModel(),
     getSuggestions = getSuggestions,
     debounce = debounce,
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-) {
-    DefaultSuggestionDropdownEntry(
-        textFieldModifier = textFieldModifier,
-        exposedDropdownBoxModifier = exposedDropdownBoxModifier,
-        exposedDropdownMenuModifier = exposedDropdownMenuModifier,
-        hint = hint,
-        placeholder = placeholder,
-        isLast = isLast,
-        leadingIcon = leadingIcon,
-        clearIcon = clearIcon,
-        expandIcon = expandIcon,
-        menuItem = menuItem,
-        loadingView = loadingView,
-    )
-}
+    textFieldModifier = textFieldModifier,
+    exposedDropdownBoxModifier = exposedDropdownBoxModifier,
+    exposedDropdownMenuModifier = exposedDropdownMenuModifier,
+    hint = hint,
+    placeholder = placeholder,
+    isLast = isLast,
+    leadingIcon = leadingIcon,
+    clearIcon = clearIcon,
+    expandIcon = expandIcon,
+    menuItem = menuItem,
+    loadingView = loadingView,
+)

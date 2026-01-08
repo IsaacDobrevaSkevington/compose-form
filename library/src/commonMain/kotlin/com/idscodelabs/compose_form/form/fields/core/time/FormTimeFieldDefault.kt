@@ -31,8 +31,7 @@ fun <Model> FormController<Model>.FormTimeField(
     initialValue: LocalTime? = null,
     validator: Validator<LocalTime>? = null,
     enabled: Boolean = true,
-    invalidDateMessage: Any = "Invalid date format",
-    cleanDate: (String) -> String = { sanitizeDate(it) },
+    cleanTime: (String) -> String = { sanitizeTime(it) },
     modifier: Modifier = Modifier.fillMaxWidth(),
     hint: Any? = null,
     placeholder: Any? = null,
@@ -69,14 +68,15 @@ fun <Model> FormController<Model>.FormTimeField(
             it.setPickerVisible(false)
         }
     },
+    invalidTimeMessage: Any = "Invalid time format",
 ) = FormTimeField(
-    modelProperty,
-    updateModel,
-    initialValue,
-    validator,
-    enabled,
-    invalidDateMessage,
-    cleanDate,
+    modelProperty = modelProperty,
+    updateModel = updateModel,
+    initialValue = initialValue,
+    validator = validator,
+    enabled = enabled,
+    invalidTimeMessage = invalidTimeMessage,
+    cleanTime = cleanTime,
     implementation = {
         DefaultTimeEntry(
             modifier = modifier,

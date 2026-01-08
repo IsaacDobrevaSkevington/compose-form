@@ -53,8 +53,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.kotlinx.datetime)
             api(libs.filekit.core)
-            implementation(libs.filekit.dialogs)
-            implementation(libs.filekit.dialogs.compose)
+            api(libs.filekit.dialogs)
+            api(libs.filekit.dialogs.compose)
             implementation(libs.filekit.coil)
             implementation(libs.kotlin.reflect)
         }

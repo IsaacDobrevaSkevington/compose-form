@@ -28,7 +28,6 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormAutocompleteField(
     exposedDropdownMenuModifier: Modifier = Modifier,
     hint: Any? = null,
     placeholder: Any? = hint,
-    isLast: Boolean = false,
     leadingIcon: (@Composable DropdownFormBox<*, Item>.() -> Unit)? = null,
     filterFunction: (item: String, value: String) -> Boolean = { item, value -> item.startsWith(value, ignoreCase = true) },
     clearIcon: (@Composable DropdownFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
@@ -43,6 +42,7 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormAutocompleteField(
     ) -> Unit = { item, setExpanded ->
         DefaultDropdownMenuItem(item, setExpanded)
     },
+    isLast: Boolean = false,
 ) = FormDropdownField(
     modelProperty = modelProperty,
     updateModel = updateModel,

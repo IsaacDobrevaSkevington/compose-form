@@ -15,12 +15,12 @@ fun <Model> FormController<Model>.FormSliderField(
     initialValue: Int? = null,
     validator: Validator<Int>? = null,
     enabled: Boolean = true,
-    start: Int = 0,
-    end: Int = 100,
     hint: Any? = null,
     errorDisplay: @Composable FormBox<*, Int>.(error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
+    start: Int = 0,
+    end: Int = 100,
 ) = FormSliderField(
     modelProperty = modelProperty,
     updateModel = updateModel,

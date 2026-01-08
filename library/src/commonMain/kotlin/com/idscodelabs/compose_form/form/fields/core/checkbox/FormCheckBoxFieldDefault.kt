@@ -35,12 +35,12 @@ fun <Model> FormController<Model>.FormCheckBoxField(
     initialValue: Boolean? = null,
     validator: Validator<Boolean>? = null,
     enabled: Boolean = true,
-    modifier: Modifier = Modifier.fillMaxWidth(),
-    checkboxModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
-    textModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     errorDisplay: @Composable FormBox<*, Boolean>.(error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
+    modifier: Modifier = Modifier.fillMaxWidth(),
+    checkboxModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
+    textModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
 ) = FormCheckBoxField(
     modelProperty,
     updateModel,

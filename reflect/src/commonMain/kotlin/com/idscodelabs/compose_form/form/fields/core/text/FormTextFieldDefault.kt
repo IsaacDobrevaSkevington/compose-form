@@ -8,13 +8,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.styles.FormFieldStyle
 import com.idscodelabs.compose_form.styles.LocalFormFieldStyle
+import com.idscodelabs.compose_form.utils.updateModel
 import com.idscodelabs.compose_form.validators.core.Validator
+import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
 
 @Composable
 fun <Model> FormController<Model>.FormTextField(
-    modelProperty: KProperty<*>,
-    updateModel: Model.(String?) -> Unit,
+    modelProperty: KMutableProperty<String?>,
     initialValue: String? = null,
     validator: Validator<String>? = null,
     enabled: Boolean = true,
@@ -31,22 +32,19 @@ fun <Model> FormController<Model>.FormTextField(
     leadingIcon: (@Composable () -> Unit)? = null,
 ) = FormTextField(
     modelProperty = modelProperty,
-    updateModel = updateModel,
+    updateModel = modelProperty.updateModel(),
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-) {
-    DefaultTextEntry(
-        hint = hint,
-        modifier = modifier,
-        trailingIcon = trailingIcon,
-        placeholder = placeholder,
-        isLast = isLast,
-        keyboardOptions = keyboardOptions,
-        prefix = prefix,
-        readOnly = readOnly,
-        style = style,
-        onValueChange = onValueChange,
-        leadingIcon = leadingIcon,
-    )
-}
+    hint = hint,
+    modifier = modifier,
+    trailingIcon = trailingIcon,
+    placeholder = placeholder,
+    isLast = isLast,
+    keyboardOptions = keyboardOptions,
+    prefix = prefix,
+    readOnly = readOnly,
+    style = style,
+    onValueChange = onValueChange,
+    leadingIcon = leadingIcon,
+)

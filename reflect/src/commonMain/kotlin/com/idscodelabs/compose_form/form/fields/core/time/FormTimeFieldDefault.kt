@@ -10,27 +10,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.controller.FormController
-import com.idscodelabs.compose_form.form.fields.core.date.sanitizeDate
-import com.idscodelabs.compose_form.form.fields.core.time.FormTimeField
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
+import com.idscodelabs.compose_form.form.fields.default.time.DefaultTimePickerDialog
+import com.idscodelabs.compose_form.form.fields.default.time.TimePickerController
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.utils.IconButton
+import com.idscodelabs.compose_form.utils.updateModel
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlinx.datetime.LocalTime
-import kotlin.reflect.KProperty
+import kotlin.reflect.KMutableProperty
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 @Composable
 fun <Model> FormController<Model>.FormTimeField(
-    modelProperty: KProperty<*>,
-    updateModel: Model.(LocalTime?) -> Unit,
+    modelProperty: KMutableProperty<LocalTime?>,
     initialValue: LocalTime? = null,
     validator: Validator<LocalTime>? = null,
     enabled: Boolean = true,
-    invalidDateMessage: Any = "Invalid date format",
-    cleanDate: (String) -> String = { sanitizeDate(it) },
+    invalidTimeMessage: Any = "Invalid time format",
+    cleanTime: (String) -> String = { sanitizeTime(it) },
     modifier: Modifier = Modifier.fillMaxWidth(),
     hint: Any? = null,
     placeholder: Any? = null,
@@ -68,21 +68,20 @@ fun <Model> FormController<Model>.FormTimeField(
         }
     },
 ) = FormTimeField(
-    modelProperty,
-    updateModel,
-    initialValue,
-    validator,
-    enabled,
-    invalidDateMessage,
-    cleanDate,
-) {
-    DefaultTimeEntry(
-        modifier = modifier,
-        hint = hint,
-        leadingIcon = leadingIcon,
-        timePickerState = timePickerState,
-        allowTyping = allowTyping,
-        entry = entry,
-        dialog = dialog,
-    )
-}
+    modelProperty = modelProperty,
+    updateModel = modelProperty.updateModel(),
+    initialValue = initialValue,
+    validator = validator,
+    enabled = enabled,
+    invalidTimeMessage = invalidTimeMessage,
+    cleanTime = cleanTime,
+    modifier = modifier,
+    hint = hint,
+    leadingIcon = leadingIcon,
+    timePickerState = timePickerState,
+    allowTyping = allowTyping,
+    entry = entry,
+    dialog = dialog,
+    placeholder = placeholder,
+    isLast = isLast,
+)

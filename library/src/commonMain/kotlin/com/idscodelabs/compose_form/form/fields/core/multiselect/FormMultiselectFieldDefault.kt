@@ -28,7 +28,6 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormMultiselectField(
     exposedDropdownMenuModifier: Modifier = Modifier,
     hint: Any? = null,
     placeholder: Any? = hint,
-    isLast: Boolean = false,
     leadingIcon: (@Composable MultiselectFormBox<*, Item>.() -> Unit)? = null,
     clearIcon: (@Composable MultiselectFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
@@ -41,6 +40,7 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormMultiselectField(
     ) -> Unit = { item ->
         DefaultMultiselectMenuItem(item)
     },
+    isLast: Boolean = false,
 ) = FormMultiselectField(
     modelProperty = modelProperty,
     updateModel = updateModel,

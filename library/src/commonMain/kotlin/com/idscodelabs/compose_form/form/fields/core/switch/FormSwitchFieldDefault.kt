@@ -21,14 +21,14 @@ fun <Model> FormController<Model>.FormSwitchField(
     hint: Any? = null,
     leftLabel: Any? = null,
     rightLabel: Any? = null,
+    errorDisplay: @Composable FormBox<*, Boolean>.(error: String) -> Unit = {
+        StandardErrorDisplay(it)
+    },
     modifier: Modifier = Modifier.fillMaxWidth(),
     switchModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     hintModifier: Modifier = Modifier.fillMaxWidth(),
     leftLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     rightLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
-    errorDisplay: @Composable FormBox<*, Boolean>.(error: String) -> Unit = {
-        StandardErrorDisplay(it)
-    },
 ) = FormSwitchField(
     modelProperty = modelProperty,
     updateModel = updateModel,
