@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.form.fields.default.multiselect
+package com.idscodelabs.compose_form.form.fields.core.multiselect
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -7,8 +7,8 @@ import androidx.compose.ui.draw.rotate
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
-import com.idscodelabs.compose_form.form.fields.core.multiselect.FormMultiselectField
-import com.idscodelabs.compose_form.form.fields.core.multiselect.MultiselectFormBox
+import com.idscodelabs.compose_form.form.fields.default.multiselect.DefaultFormMultiselectEntry
+import com.idscodelabs.compose_form.form.fields.default.multiselect.DefaultMultiselectMenuItem
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.utils.IconButton
 import com.idscodelabs.compose_form.validators.core.Validator
@@ -49,17 +49,18 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormMultiselectField(
     validator = validator,
     enabled = enabled,
     itemDelimiter = itemDelimiter,
-) {
-    DefaultFormMultiselectEntry(
-        textFieldModifier = textFieldModifier,
-        exposedDropdownBoxModifier = exposedDropdownBoxModifier,
-        exposedDropdownMenuModifier = exposedDropdownMenuModifier,
-        hint = hint,
-        placeholder = placeholder,
-        isLast = isLast,
-        leadingIcon = leadingIcon,
-        clearIcon = clearIcon,
-        expandIcon = expandIcon,
-        menuItem = menuItem,
-    )
-}
+    implementation = {
+        DefaultFormMultiselectEntry(
+            textFieldModifier = textFieldModifier,
+            exposedDropdownBoxModifier = exposedDropdownBoxModifier,
+            exposedDropdownMenuModifier = exposedDropdownMenuModifier,
+            hint = hint,
+            placeholder = placeholder,
+            isLast = isLast,
+            leadingIcon = leadingIcon,
+            clearIcon = clearIcon,
+            expandIcon = expandIcon,
+            menuItem = menuItem,
+        )
+    },
+)

@@ -26,7 +26,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  * @param Model The Model the form outputs
  * @param Value The Value which is stored in this [FormBox]
  * @property enabledState A [MutableStateFlow] defining if this box is enabled
- * @property currentValidator The current [Validator] for this [FormBox], can be changed using [setValidator]
+ * @property currentValidator The current [Validator] for this [FormBox]
  * @property setModelProperty Set the property on [Model]
  * @param valueToString Convert [Value] to a [String]. This will be used in [Validator]s and used for state saving
  * @property valueState A flow of the current value

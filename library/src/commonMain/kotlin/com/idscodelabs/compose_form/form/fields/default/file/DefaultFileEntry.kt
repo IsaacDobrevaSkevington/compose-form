@@ -21,7 +21,7 @@ import io.github.vinceglb.filekit.name
 
 @Composable
 fun FormBox<*, List<PlatformFile>>.DefaultFileEntry(
-    hint: Any,
+    hint: Any? = null,
     editable: Boolean = true,
     filePickerLauncher: @Composable FormBox<*, List<PlatformFile>>.() -> PickerResultLauncher = {
         rememberFilePickerLauncher {
@@ -63,7 +63,9 @@ fun FormBox<*, List<PlatformFile>>.DefaultFileEntry(
                     Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
                 ) {
-                    Text(text = hint.asDisplayString())
+                    hint?.let {
+                        Text(text = it.asDisplayString())
+                    }
 
                     if (value.isNotEmpty()) {
                         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {

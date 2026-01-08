@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.form.fields.default.dropdown
+package com.idscodelabs.compose_form.form.fields.core.dropdown
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -7,15 +7,15 @@ import androidx.compose.ui.draw.rotate
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
-import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
-import com.idscodelabs.compose_form.form.fields.core.dropdown.FormDropdownField
+import com.idscodelabs.compose_form.form.fields.default.dropdown.DefaultAutocompleteFormDropdownEntry
+import com.idscodelabs.compose_form.form.fields.default.dropdown.DefaultDropdownMenuItem
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.utils.IconButton
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
 @Composable
-fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
+fun <Model, Item : ListDisplayable> FormController<Model>.FormAutocompleteField(
     modelProperty: KProperty<*>,
     updateModel: Model.(Item?) -> Unit,
     options: List<Item>,
@@ -30,6 +30,7 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
     placeholder: Any? = hint,
     isLast: Boolean = false,
     leadingIcon: (@Composable DropdownFormBox<*, Item>.() -> Unit)? = null,
+    filterFunction: (item: String, value: String) -> Boolean = { item, value -> item.startsWith(value, ignoreCase = true) },
     clearIcon: (@Composable DropdownFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
@@ -51,7 +52,7 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
     enabled = enabled,
     invalidOptionError = invalidOptionError,
 ) {
-    DefaultFormDropdownEntry(
+    DefaultAutocompleteFormDropdownEntry(
         textFieldModifier = textFieldModifier,
         exposedDropdownBoxModifier = exposedDropdownBoxModifier,
         exposedDropdownMenuModifier = exposedDropdownMenuModifier,
@@ -62,5 +63,6 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
         clearIcon = clearIcon,
         expandIcon = expandIcon,
         menuItem = menuItem,
+        filterFunction = filterFunction,
     )
 }

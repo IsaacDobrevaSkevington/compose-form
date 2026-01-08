@@ -1,11 +1,11 @@
-package com.idscodelabs.compose_form.form.fields.default.checkbox
+package com.idscodelabs.compose_form.form.fields.core.checkbox
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.core.controller.FormController
-import com.idscodelabs.compose_form.form.fields.core.checkbox.FormCheckBoxField
+import com.idscodelabs.compose_form.form.fields.default.checkbox.DefaultFormCheckBoxEntry
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 import com.idscodelabs.compose_form.validators.core.Validator
@@ -30,7 +30,7 @@ import kotlin.reflect.KProperty
 @Composable
 fun <Model> FormController<Model>.FormCheckBoxField(
     modelProperty: KProperty<*>,
-    hint: Any,
+    hint: Any? = null,
     updateModel: Model.(Boolean?) -> Unit,
     initialValue: Boolean? = null,
     validator: Validator<Boolean>? = null,

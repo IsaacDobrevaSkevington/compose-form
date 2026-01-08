@@ -17,6 +17,7 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
+        mavenLocal()
         google {
             mavenContent {
                 includeGroupAndSubgroups("androidx")
@@ -34,3 +35,4 @@ plugins {
 
 include(":composeApp")
 include(":library")
+include(":reflect")

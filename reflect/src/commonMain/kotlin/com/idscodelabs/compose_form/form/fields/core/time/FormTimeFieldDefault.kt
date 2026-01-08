@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.form.fields.default.time
+package com.idscodelabs.compose_form.form.fields.core.time
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions

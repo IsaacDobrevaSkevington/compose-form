@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.form.fields.default.text
+package com.idscodelabs.compose_form.form.fields.core.text
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.controller.FormController
-import com.idscodelabs.compose_form.form.fields.core.text.FormTextField
 import com.idscodelabs.compose_form.styles.FormFieldStyle
 import com.idscodelabs.compose_form.styles.LocalFormFieldStyle
 import com.idscodelabs.compose_form.validators.core.Validator

@@ -53,7 +53,7 @@ val validator = Validator<String> {value, _ ->
     return if(value?.split(",")?.size == 3){
         null
     } else {
-        "3 Comma Separated Values Required."
+        "4 Comma Separated Values Required."
     }
 }
 ```
@@ -62,13 +62,13 @@ Alternatively validation classes can be created for reuse:
 
 ```kotlin
 class CSVValidator(
-    private val count: Int = 3
+    private val commaCount: Int = 3
 ): Validator<String> {
     override fun validate(value: String?, stringRepresentation: String?): Any? {
-        return if(value?.split(",")?.size == count){
+        return if(value?.split(",")?.size == commaCount){
             null
         } else {
-            "3 Comma Separated Values Required."
+            "${commaCount + 1} Comma Separated Values Required."
         }
     }
 }

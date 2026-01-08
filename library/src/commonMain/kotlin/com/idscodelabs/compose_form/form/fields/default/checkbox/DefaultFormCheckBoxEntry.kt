@@ -27,7 +27,7 @@ import io.github.vinceglb.filekit.PlatformFile
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormBox<*, Boolean>.DefaultFormCheckBoxEntry(
-    hint: Any,
+    hint: Any? = null,
     modifier: Modifier = Modifier.fillMaxWidth(),
     checkboxModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     textModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
@@ -49,14 +49,16 @@ fun FormBox<*, Boolean>.DefaultFormCheckBoxEntry(
                 modifier = checkboxModifier.primaryFocusable(),
                 enabled = enabled,
             )
-            Text(
-                text = hint.asDisplayString(),
-                modifier =
-                    textModifier.clickable(
-                        enabled = enabled,
-                        onClick = { setValue(!valueSnapshot) },
-                    ),
-            )
+            hint?.let {
+                Text(
+                    text = it.asDisplayString(),
+                    modifier =
+                        textModifier.clickable(
+                            enabled = enabled,
+                            onClick = { setValue(!valueSnapshot) },
+                        ),
+                )
+            }
         }
 
         error?.let {

@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.form.fields.default.suggestion
+package com.idscodelabs.compose_form.form.fields.core.suggestion
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,9 +11,8 @@ import androidx.compose.ui.unit.dp
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
-import com.idscodelabs.compose_form.form.fields.core.suggestion.FormSuggestionField
-import com.idscodelabs.compose_form.form.fields.core.suggestion.SuggestionFormBox
 import com.idscodelabs.compose_form.form.fields.default.dropdown.DefaultDropdownMenuItem
+import com.idscodelabs.compose_form.form.fields.default.suggestion.DefaultSuggestionDropdownEntry
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.utils.IconButton
 import com.idscodelabs.compose_form.validators.core.Validator
@@ -58,18 +57,19 @@ fun <Model, Suggestion : ListDisplayable> FormController<Model>.FormSuggestionFi
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-) {
-    DefaultSuggestionDropdownEntry(
-        textFieldModifier = textFieldModifier,
-        exposedDropdownBoxModifier = exposedDropdownBoxModifier,
-        exposedDropdownMenuModifier = exposedDropdownMenuModifier,
-        hint = hint,
-        placeholder = placeholder,
-        isLast = isLast,
-        leadingIcon = leadingIcon,
-        clearIcon = clearIcon,
-        expandIcon = expandIcon,
-        menuItem = menuItem,
-        loadingView = loadingView,
-    )
-}
+    implementation = {
+        DefaultSuggestionDropdownEntry(
+            textFieldModifier = textFieldModifier,
+            exposedDropdownBoxModifier = exposedDropdownBoxModifier,
+            exposedDropdownMenuModifier = exposedDropdownMenuModifier,
+            hint = hint,
+            placeholder = placeholder,
+            isLast = isLast,
+            leadingIcon = leadingIcon,
+            clearIcon = clearIcon,
+            expandIcon = expandIcon,
+            menuItem = menuItem,
+            loadingView = loadingView,
+        )
+    },
+)

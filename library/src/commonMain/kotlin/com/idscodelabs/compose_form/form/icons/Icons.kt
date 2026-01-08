@@ -1,6 +1,6 @@
 package com.idscodelabs.compose_form.form.icons
 
-internal object Icons {
+object Icons {
     val DateRange = DateRangeIcon
     val ArrowDropDown = ArrowDropDownIcon
     val Close = CloseIcon

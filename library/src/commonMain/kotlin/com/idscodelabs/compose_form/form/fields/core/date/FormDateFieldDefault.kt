@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.form.fields.default.date
+package com.idscodelabs.compose_form.form.fields.core.date
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,9 +11,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementation
-import com.idscodelabs.compose_form.form.fields.core.date.FormDateField
-import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
-import com.idscodelabs.compose_form.form.fields.core.date.sanitizeDate
+import com.idscodelabs.compose_form.form.fields.default.date.DatePickerController
+import com.idscodelabs.compose_form.form.fields.default.date.DefaultDateEntry
+import com.idscodelabs.compose_form.form.fields.default.date.DefaultDatePickerDialog
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.form.model.FormBox
@@ -37,7 +37,7 @@ import kotlin.reflect.KProperty
  * @see [FormFieldImplementation]
  * @see [LocalFormDateFormatter]
  * @see [sanitizeDate]
- * @see [com.idscodelabs.compose_form.form.fields.default.date.DefaultDateEntry]
+ * @see [DefaultDateEntry]
  * @sample com.idscodelabs.compose_form.examples.fields.date.FormDateFieldExample
  */
 @Composable
@@ -49,8 +49,8 @@ fun <Model> FormController<Model>.FormDateField(
     enabled: Boolean = true,
     invalidDateMessage: Any = "Invalid date format",
     cleanDate: (String) -> String = { sanitizeDate(it) },
-    modifier: Modifier = Modifier.fillMaxWidth(),
     hint: Any? = null,
+    modifier: Modifier = Modifier.fillMaxWidth(),
     placeholder: Any? = null,
     isLast: Boolean = false,
     leadingIcon: (@Composable () -> Unit)? = null,
@@ -102,16 +102,17 @@ fun <Model> FormController<Model>.FormDateField(
     enabled,
     invalidDateMessage,
     cleanDate,
-) {
-    DefaultDateEntry(
-        modifier,
-        hint,
-        placeholder,
-        isLast,
-        leadingIcon,
-        datePickerState,
-        allowTyping,
-        entry,
-        dialog,
-    )
-}
+    implementation = {
+        DefaultDateEntry(
+            modifier,
+            hint,
+            placeholder,
+            isLast,
+            leadingIcon,
+            datePickerState,
+            allowTyping,
+            entry,
+            dialog,
+        )
+    },
+)

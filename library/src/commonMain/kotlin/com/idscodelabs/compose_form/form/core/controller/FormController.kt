@@ -5,7 +5,6 @@ import com.idscodelabs.compose_form.form.core.exceptions.FormSubmissionFailedErr
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.form.model.FormBoxFlow
 import com.idscodelabs.compose_form.form.model.FormControllerState
-import com.idscodelabs.compose_form.form.model.MutableFormBoxFlow
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlin.coroutines.CoroutineContext
@@ -22,6 +21,7 @@ import kotlin.reflect.KProperty
  * @param Model The type which the form populates
  *
  */
+@Suppress("UNCHECKED_CAST")
 interface FormController<Model> {
     /**
      * Scope in which coroutines should run

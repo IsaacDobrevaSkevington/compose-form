@@ -1,8 +1,8 @@
-package com.idscodelabs.compose_form.form.fields.default.slider
+package com.idscodelabs.compose_form.form.fields.core.slider
 
 import androidx.compose.runtime.Composable
 import com.idscodelabs.compose_form.form.core.controller.FormController
-import com.idscodelabs.compose_form.form.fields.core.slider.FormSliderField
+import com.idscodelabs.compose_form.form.fields.default.slider.DefaultFormSliderEntry
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 import com.idscodelabs.compose_form.validators.core.Validator
@@ -27,11 +27,12 @@ fun <Model> FormController<Model>.FormSliderField(
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-) {
-    DefaultFormSliderEntry(
-        hint = hint,
-        start = start,
-        end = end,
-        errorDisplay = errorDisplay,
-    )
-}
+    implementation = {
+        DefaultFormSliderEntry(
+            hint = hint,
+            start = start,
+            end = end,
+            errorDisplay = errorDisplay,
+        )
+    },
+)

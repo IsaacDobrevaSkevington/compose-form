@@ -14,7 +14,6 @@ plugins {
     alias(libs.plugins.dokka)
     signing
 }
-
 kotlin {
     withSourcesJar(publish = true)
     androidTarget {
@@ -23,26 +22,11 @@ kotlin {
         }
     }
 
-    listOf(
-        iosArm64(),
-        iosSimulatorArm64(),
-    )
-
     jvm()
-
-    js {
-        browser()
-        binaries.executable()
-    }
-
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-        binaries.executable()
-    }
 
     sourceSets {
         commonMain.dependencies {
+            implementation("io.github.idscodelabs:compose-form:$version")
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -52,10 +36,6 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.kotlinx.datetime)
-            api(libs.filekit.core)
-            implementation(libs.filekit.dialogs)
-            implementation(libs.filekit.dialogs.compose)
-            implementation(libs.filekit.coil)
             implementation(libs.kotlin.reflect)
         }
     }
@@ -117,11 +97,11 @@ publishing {
 }
 
 dokka {
-    moduleName.set("Compose Form Core")
+    moduleName.set("Compose Form Reflect")
     dokkaPublications.html {
         suppressInheritedMembers.set(true)
         failOnWarning.set(true)
-        outputDirectory.set(File("${rootProject.projectDir}/docs/dokka/core"))
+        outputDirectory.set(File("${rootProject.projectDir}/docs/dokka/reflect"))
     }
     dokkaSourceSets.commonMain {
         samples.from("${rootProject.projectDir}/composeApp/src/commonMain/kotlin/com/idscodelabs/compose_form/examples")
@@ -139,13 +119,13 @@ signing {
 mavenPublishing {
     coordinates(
         groupId = "io.github.idscodelabs",
-        artifactId = "compose-form",
+        artifactId = "compose-form-reflect",
         version = version.toString(),
     )
 
     pom {
-        name.set("Compose Form")
-        description.set("Multiplatform form library for Compose")
+        name.set("Compose Form Reflect")
+        description.set("Reflection extensions for Compose Form")
         inceptionYear.set("2025")
         url.set("https://github.com/IsaacDobrevaSkevington/compose-form")
 

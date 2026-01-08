@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.form.fields.default.radio
+package com.idscodelabs.compose_form.form.fields.core.radio
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -13,8 +13,7 @@ import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
-import com.idscodelabs.compose_form.form.fields.core.radio.FormRadioField
-import com.idscodelabs.compose_form.form.fields.core.radio.RadioFormBox
+import com.idscodelabs.compose_form.form.fields.default.radio.DefaultFormRadioEntry
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 import com.idscodelabs.compose_form.validators.core.Validator
@@ -28,7 +27,7 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
     initialValue: Item? = null,
     validator: Validator<Item>? = null,
     enabled: Boolean = true,
-    hint: Any?,
+    hint: Any? = null,
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
     radioButton: @Composable RadioFormBox<*, Item>.(DisplayableOption<Item>, Int) -> Unit = { item, index ->
@@ -68,12 +67,13 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-) {
-    DefaultFormRadioEntry(
-        hint = hint,
-        radioButton = radioButton,
-        modifier = modifier,
-        textModifier = textModifier,
-        errorDisplay = errorDisplay,
-    )
-}
+    implementation = {
+        DefaultFormRadioEntry(
+            hint = hint,
+            radioButton = radioButton,
+            modifier = modifier,
+            textModifier = textModifier,
+            errorDisplay = errorDisplay,
+        )
+    },
+)
