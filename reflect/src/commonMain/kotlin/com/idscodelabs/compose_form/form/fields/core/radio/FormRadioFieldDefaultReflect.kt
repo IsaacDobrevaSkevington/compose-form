@@ -27,8 +27,6 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
     validator: Validator<Item>? = null,
     enabled: Boolean = true,
     hint: Any?,
-    modifier: Modifier = Modifier,
-    textModifier: Modifier = Modifier,
     radioButton: @Composable RadioFormBox<*, Item>.(DisplayableOption<Item>, Int) -> Unit = { item, index ->
         Row(
             Modifier
@@ -59,6 +57,8 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
     errorDisplay: @Composable RadioFormBox<*, Item>.(error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
+    modifier: Modifier = Modifier,
+    textModifier: Modifier = Modifier,
 ) = FormRadioField(
     modelProperty = modelProperty,
     updateModel = modelProperty.updateModel(),

@@ -1,17 +1,12 @@
 package com.idscodelabs.compose_form.form.fields.core.radio
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import com.idscodelabs.compose_form.form.core.controller.FormController
-import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
-import com.idscodelabs.compose_form.form.fields.core.base.FormFieldWrapper
 import com.idscodelabs.compose_form.form.fields.core.base.IFormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
-import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.utils.updateModel
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KMutableProperty
-import kotlin.reflect.KProperty
 
 @Composable
 fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(

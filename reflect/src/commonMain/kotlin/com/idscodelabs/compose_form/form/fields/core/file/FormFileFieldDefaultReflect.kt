@@ -28,7 +28,6 @@ fun <Model> FormController<Model>.FormFileField(
     initialValue: List<PlatformFile> = emptyList(),
     validator: Validator<List<PlatformFile>>? = null,
     enabled: Boolean = true,
-    separator: String = "\u0000",
     editable: Boolean = true,
     filePickerLauncher: @Composable FormBox<*, List<PlatformFile>>.() -> PickerResultLauncher = {
         rememberFilePickerLauncher {
@@ -55,6 +54,7 @@ fun <Model> FormController<Model>.FormFileField(
     errorDisplay: @Composable FormBox<*, List<PlatformFile>>.(error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
+    separator: String = "\u0000",
 ) = FormFileField(
     modelProperty = modelProperty,
     updateModel = modelProperty.updateModel(),

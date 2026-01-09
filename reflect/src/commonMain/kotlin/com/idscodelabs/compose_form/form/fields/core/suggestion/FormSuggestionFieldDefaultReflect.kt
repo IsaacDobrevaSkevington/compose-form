@@ -17,7 +17,6 @@ import com.idscodelabs.compose_form.utils.IconButton
 import com.idscodelabs.compose_form.utils.updateModel
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KMutableProperty
-import kotlin.reflect.KProperty
 
 @Composable
 fun <Model, Suggestion : ListDisplayable> FormController<Model>.FormSuggestionField(
@@ -32,7 +31,6 @@ fun <Model, Suggestion : ListDisplayable> FormController<Model>.FormSuggestionFi
     exposedDropdownMenuModifier: Modifier = Modifier,
     hint: Any? = null,
     placeholder: Any? = hint,
-    isLast: Boolean = false,
     leadingIcon: (@Composable SuggestionFormBox<*, Suggestion>.() -> Unit)? = null,
     clearIcon: (@Composable SuggestionFormBox<*, Suggestion>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
@@ -49,6 +47,7 @@ fun <Model, Suggestion : ListDisplayable> FormController<Model>.FormSuggestionFi
     loadingView: @Composable () -> Unit = {
         CircularProgressIndicator(Modifier.size(48.dp).padding(8.dp))
     },
+    isLast: Boolean = false,
 ) = FormSuggestionField(
     modelProperty = modelProperty,
     updateModel = modelProperty.updateModel(),

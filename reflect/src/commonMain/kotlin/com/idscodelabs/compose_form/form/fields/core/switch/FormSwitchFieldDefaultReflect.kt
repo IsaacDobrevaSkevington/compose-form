@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.form.fields.core.checkbox
+package com.idscodelabs.compose_form.form.fields.core.switch
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.minimumInteractiveComponentSize
@@ -12,27 +12,35 @@ import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KMutableProperty
 
 @Composable
-fun <Model> FormController<Model>.FormCheckBoxField(
+fun <Model> FormController<Model>.FormSwitchField(
     modelProperty: KMutableProperty<Boolean?>,
-    hint: Any,
     initialValue: Boolean? = null,
     validator: Validator<Boolean>? = null,
     enabled: Boolean = true,
-    modifier: Modifier = Modifier.fillMaxWidth(),
-    checkboxModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
-    textModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
+    hint: Any? = null,
+    leftLabel: Any? = null,
+    rightLabel: Any? = null,
     errorDisplay: @Composable FormBox<*, Boolean>.(error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
-) = FormCheckBoxField(
+    modifier: Modifier = Modifier.fillMaxWidth(),
+    switchModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
+    hintModifier: Modifier = Modifier.fillMaxWidth(),
+    leftLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
+    rightLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
+    ) = FormSwitchField(
     modelProperty = modelProperty,
     updateModel = modelProperty.updateModel(),
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
     hint = hint,
+    leftLabel = leftLabel,
+    rightLabel = rightLabel,
     modifier = modifier,
-    checkboxModifier = checkboxModifier,
-    textModifier = textModifier,
+    switchModifier = switchModifier,
+    hintModifier = hintModifier,
+    leftLabelModifier = leftLabelModifier,
+    rightLabelModifier = rightLabelModifier,
     errorDisplay = errorDisplay,
 )

@@ -15,7 +15,7 @@ import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KMutableProperty
 
 @Composable
-fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
+fun <Model, Item : ListDisplayable> FormController<Model>.FormAutocompleteField(
     modelProperty: KMutableProperty<Item?>,
     options: List<Item>,
     initialValue: Item? = null,
@@ -27,8 +27,8 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
     exposedDropdownMenuModifier: Modifier = Modifier,
     hint: Any? = null,
     placeholder: Any? = hint,
-    isLast: Boolean = false,
     leadingIcon: (@Composable DropdownFormBox<*, Item>.() -> Unit)? = null,
+    filterFunction: (item: String, value: String) -> Boolean = { item, value -> item.startsWith(value, ignoreCase = true) },
     clearIcon: (@Composable DropdownFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
@@ -41,7 +41,8 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
     ) -> Unit = { item, setExpanded ->
         DefaultDropdownMenuItem(item, setExpanded)
     },
-) = FormDropdownField(
+    isLast: Boolean = false,
+) = FormAutocompleteField(
     modelProperty = modelProperty,
     updateModel = modelProperty.updateModel(),
     options = options,
@@ -59,4 +60,5 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
     clearIcon = clearIcon,
     expandIcon = expandIcon,
     menuItem = menuItem,
+    filterFunction = filterFunction,
 )

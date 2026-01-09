@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.form.fields.core.switch
+package com.idscodelabs.compose_form.form.fields.core.checkbox
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.minimumInteractiveComponentSize
@@ -10,38 +10,29 @@ import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 import com.idscodelabs.compose_form.utils.updateModel
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KMutableProperty
-import kotlin.reflect.KProperty
 
 @Composable
-fun <Model> FormController<Model>.FormSwitchField(
+fun <Model> FormController<Model>.FormCheckBoxField(
     modelProperty: KMutableProperty<Boolean?>,
+    hint: Any,
     initialValue: Boolean? = null,
     validator: Validator<Boolean>? = null,
     enabled: Boolean = true,
-    hint: Any? = null,
-    leftLabel: Any? = null,
-    rightLabel: Any? = null,
-    modifier: Modifier = Modifier.fillMaxWidth(),
-    switchModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
-    hintModifier: Modifier = Modifier.fillMaxWidth(),
-    leftLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
-    rightLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     errorDisplay: @Composable FormBox<*, Boolean>.(error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
-) = FormSwitchField(
+    modifier: Modifier = Modifier.fillMaxWidth(),
+    checkboxModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
+    textModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
+    ) = FormCheckBoxField(
     modelProperty = modelProperty,
     updateModel = modelProperty.updateModel(),
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
     hint = hint,
-    leftLabel = leftLabel,
-    rightLabel = rightLabel,
     modifier = modifier,
-    switchModifier = switchModifier,
-    hintModifier = hintModifier,
-    leftLabelModifier = leftLabelModifier,
-    rightLabelModifier = rightLabelModifier,
+    checkboxModifier = checkboxModifier,
+    textModifier = textModifier,
     errorDisplay = errorDisplay,
 )

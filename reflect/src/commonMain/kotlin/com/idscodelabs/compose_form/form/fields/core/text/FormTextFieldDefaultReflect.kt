@@ -11,7 +11,6 @@ import com.idscodelabs.compose_form.styles.LocalFormFieldStyle
 import com.idscodelabs.compose_form.utils.updateModel
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KMutableProperty
-import kotlin.reflect.KProperty
 
 @Composable
 fun <Model> FormController<Model>.FormTextField(
@@ -27,9 +26,9 @@ fun <Model> FormController<Model>.FormTextField(
     keyboardOptions: KeyboardOptions? = null,
     prefix: Any = "",
     readOnly: Boolean = false,
-    style: FormFieldStyle = LocalFormFieldStyle.current,
     onValueChange: (TextFieldValue) -> Unit = {},
     leadingIcon: (@Composable () -> Unit)? = null,
+    style: FormFieldStyle = LocalFormFieldStyle.current
 ) = FormTextField(
     modelProperty = modelProperty,
     updateModel = modelProperty.updateModel(),
