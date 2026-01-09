@@ -10,7 +10,9 @@ import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.default.dropdown.DefaultDropdownMenuItem
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.utils.IconButton
+import com.idscodelabs.compose_form.utils.hint
 import com.idscodelabs.compose_form.utils.updateModel
+import com.idscodelabs.compose_form.utils.validator
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KMutableProperty
 
@@ -19,13 +21,13 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormAutocompleteField(
     modelProperty: KMutableProperty<Item?>,
     options: List<Item>,
     initialValue: Item? = null,
-    validator: Validator<Item>? = null,
+    validator: Validator<Item>? = modelProperty.validator(),
     enabled: Boolean = true,
     invalidOptionError: Any = "Invalid Option",
     textFieldModifier: Modifier = Modifier.fillMaxWidth(),
     exposedDropdownBoxModifier: Modifier = Modifier,
     exposedDropdownMenuModifier: Modifier = Modifier,
-    hint: Any? = null,
+    hint: Any? = modelProperty.hint(),
     placeholder: Any? = hint,
     leadingIcon: (@Composable DropdownFormBox<*, Item>.() -> Unit)? = null,
     filterFunction: (item: String, value: String) -> Boolean = { item, value -> item.startsWith(value, ignoreCase = true) },

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementation
 import com.idscodelabs.compose_form.utils.updateModel
+import com.idscodelabs.compose_form.utils.validator
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KMutableProperty
 
@@ -11,7 +12,7 @@ import kotlin.reflect.KMutableProperty
 fun <Model> FormController<Model>.FormSliderField(
     modelProperty: KMutableProperty<Int?>,
     initialValue: Int? = null,
-    validator: Validator<Int>? = null,
+    validator: Validator<Int>? = modelProperty.validator(),
     enabled: Boolean = true,
     implementation: FormFieldImplementation<Int>,
 ) = FormSliderField(

@@ -16,7 +16,9 @@ import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.utils.IconButton
+import com.idscodelabs.compose_form.utils.hint
 import com.idscodelabs.compose_form.utils.updateModel
+import com.idscodelabs.compose_form.utils.validator
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlinx.datetime.LocalDate
 import kotlin.reflect.KMutableProperty
@@ -25,11 +27,11 @@ import kotlin.reflect.KMutableProperty
 fun <Model> FormController<Model>.FormDateField(
     modelProperty: KMutableProperty<LocalDate?>,
     initialValue: LocalDate? = null,
-    validator: Validator<LocalDate>? = null,
+    validator: Validator<LocalDate>? = modelProperty.validator(),
     enabled: Boolean = true,
     cleanDate: (String) -> String = { sanitizeDate(it) },
     modifier: Modifier = Modifier.fillMaxWidth(),
-    hint: Any? = null,
+    hint: Any? = modelProperty.hint(),
     placeholder: Any? = null,
     isLast: Boolean = false,
     leadingIcon: (@Composable () -> Unit)? = null,

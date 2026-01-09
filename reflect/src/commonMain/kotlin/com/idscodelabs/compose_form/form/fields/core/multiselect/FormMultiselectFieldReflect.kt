@@ -5,6 +5,7 @@ import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.IFormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.utils.updateModel
+import com.idscodelabs.compose_form.utils.validator
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KMutableProperty
 
@@ -13,7 +14,7 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormMultiselectField(
     modelProperty: KMutableProperty<List<Item>>,
     options: List<Item>,
     initialValue: List<Item> = emptyList(),
-    validator: Validator<List<Item>>? = null,
+    validator: Validator<List<Item>>? = modelProperty.validator(),
     enabled: Boolean = true,
     itemDelimiter: String = ", ",
     implementation: IFormFieldImplementation<MultiselectFormBox<Model, Item>>,

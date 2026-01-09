@@ -10,7 +10,9 @@ import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.default.multiselect.DefaultMultiselectMenuItem
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.utils.IconButton
+import com.idscodelabs.compose_form.utils.hint
 import com.idscodelabs.compose_form.utils.updateModel
+import com.idscodelabs.compose_form.utils.validator
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KMutableProperty
 
@@ -19,13 +21,13 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormMultiselectField(
     modelProperty: KMutableProperty<List<Item>>,
     options: List<Item>,
     initialValue: List<Item> = emptyList(),
-    validator: Validator<List<Item>>? = null,
+    validator: Validator<List<Item>>? = modelProperty.validator(),
     enabled: Boolean = true,
     itemDelimiter: String = ", ",
     textFieldModifier: Modifier = Modifier.fillMaxWidth(),
     exposedDropdownBoxModifier: Modifier = Modifier,
     exposedDropdownMenuModifier: Modifier = Modifier,
-    hint: Any? = null,
+    hint: Any? = modelProperty.hint(),
     placeholder: Any? = hint,
     leadingIcon: (@Composable MultiselectFormBox<*, Item>.() -> Unit)? = null,
     clearIcon: (@Composable MultiselectFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {

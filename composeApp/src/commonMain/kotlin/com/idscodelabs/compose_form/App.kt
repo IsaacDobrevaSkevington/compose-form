@@ -34,6 +34,7 @@ import com.idscodelabs.compose_form.app.BackIcon
 import com.idscodelabs.compose_form.app.Example
 import com.idscodelabs.compose_form.app.ExampleField
 import com.idscodelabs.compose_form.app.ExampleValidator
+import com.idscodelabs.compose_form.app.Tabs
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -42,7 +43,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     MaterialTheme {
         var currentContent by remember { mutableStateOf<Example?>(null) }
-        var selectedDestination by rememberSaveable { mutableIntStateOf(0) }
+        var selectedDestination by remember { mutableStateOf(Tabs.FIELDS) }
 
         BackHandler(enabled = currentContent != null) {
             currentContent = null
@@ -73,41 +74,30 @@ fun App() {
                     .padding(horizontal = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                PrimaryTabRow(selectedTabIndex = selectedDestination) {
-                    Tab(
-                        selected = selectedDestination == 0,
-                        onClick = {
-                            selectedDestination = 0
-                        },
-                        text = {
-                            Text(
-                                text = "Fields",
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        },
-                    )
-                    Tab(
-                        selected = selectedDestination == 1,
-                        onClick = {
-                            selectedDestination = 1
-                        },
-                        text = {
-                            Text(
-                                text = "Validators",
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        },
-                    )
+                PrimaryTabRow(selectedTabIndex = selectedDestination.ordinal) {
+                    Tabs.entries.filterNot { it.examples.isEmpty() }.forEach {
+                        Tab(
+                            selected = selectedDestination == it,
+                            onClick = {
+                                selectedDestination = it
+                            },
+                            text = {
+                                Text(
+                                    text = it.displayName,
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            },
+                        )
+                    }
+
                 }
 
                 Column(
                     Modifier.weight(1f).verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    val options = if (selectedDestination == 0) ExampleField.entries else ExampleValidator.entries
-                    options.sortedBy { it.displayName }.forEach { entry ->
+                    selectedDestination.examples.sortedBy { it.displayName }.forEach { entry ->
                         Button(onClick = { currentContent = entry }, modifier = Modifier.fillMaxWidth()) {
                             Text(entry.displayName)
                         }

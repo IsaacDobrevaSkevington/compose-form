@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.form.validators.annotations
+package com.idscodelabs.compose_form.annotations.validators
 
 import com.idscodelabs.compose_form.validators.NotEmptyValidator
 import com.idscodelabs.compose_form.validators.core.Validator

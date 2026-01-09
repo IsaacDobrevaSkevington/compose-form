@@ -13,7 +13,9 @@ import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.form.model.remove
 import com.idscodelabs.compose_form.form.model.setValue
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
+import com.idscodelabs.compose_form.utils.hint
 import com.idscodelabs.compose_form.utils.updateModel
+import com.idscodelabs.compose_form.utils.validator
 import com.idscodelabs.compose_form.validators.core.Validator
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.compose.PickerResultLauncher
@@ -24,9 +26,9 @@ import kotlin.reflect.KMutableProperty
 @Composable
 fun <Model> FormController<Model>.FormFileField(
     modelProperty: KMutableProperty<List<PlatformFile>>,
-    hint: Any,
+    hint: Any? = modelProperty.hint(),
     initialValue: List<PlatformFile> = emptyList(),
-    validator: Validator<List<PlatformFile>>? = null,
+    validator: Validator<List<PlatformFile>>? = modelProperty.validator(),
     enabled: Boolean = true,
     editable: Boolean = true,
     filePickerLauncher: @Composable FormBox<*, List<PlatformFile>>.() -> PickerResultLauncher = {

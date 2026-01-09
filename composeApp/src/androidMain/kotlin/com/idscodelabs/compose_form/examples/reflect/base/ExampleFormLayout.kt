@@ -15,8 +15,8 @@ import com.idscodelabs.compose_form.ui.Form
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-inline fun <reified Model : ExampleModel<*>> ExampleForm(
-    crossinline contents: @Composable FormController<Model>.() -> Unit = {},
+ fun <Model : ExampleModel<*>> FormController<Model>.ExampleFormLayout(
+    contents: @Composable FormController<Model>.() -> Unit = {},
 ) {
     val (result, setResult) =
         remember {
@@ -26,16 +26,14 @@ inline fun <reified Model : ExampleModel<*>> ExampleForm(
         setResult(null)
     }
     if (result == null) {
-        Form<Model>{
-            contents()
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = {
-                    submit { setResult(it) }
-                },
-            ) {
-                Text("Submit")
-            }
+        contents()
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                submit { setResult(it) }
+            },
+        ) {
+            Text("Submit")
         }
     } else {
         Text(text = "Result is ${result.value}")

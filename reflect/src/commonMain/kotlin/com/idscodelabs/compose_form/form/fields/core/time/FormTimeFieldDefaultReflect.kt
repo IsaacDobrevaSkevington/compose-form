@@ -16,7 +16,9 @@ import com.idscodelabs.compose_form.form.fields.default.time.TimePickerControlle
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.utils.IconButton
+import com.idscodelabs.compose_form.utils.hint
 import com.idscodelabs.compose_form.utils.updateModel
+import com.idscodelabs.compose_form.utils.validator
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlinx.datetime.LocalTime
 import kotlin.reflect.KMutableProperty
@@ -27,11 +29,11 @@ import kotlin.time.ExperimentalTime
 fun <Model> FormController<Model>.FormTimeField(
     modelProperty: KMutableProperty<LocalTime?>,
     initialValue: LocalTime? = null,
-    validator: Validator<LocalTime>? = null,
+    validator: Validator<LocalTime>? = modelProperty.validator(),
     enabled: Boolean = true,
     cleanTime: (String) -> String = { sanitizeTime(it) },
     modifier: Modifier = Modifier.fillMaxWidth(),
-    hint: Any? = null,
+    hint: Any? = modelProperty.hint(),
     placeholder: Any? = null,
     isLast: Boolean = false,
     leadingIcon: (@Composable () -> Unit)? = null,
