@@ -28,5 +28,7 @@ interface FormTextFieldEntry {
         style: FormFieldStyle = LocalFormFieldStyle.current,
         onValueChange: (TextFieldValue) -> Unit = {},
         leadingIcon: (@Composable () -> Unit)? = null,
+        minLines: Int = 1,
+        maxLines: Int = 1,
     )
 }

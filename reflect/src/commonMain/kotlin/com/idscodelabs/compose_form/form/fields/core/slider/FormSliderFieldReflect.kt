@@ -21,5 +21,5 @@ fun <Model> FormController<Model>.FormSliderField(
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-    implementation = implementation
+    implementation = implementation,
 )

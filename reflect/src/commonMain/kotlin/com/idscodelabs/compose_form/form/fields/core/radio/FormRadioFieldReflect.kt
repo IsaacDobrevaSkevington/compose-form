@@ -24,5 +24,5 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-    implementation = implementation
+    implementation = implementation,
 )

@@ -30,7 +30,7 @@ fun <Model> FormController<Model>.FormSwitchField(
     hintModifier: Modifier = Modifier.fillMaxWidth(),
     leftLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     rightLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
-    ) = FormSwitchField(
+) = FormSwitchField(
     modelProperty = modelProperty,
     updateModel = modelProperty.updateModel(),
     initialValue = initialValue,

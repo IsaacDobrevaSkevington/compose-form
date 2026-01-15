@@ -2,17 +2,18 @@ package com.idscodelabs.compose_form.annotations.validators
 
 import androidx.compose.runtime.Composable
 import com.idscodelabs.compose_form.validators.MaxLengthValidator
+import com.idscodelabs.compose_form.validators.core.StringValidator
 
 @Target(AnnotationTarget.PROPERTY)
 @MustBeDocumented
-annotation class MaxLength(
-    val maxLength: Int,
+annotation class MinLength(
+    val minLength: Int,
     val error: String = "",
 )
 
 @Composable
-fun MaxLength.validator() =
+fun MinLength.validator() =
     MaxLengthValidator(
-        maxLength,
-        error.ifBlank { "Longer than $maxLength characters" },
+        minLength,
+        error.ifBlank { "Shorter than $minLength characters" },
     )

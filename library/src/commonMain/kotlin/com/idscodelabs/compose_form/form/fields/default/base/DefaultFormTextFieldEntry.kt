@@ -30,6 +30,8 @@ class DefaultFormTextFieldEntry : FormTextFieldEntry {
         style: FormFieldStyle,
         onValueChange: (TextFieldValue) -> Unit,
         leadingIcon: @Composable (() -> Unit)?,
+        minLines: Int,
+        maxLines: Int,
     ) = OutlinedTextField(
         value = value,
         prefix = { Text(prefix.asDisplayString()) },
@@ -42,7 +44,9 @@ class DefaultFormTextFieldEntry : FormTextFieldEntry {
             placeholder?.let {
                 { Text(it.asDisplayString(), softWrap = false) }
             },
-        singleLine = true,
+        singleLine = minLines == 1 && maxLines == 1,
+        minLines = minLines,
+        maxLines = maxLines,
         isError = error != null,
         supportingText = {
             error?.let {

@@ -27,5 +27,5 @@ fun <Model> FormController<Model>.FormTimeField(
     enabled = enabled,
     invalidTimeMessage = invalidTimeMessage,
     cleanTime = cleanTime,
-    implementation = implementation
+    implementation = implementation,
 )

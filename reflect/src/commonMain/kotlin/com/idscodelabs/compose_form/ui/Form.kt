@@ -7,6 +7,7 @@ import androidx.compose.runtime.remember
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.core.ui.Form
 import com.idscodelabs.compose_form.styles.LocalFormStyle
+import com.idscodelabs.compose_form.utils.zeroArgConstructor
 import kotlin.reflect.KParameter
 
 /**
@@ -30,7 +31,7 @@ inline fun <reified Model : Any> Form(
 ) {
     val emptyModel =
         remember {
-            Model::class.constructors.firstOrNull { it.parameters.all(KParameter::isOptional) }?.let { { it.callBy(emptyMap()) } }
+            Model::class.zeroArgConstructor()
                 ?: throw IllegalArgumentException(
                     "${Model::class.simpleName} must have a zero-argument constructor to be used in the form.",
                 )

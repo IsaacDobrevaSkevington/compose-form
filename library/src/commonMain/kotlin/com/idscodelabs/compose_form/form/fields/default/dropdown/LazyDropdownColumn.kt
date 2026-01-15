@@ -19,7 +19,7 @@ fun <Item> LazyDropdownColumn(
 ) {
     if (items.size > 10) {
         LazyColumn(
-            modifier = modifier.lazyDropdownMenu(scope),
+            modifier = modifier.lazyDropdownColumn(scope),
             verticalArrangement = verticalArrangement,
             horizontalAlignment = horizontalAlignment,
         ) {

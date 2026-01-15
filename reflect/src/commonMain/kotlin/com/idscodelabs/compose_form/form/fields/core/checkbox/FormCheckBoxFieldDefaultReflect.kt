@@ -26,7 +26,7 @@ fun <Model> FormController<Model>.FormCheckBoxField(
     modifier: Modifier = Modifier.fillMaxWidth(),
     checkboxModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     textModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
-    ) = FormCheckBoxField(
+) = FormCheckBoxField(
     modelProperty = modelProperty,
     updateModel = modelProperty.updateModel(),
     initialValue = initialValue,

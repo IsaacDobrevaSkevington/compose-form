@@ -9,8 +9,7 @@ enum class ExamplePlatform(
     override val contents: @Composable () -> Unit,
 ) : Example {
     REFLECTION("Reflection", { FormTextFieldReflectionExample() }),
-    ANNOTATIONS("Annotations", { FormTextFieldAnnotationExample() })
+    ANNOTATIONS("Annotations", { FormTextFieldAnnotationExample() }),
 }
 
 actual fun platformExamples(): List<Example> = ExamplePlatform.entries
-

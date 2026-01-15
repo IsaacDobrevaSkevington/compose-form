@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.StateFlow
 
 @OptIn(ExperimentalForInheritanceCoroutinesApi::class)
-fun <T, R> StateFlow<T>.mapSync(transform: (T) -> R): StateFlow<R> =
+internal fun <T, R> StateFlow<T>.mapSync(transform: (T) -> R): StateFlow<R> =
     object : StateFlow<R> {
         override val replayCache: List<R> get() = listOf(value)
 

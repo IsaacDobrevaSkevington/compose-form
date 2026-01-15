@@ -20,39 +20,45 @@ import kotlin.math.max
 import kotlin.math.roundToInt
 
 class LazyDropdownScope {
-    val size: MutableStateFlow<IntSize> = MutableStateFlow(IntSize(0, 0))
+    val width: MutableStateFlow<Int> = MutableStateFlow(0)
+    val height: MutableStateFlow<Int> = MutableStateFlow(0)
 }
 
 @Composable
-fun Modifier.lazyDropdown(scope: LazyDropdownScope): Modifier {
+fun Modifier.lazyDropdownBox(scope: LazyDropdownScope): Modifier {
     val window = LocalWindowInfo.current.containerSize
 
     val verticalMargin = with(LocalDensity.current) { 48.dp.roundToPx() }
 
     return onGloballyPositioned { layoutCoordinates ->
-        scope.size.update {
-            IntSize(
-                width = layoutCoordinates.size.width,
-                height =
-                    calculateMaxHeight(
-                        windowBounds = IntRect(IntOffset.Zero, IntSize(window.width, window.height)),
-                        anchorBounds = layoutCoordinates.getAnchorBounds(),
-                        verticalMargin = verticalMargin,
-                    ),
+        scope.height.update {
+            calculateMaxHeight(
+                windowBounds = IntRect(IntOffset.Zero, IntSize(window.width, window.height)),
+                anchorBounds = layoutCoordinates.getAnchorBounds(),
+                verticalMargin = verticalMargin,
             )
         }
     }
 }
 
 @Composable
-fun Modifier.lazyDropdownMenu(scope: LazyDropdownScope): Modifier {
-    val statefulSize by scope.size.collectAsState()
+fun Modifier.lazyDropdownMenu(scope: LazyDropdownScope): Modifier =
+    onGloballyPositioned { layoutCoordinates ->
+        scope.width.update {
+            layoutCoordinates.size.width
+        }
+    }
+
+@Composable
+fun Modifier.lazyDropdownColumn(scope: LazyDropdownScope): Modifier {
+    val statefulWidth by scope.width.collectAsState()
+    val statefulHeight by scope.height.collectAsState()
     return with(LocalDensity.current) {
         val heightDp by derivedStateOf {
-            statefulSize.height.toDp() - 64.dp
+            statefulHeight.toDp() - 64.dp
         }
         val widthDp by derivedStateOf {
-            statefulSize.width.toDp()
+            statefulWidth.toDp()
         }
         requiredSize(width = widthDp, height = heightDp)
     }

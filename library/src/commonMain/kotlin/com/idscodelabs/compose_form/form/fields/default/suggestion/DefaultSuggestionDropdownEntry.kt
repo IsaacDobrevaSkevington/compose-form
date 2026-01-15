@@ -19,10 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.core.suggestion.SuggestionFormBox
-import com.idscodelabs.compose_form.form.fields.default.dropdown.DefaultDropdownMenuItem
-import com.idscodelabs.compose_form.form.fields.default.dropdown.LazyDropdownColumn
-import com.idscodelabs.compose_form.form.fields.default.dropdown.lazyDropdown
-import com.idscodelabs.compose_form.form.fields.default.dropdown.rememberLazyDropdownScope
+import com.idscodelabs.compose_form.form.fields.default.dropdown.*
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.icons.Icons
@@ -64,7 +61,7 @@ fun <Item : ListDisplayable> SuggestionFormBox<*, Item>.DefaultSuggestionDropdow
     val enabled by collectEnabledAsState()
     val lazyDropdownScope = rememberLazyDropdownScope()
     ExposedDropdownMenuBox(
-        modifier = exposedDropdownBoxModifier.lazyDropdown(lazyDropdownScope),
+        modifier = exposedDropdownBoxModifier.lazyDropdownMenu(lazyDropdownScope),
         expanded = expanded,
         onExpandedChange = {
             if (enabled) {
@@ -101,7 +98,7 @@ fun <Item : ListDisplayable> SuggestionFormBox<*, Item>.DefaultSuggestionDropdow
 
         if (suggestions.isNotEmpty() && !loading) {
             ExposedDropdownMenu(
-                modifier = exposedDropdownMenuModifier,
+                modifier = exposedDropdownMenuModifier.lazyDropdownBox(lazyDropdownScope),
                 expanded = expanded,
                 onDismissRequest = {
                     setExpanded(false)

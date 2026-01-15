@@ -14,6 +14,7 @@ import com.idscodelabs.compose_form.examples.fields.multiselect.FormMultiselectF
 import com.idscodelabs.compose_form.examples.fields.radio.FormRadioFieldExample
 import com.idscodelabs.compose_form.examples.fields.slider.FormSliderFieldExample
 import com.idscodelabs.compose_form.examples.fields.suggestion.FormSuggestionFieldExample
+import com.idscodelabs.compose_form.examples.fields.textfield.FormTextAreaFieldExample
 import com.idscodelabs.compose_form.examples.fields.textfield.FormTextFieldExample
 import com.idscodelabs.compose_form.examples.fields.time.FormTimeFieldExample
 import com.idscodelabs.compose_form.examples.logic.valuechange.composable.FormComposableValueChangeExample
@@ -81,5 +82,8 @@ enum class ExampleField(
     }),
     FILE("File", {
         FormFileFieldExample()
+    }),
+    TEXT_AREA("Text Area", {
+        FormTextAreaFieldExample()
     }),
 }

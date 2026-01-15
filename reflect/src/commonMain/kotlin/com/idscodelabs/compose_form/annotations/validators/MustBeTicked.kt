@@ -1,14 +1,17 @@
 package com.idscodelabs.compose_form.annotations.validators
 
 import androidx.compose.runtime.Composable
-import com.idscodelabs.compose_form.validators.NotEmptyValidator
+import com.idscodelabs.compose_form.validators.MustBeTickedValidator
 import com.idscodelabs.compose_form.validators.core.Validator
 
 @Target(AnnotationTarget.PROPERTY)
 @MustBeDocumented
-annotation class NotEmpty(
+annotation class MustBeTicked(
     val error: String = "Required",
 )
 
 @Composable
-fun <Value> NotEmpty.validator(): Validator<Value> = NotEmptyValidator(error)
+fun MustBeTicked.validator() =
+    MustBeTickedValidator(
+        error,
+    )

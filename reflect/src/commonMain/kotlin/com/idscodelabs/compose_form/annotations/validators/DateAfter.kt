@@ -7,13 +7,17 @@ import kotlinx.datetime.LocalDate
 
 @Target(AnnotationTarget.PROPERTY)
 @MustBeDocumented
-annotation class DateAfter(val year: Int, val month: Int, val day: Int, val error: String = "")
-
+annotation class DateAfter(
+    val year: Int,
+    val month: Int,
+    val day: Int,
+    val error: String = "",
+)
 
 @Composable
 fun DateAfter.validator(): Validator<LocalDate> {
     val after = LocalDate(year, month, day)
-    return if(error.isEmpty()){
+    return if (error.isEmpty()) {
         DateAfterValidator(after)
     } else {
         DateAfterValidator(after, error)

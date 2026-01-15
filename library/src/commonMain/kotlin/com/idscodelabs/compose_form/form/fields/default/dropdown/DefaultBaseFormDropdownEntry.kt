@@ -61,7 +61,7 @@ fun <Item : ListDisplayable> DropdownFormBox<*, Item>.DefaultBaseFormDropdownEnt
     val enabled by collectEnabledAsState()
     val lazyDropdownScope = rememberLazyDropdownScope()
     ExposedDropdownMenuBox(
-        modifier = exposedDropdownBoxModifier.lazyDropdown(lazyDropdownScope),
+        modifier = exposedDropdownBoxModifier.lazyDropdownBox(lazyDropdownScope),
         expanded = expanded,
         onExpandedChange = {
             if (enabled) {
@@ -94,7 +94,7 @@ fun <Item : ListDisplayable> DropdownFormBox<*, Item>.DefaultBaseFormDropdownEnt
 
         if (filteredOptions.isNotEmpty()) {
             ExposedDropdownMenu(
-                modifier = exposedDropdownMenuModifier,
+                modifier = exposedDropdownMenuModifier.lazyDropdownMenu(lazyDropdownScope),
                 expanded = expanded,
                 onDismissRequest = {
                     setExpanded(false)

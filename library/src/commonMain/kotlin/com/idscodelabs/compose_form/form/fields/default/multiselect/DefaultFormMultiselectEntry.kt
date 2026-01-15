@@ -16,7 +16,8 @@ import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.core.multiselect.MultiselectFormBox
 import com.idscodelabs.compose_form.form.fields.default.dropdown.LazyDropdownColumn
-import com.idscodelabs.compose_form.form.fields.default.dropdown.lazyDropdown
+import com.idscodelabs.compose_form.form.fields.default.dropdown.lazyDropdownBox
+import com.idscodelabs.compose_form.form.fields.default.dropdown.lazyDropdownMenu
 import com.idscodelabs.compose_form.form.fields.default.dropdown.rememberLazyDropdownScope
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
@@ -49,7 +50,7 @@ fun <Item : ListDisplayable> MultiselectFormBox<*, Item>.DefaultFormMultiselectE
     val enabled by collectEnabledAsState()
     val lazyDropdownScope = rememberLazyDropdownScope()
     ExposedDropdownMenuBox(
-        modifier = exposedDropdownBoxModifier.lazyDropdown(lazyDropdownScope),
+        modifier = exposedDropdownBoxModifier.lazyDropdownBox(lazyDropdownScope),
         expanded = expanded,
         onExpandedChange = {
             if (enabled) {
@@ -82,7 +83,7 @@ fun <Item : ListDisplayable> MultiselectFormBox<*, Item>.DefaultFormMultiselectE
 
         if (options.isNotEmpty()) {
             ExposedDropdownMenu(
-                modifier = exposedDropdownMenuModifier,
+                modifier = exposedDropdownMenuModifier.lazyDropdownMenu(lazyDropdownScope),
                 expanded = expanded,
                 onDismissRequest = {
                     setExpanded(false)

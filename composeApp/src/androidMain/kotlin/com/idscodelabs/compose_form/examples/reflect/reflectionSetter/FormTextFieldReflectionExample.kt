@@ -18,7 +18,7 @@ fun FormTextFieldReflectionExample() =
                 FormTextField(
                     modelProperty = FormTextFieldExampleModel::value,
                     validator = NotEmptyValidator(),
-                    hint = "Value"
+                    hint = "Value",
                 )
             }
         }

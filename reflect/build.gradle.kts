@@ -28,10 +28,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            if(dev == "true") {
+            if (dev == "true") {
                 implementation(project(":library"))
             } else {
-                implementation("io.github.idscodelabs:compose-form:${version}")
+                implementation("io.github.idscodelabs:compose-form:$version")
             }
             implementation(compose.runtime)
             implementation(compose.foundation)

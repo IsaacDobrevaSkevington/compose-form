@@ -15,9 +15,7 @@ import com.idscodelabs.compose_form.ui.Form
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
- fun <Model : ExampleModel<*>> FormController<Model>.ExampleFormLayout(
-    contents: @Composable FormController<Model>.() -> Unit = {},
-) {
+fun <Model : ExampleModel<*>> FormController<Model>.ExampleFormLayout(contents: @Composable FormController<Model>.() -> Unit = {}) {
     val (result, setResult) =
         remember {
             mutableStateOf<Model?>(null)

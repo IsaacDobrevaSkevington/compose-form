@@ -26,5 +26,5 @@ fun <Model, Suggestion : ListDisplayable> FormController<Model>.FormSuggestionFi
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-    implementation = implementation
+    implementation = implementation,
 )

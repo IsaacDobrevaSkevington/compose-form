@@ -30,7 +30,7 @@ fun <Model> FormController<Model>.FormTextField(
     readOnly: Boolean = false,
     onValueChange: (TextFieldValue) -> Unit = {},
     leadingIcon: (@Composable () -> Unit)? = null,
-    style: FormFieldStyle = LocalFormFieldStyle.current
+    style: FormFieldStyle = LocalFormFieldStyle.current,
 ) = FormTextField(
     modelProperty = modelProperty,
     updateModel = modelProperty.updateModel(),

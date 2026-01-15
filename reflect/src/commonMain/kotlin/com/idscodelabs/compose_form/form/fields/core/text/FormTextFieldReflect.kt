@@ -22,5 +22,5 @@ fun <Model> FormController<Model>.FormTextField(
     initialValue = initialValue,
     validator = validator,
     enabled = enabled,
-    implementation = implementation
+    implementation = implementation,
 )
