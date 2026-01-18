@@ -14,8 +14,6 @@ plugins {
     alias(libs.plugins.dokka)
     signing
 }
-
-val dev: String? by project
 kotlin {
     withSourcesJar(publish = true)
     androidTarget {
@@ -28,11 +26,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            if (dev == "true") {
-                implementation(project(":library"))
-            } else {
-                implementation("io.github.idscodelabs:compose-form:$version")
-            }
+            implementation(project(":library"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
