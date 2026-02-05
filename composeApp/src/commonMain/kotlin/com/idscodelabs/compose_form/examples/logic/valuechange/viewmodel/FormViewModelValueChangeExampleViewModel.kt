@@ -1,11 +1,8 @@
 package com.idscodelabs.compose_form.examples.logic.valuechange.viewmodel
 
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
-import com.idscodelabs.compose_form.examples.fields.textfield.FormTextFieldExampleModel
 import com.idscodelabs.compose_form.form.core.controller.FormControllerViewModel
 import com.idscodelabs.compose_form.form.model.onFieldStringValueChanged
-import com.idscodelabs.compose_form.form.model.onFieldValueChanged
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -17,7 +14,7 @@ class FormViewModelValueChangeExampleViewModel :
 
     fun subscribeToAddressChanges() =
         viewModelScope.launch {
-            field(FormViewModelValueChangeExampleModel::address)?.onFieldStringValueChanged(debounceMills = 300) {
+            field(FormViewModelValueChangeExampleModel::address).onFieldStringValueChanged(debounceMillis = 300) {
                 uiState.update {
                     it.copy(loading = true)
                 }

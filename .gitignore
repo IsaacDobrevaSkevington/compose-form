@@ -19,3 +19,4 @@ captures
 node_modules/
 /signing.gpg
 /build_mk_docs.sh
+/docs/dokka/

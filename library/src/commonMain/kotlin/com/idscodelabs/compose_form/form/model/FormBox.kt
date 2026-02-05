@@ -46,6 +46,22 @@ open class FormBox<Model, Value>(
     protected var mapValue: (value: Value) -> Value,
 ) {
     companion object {
+
+        /**
+         * Remember a [FormBox].
+         * 
+         * The [FormBox] will survive configuration changed
+         *
+         * @param initialValue Initial value the form box should have
+         * @param enabled If the box is enabled
+         * @param validator The validator for the box
+         * @param setModelProperty Function to implement to set the model property
+         * @param valueToString Convert the current value to string
+         * @param stringToValue Convert the string value back to a value
+         * @param mapValue Function to call just after setting the value to mutate the value actually set on the form box
+         * @param key Key to remember. When this changes a new [FormBox] will be created
+         * @return A [FormBox]
+         */
         @Composable
         fun <Model, Value> remember(
             initialValue: Value?,
@@ -207,37 +223,74 @@ open class FormBox<Model, Value>(
         }
     }
 
+    /**
+     * Get the current string value
+     */
     fun getStringValue() = valueToString(valueState.value)
 
+    /**
+     * Collect value as state
+     *
+     * @param context [CoroutineContext] to use for collecting.
+     * @return A [State] of the current value
+     */
     @Composable
     fun collectValueAsState(context: CoroutineContext = EmptyCoroutineContext): State<Value> = valueState.collectAsState(context)
 
+    /**
+     * Collect enabled as state
+     *
+     * @param context [CoroutineContext] to use for collecting.
+     * @return A [State] of the current value of enabled
+     */
     @Composable
     fun collectEnabledAsState(context: CoroutineContext = EmptyCoroutineContext): State<Boolean> = enabledState.collectAsState(context)
 
+    /**
+     * Collect error as state
+     *
+     * @param context [CoroutineContext] to use for collecting.
+     * @return A [State] of the current error
+     */
     @Composable
     fun collectErrorAsState(context: CoroutineContext = EmptyCoroutineContext): State<Any?> = errorState.collectAsState(context)
 
     @OptIn(FlowPreview::class)
     suspend fun onFieldValueChanged(
-        debounceMills: Long = 0,
+        debounceMillis: Long = 0,
         block: suspend Value.() -> Unit,
     ) {
-        valueState.debounce(debounceMills).distinctUntilChanged().collectLatest(block)
+        valueState.debounce(debounceMillis).distinctUntilChanged().collectLatest(block)
     }
 
+    /**
+     * On field string value changed
+     *
+     * @param debounceMillis Debounce for the value to allow the value to settle
+     * @param block Called when the string value of the field changes
+     * @receiver
+     */
     @OptIn(FlowPreview::class)
     suspend fun onFieldStringValueChanged(
-        debounceMills: Long = 0,
+        debounceMillis: Long = 0,
         block: suspend String?.() -> Unit,
     ) {
         valueState
-            .debounce(debounceMills)
+            .debounce(debounceMillis)
             .map { valueToString(it) }
             .distinctUntilChanged()
             .collectLatest(block)
     }
 
+    /**
+     * Field value changed effect.
+     *
+     * Use this in composables to cause side effects when the field value changes
+     *
+     * @param context [CoroutineContext] to use for collecting.
+     * @param debounceMillis Debounce for the value to allow the value to settle
+     * @param block Called when the field's value changes
+     */
     @Composable
     fun FieldValueChangedEffect(
         context: CoroutineContext = EmptyCoroutineContext,
@@ -277,9 +330,29 @@ open class FormBox<Model, Value>(
             )
     }
 
+    /**
+     * Add this chainable modifier when implementing custom form boxes
+     *
+     * It should mark which part of the field should receive focus when the focus requester is called
+     */
     fun Modifier.primaryFocusable(): Modifier = focusRequester(focusRequester)
 }
 
+/**
+ * Remember a [FormBox].
+ *
+ * The [FormBox] will survive configuration changed
+ *
+ * @param initialValue Initial value the form box should have
+ * @param enabled If the box is enabled
+ * @param validator The validator for the box
+ * @param setModelProperty Function to implement to set the model property
+ * @param valueToString Convert the current value to string
+ * @param stringToValue Convert the string value back to a value
+ * @param mapValue Function to call just after setting the value to mutate the value actually set on the form box
+ * @param key Key to remember. When this changes a new [FormBox] will be created
+ * @return A [FormBox]
+ */
 @Composable
 fun <Model, Value> rememberFormBox(
     initialValue: Value?,
@@ -302,16 +375,25 @@ fun <Model, Value> rememberFormBox(
         key,
     )
 
+/**
+ * Set single item value on a form box containing list of items
+ */
 fun <Item> FormBox<*, List<Item>>.setValue(item: Item) {
     setValue(listOf(item))
 }
 
+/**
+ * Add single item value to a form box containing list of items
+ */
 fun <Item> FormBox<*, List<Item>>.add(item: Item) {
     val current = valueSnapshot.toMutableList()
     current.add(item)
     setValue(current)
 }
 
+/**
+ * Remove single item value from a form box containing list of items
+ */
 fun <Item> FormBox<*, List<Item>>.remove(item: Item) {
     val current = valueSnapshot.toMutableList()
     current.remove(item)

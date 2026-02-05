@@ -5,6 +5,7 @@ import com.idscodelabs.compose_form.form.core.exceptions.FormSubmissionFailedErr
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.form.model.FormBoxFlow
 import com.idscodelabs.compose_form.form.model.FormControllerState
+import com.idscodelabs.compose_form.utils.mapSync
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlin.coroutines.CoroutineContext
@@ -79,6 +80,7 @@ interface FormController<Model> {
      */
     private fun removeFromForm(property: KProperty<*>) {
         state.boxes.remove(property.name)
+        state.boxFlows[property.name]?.value = null
         state.observerJobs.remove(property.name)?.cancel()
     }
 
@@ -139,6 +141,12 @@ interface FormController<Model> {
         }
     }
 
+    /**
+     * Submit for model
+     *
+     * @return The resulting model
+     * @throws [FormSubmissionFailedError] if the submission failed validation, or with an error
+     */
     @Throws(FormSubmissionFailedError::class)
     fun submitForModel(): Model =
         try {
@@ -152,6 +160,12 @@ interface FormController<Model> {
             throw FormSubmissionFailedError(emptyList(), e)
         }
 
+
+    /**
+     * Submit for model or return null
+     *
+     * @return The resulting model, or null if the form was not valid or an error occurred
+     */
     fun submitForModelOrNull(): Model? =
         try {
             submitForModel()
@@ -159,6 +173,11 @@ interface FormController<Model> {
             null
         }
 
+    /**
+     * Submit for a [FormSubmissionResult]
+     *
+     * @return A [FormSubmissionResult] which can be subscribed to
+     */
     fun submit(): FormSubmissionResult<Model> =
         try {
             FormSubmissionResult.Success(submitForModel())
@@ -168,12 +187,32 @@ interface FormController<Model> {
             } ?: FormSubmissionResult.Failure(e.boxes as List<FormBox<Model, *>>)
         }
 
+    /**
+     * Submit function
+     *
+     * The is useful for places in the UI where an `onClick` or similar function is required
+     * to avoid nested lambdas that [submit] would cause
+     *
+     * @param onFailure Function to handle when validation fails
+     * @param onError Function to handle when there is an error on submission
+     * @param onSuccess Function to handle successful submission of the form
+     * @return A function which when called will submit the form
+     */
     fun submitFunction(
         onFailure: (List<FormBox<Model, *>>) -> Unit = {},
         onError: (Throwable) -> Unit = {},
         onSuccess: (Model) -> Unit = {},
     ): () -> Unit = { submit(onFailure, onError, onSuccess) }
 
+
+    /**
+     * Field snapshot with type
+     *
+     * @param property Name of the field to get
+     * @return A snapshot of the current [FormBox] specified by [property].
+     * This will have the type specified in [Value].
+     * The result will be null if no such field exists, or the field is not of type [Value]
+     */
     fun <Value> fieldSnapshotWithType(property: KProperty<*>) =
         try {
             fieldSnapshot(property) as? FormBox<Model, Value>?
@@ -181,16 +220,44 @@ interface FormController<Model> {
             null
         }
 
+    /**
+     * Field snapshot
+     *
+     * @param property Name of the field to get
+     * @return A snapshot of the current [FormBox] specified by [property].
+     * This will not be typed, so is best for observing string values only
+     */
     fun fieldSnapshot(property: KProperty<*>) = state.boxes[property.name]
 
-    fun <Value> fieldWithType(property: KProperty<*>): FormBoxFlow<Model, Value>? =
-        try {
-            field(property) as? FormBoxFlow<Model, Value>?
-        } catch (e: Throwable) {
-            null
+    /**
+     * Field with type
+     *
+     * @param property Name of the field to get
+     * @return A [FormBoxFlow] of the field required, with type of [Value]
+     * The resulting flow will emit a new value whenever a new instance of a [FormBox] is assigned to [property], or if the field is nullified.
+     * This is helpful for non-composable contexts which may outlive any current compositions, for example a [androidx.lifecycle.ViewModel]
+     */
+    fun <Value> fieldWithType(property: KProperty<*>): FormBoxFlow<Model, Value> =
+        field(property).mapSync {
+            try{
+                it as? FormBox<Model, Value>?
+            } catch (_: Throwable){
+                null
+            }
         }
 
-    fun field(property: KProperty<*>): FormBoxFlow<Model, *>? {
+
+    /**
+     * Field with type
+     *
+     * @param property Name of the field to get
+     * @return A [FormBoxFlow] of the field required
+     * The resulting flow will emit a new value whenever a new instance of a [FormBox] is assigned to [property].
+     * This is helpful for non-composable contexts which may outlive any current compositions, for example a [androidx.lifecycle.ViewModel]
+     *
+     * This will not be typed, so is best for observing string values only
+     */
+    fun field(property: KProperty<*>): FormBoxFlow<Model, *> {
         var currentFlow = state.boxFlows[property.name]
         if (currentFlow == null) {
             val newFlow = MutableStateFlow(fieldSnapshot(property))
@@ -216,7 +283,7 @@ interface FormController<Model> {
      *
      * @param debounceMillis Debounce for the value to allow the value to settle
      * @param block Executed when a change is detected in [Model] assuming no further changes are detected for [debounceMillis]
-     * The [Model] is provided as as the receiver
+     * The [Model] is provided as the receiver
      */
     @OptIn(FlowPreview::class)
     suspend fun onValueChanged(

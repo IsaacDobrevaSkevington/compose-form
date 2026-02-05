@@ -22,6 +22,19 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlin.time.ExperimentalTime
 
+/**
+ * Default date entry
+ *
+ * @param modifier The modifier to apply to the whole field
+ * @param hint The hint for the text field - always displayed
+ * @param placeholder The placeholder for the textfield - displayed when there is no input in the text field
+ * @param isLast If this date field is the last field in the form
+ * @param leadingIcon The icon to use at the start of the entry
+ * @param datePickerState State of a date picker dialog to allow state hoisting
+ * @param allowTyping If true, the box allows typing, otherwise if false, dates can only be selected using the dialog
+ * @param entry The entry box to use for the field
+ * @param dialog The dialog to use when picking dates
+ */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 @Composable
 fun FormBox<*, TextFieldValue>.DefaultDateEntry(

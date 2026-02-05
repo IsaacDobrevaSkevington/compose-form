@@ -31,9 +31,17 @@ import kotlin.reflect.KProperty
  * @param enabled Whether the field is enabled
  * @param validator The [Validator] for this field
  * @param updateModel Function called which should set the correct property on the model. Most often should be `{ <variable> = it }`
- * @param implementation The implementation of the form field UI
  * @param invalidDateMessage The message to display if the date is in an invalid format
  * @param cleanDate A function which can be used to coerce the user's input into a date format
+ * @param modifier The modifier to apply to the whole field
+ * @param hint The hint for the text field - always displayed
+ * @param placeholder The placeholder for the textfield - displayed when there is no input in the text field
+ * @param isLast If this date field is the last field in the form
+ * @param leadingIcon The icon to use at the start of the entry
+ * @param datePickerState State of a date picker dialog to allow state hoisting
+ * @param allowTyping If true, the box allows typing, otherwise if false, dates can only be selected using the dialog
+ * @param entry The entry box to use for the field
+ * @param dialog The dialog to use when picking dates
  * @see [FormFieldImplementation]
  * @see [LocalFormDateFormatter]
  * @see [sanitizeDate]

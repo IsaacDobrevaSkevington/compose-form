@@ -1,5 +1,9 @@
 # Compose Form
 
+<p align="center">
+  <img src="https://img.shields.io/github/v/release/IsaacDobrevaSkevington/compose-form" alt="Version">
+</p>
+
 ---
 A lightweight and customisable Form builder DSL for Compose Multiplatform
 

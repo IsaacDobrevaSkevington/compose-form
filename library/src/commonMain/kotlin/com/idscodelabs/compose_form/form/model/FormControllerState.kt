@@ -8,6 +8,10 @@ interface FormControllerState<Model> {
      * A map of the form boxes. The key should identify a specific field
      */
     val boxes: MutableMap<String, FormBox<Model, *>>
+
+    /**
+     * A flow of the current form box state
+     */
     val boxFlows: MutableMap<String, MutableFormBoxFlow<Model, *>>
 
     /**

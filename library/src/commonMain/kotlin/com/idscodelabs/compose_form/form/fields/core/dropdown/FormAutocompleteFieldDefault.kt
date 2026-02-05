@@ -14,6 +14,31 @@ import com.idscodelabs.compose_form.utils.IconButton
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
+/**
+ * A dropdown form field
+ *
+ * @param Model The Model of the form
+ * @param modelProperty The [KProperty] of the [Model] which this field updates.
+ * @param initialValue The initial value for this field
+ * @param enabled Whether the field is enabled
+ * @param validator The [Validator] for this field
+ * @param updateModel Function called which should set the correct property on the model. Most often should be `{ <variable> = it }`
+ * @param textFieldModifier The modifier to apply to the text field of the autocomplete dropdown
+ * @param exposedDropdownBoxModifier The modifier to apply to the overall exposed dropdown box
+ * @param exposedDropdownMenuModifier The modifier to apply to the menu inside the dropdown box
+ * @param hint The hint to display for in the text field
+ * @param placeholder The placeholder to display when the text field is empty
+ * @param isLast If this form field is the last field in the form
+ * @param leadingIcon The leading icon in the text field
+ * @param filterFunction Function to apply to filter options based on the currently entered value
+ * @param clearIcon Icon to display to allow full clearing of the text field
+ * @param expandIcon Icon to display which thw user can click to expand or collapse the dropdown menu
+ * @param menuItem A display for the menu item
+ * @param invalidOptionError The error to be displayed if an invalid option is entered into the box
+ * @see [ListDisplayable]
+ * @sample com.idscodelabs.compose_form.examples.fields.dropdown.large.FormDropdownFieldExampleLarge
+ * @sample com.idscodelabs.compose_form.examples.fields.dropdown.large.FormAutocompleteDropdownFieldExampleLarge
+ */
 @Composable
 fun <Model, Item : ListDisplayable> FormController<Model>.FormAutocompleteField(
     modelProperty: KProperty<*>,

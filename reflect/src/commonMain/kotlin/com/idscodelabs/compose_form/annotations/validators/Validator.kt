@@ -7,6 +7,7 @@ import com.idscodelabs.compose_form.validators.core.Validator as CoreValidator
 
 @Target(AnnotationTarget.PROPERTY)
 @MustBeDocumented
+@Repeatable
 annotation class Validator<T>(
     val validatorClazz: KClass<out CoreValidator<T>>,
 )

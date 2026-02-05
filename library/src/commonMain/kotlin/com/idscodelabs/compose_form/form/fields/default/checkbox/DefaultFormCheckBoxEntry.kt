@@ -22,7 +22,8 @@ import io.github.vinceglb.filekit.PlatformFile
  * @param modifier The [Modifier] for the whole container
  * @param checkboxModifier The [Modifier] applied to the checkbox
  * @param textModifier The [Modifier] applied to the text
- * @param errorModifier The [Modifier] applied to the error
+ * @param errorDisplay The way the error should be displayed. Error is received as as parameter.
+ * This composable will only be displayed when the FormBox error is not null
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -5,6 +5,7 @@ import com.idscodelabs.compose_form.validators.RegexValidator
 
 @Target(AnnotationTarget.PROPERTY)
 @MustBeDocumented
+@Repeatable
 annotation class Regex(
     val error: String = "Invalid format",
 )

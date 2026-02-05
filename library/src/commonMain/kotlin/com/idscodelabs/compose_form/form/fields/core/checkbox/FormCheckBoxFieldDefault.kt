@@ -5,6 +5,7 @@ import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.core.controller.FormController
+import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementation
 import com.idscodelabs.compose_form.form.fields.default.checkbox.DefaultFormCheckBoxEntry
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
@@ -24,7 +25,10 @@ import kotlin.reflect.KProperty
  * @param modifier The [Modifier] for the whole container
  * @param checkboxModifier The [Modifier] applied to the checkbox
  * @param textModifier The [Modifier] applied to the text
- * @param errorModifier The [Modifier] applied to the error
+ * @param errorDisplay The way the error should be displayed. Error is received as as parameter.
+ * This composable will only be displayed when the FormBox error is not null
+ * @see [FormFieldImplementation]
+ * @see [com.idscodelabs.compose_form.form.fields.default.checkbox.DefaultFormCheckBoxEntry]
  * @sample com.idscodelabs.compose_form.examples.fields.checkbox.FormCheckBoxFieldSample
  */
 @Composable

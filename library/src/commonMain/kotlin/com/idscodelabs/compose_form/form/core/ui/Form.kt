@@ -3,8 +3,10 @@ package com.idscodelabs.compose_form.form.core.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import com.idscodelabs.compose_form.form.core.controller.FormController
+import com.idscodelabs.compose_form.form.core.controller.LocalFormController
 import com.idscodelabs.compose_form.form.core.controller.rememberFormController
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 
@@ -32,8 +34,10 @@ fun <Model : Any> Form(
     remember(emptyModel, controller) {
         controller.emptyModel = emptyModel
     }
-    container(controller) {
-        contents()
+    CompositionLocalProvider(LocalFormController provides controller) {
+        container(controller) {
+            contents()
+        }
     }
 }
 
@@ -56,7 +60,7 @@ fun <Model : Any> Form(
         }
     },
     contents: @Composable FormController<Model>.() -> Unit = {},
-) {
+) = CompositionLocalProvider(LocalFormController provides controller) {
     container(controller) {
         contents()
     }

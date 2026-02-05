@@ -11,6 +11,12 @@ import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.styles.FormFieldStyle
 import com.idscodelabs.compose_form.styles.LocalFormFieldStyle
 
+/**
+ * Local form text field entry
+ *
+ * Use this to override the text box used in text based fields without having to reimplement all
+ * the fields
+ */
 val LocalFormTextFieldEntry = compositionLocalOf<FormTextFieldEntry> { DefaultFormTextFieldEntry() }
 
 interface FormTextFieldEntry {

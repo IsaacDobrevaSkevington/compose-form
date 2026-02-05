@@ -76,7 +76,7 @@ this can be obtained using the `collectEnabledAsState()` function or `enabled` v
 There are many scenarios where a field may be required to 
 be brought into focus during use of the application. For example,
 it may be required that in a scrollable form, the box with an error 
-is brought into focus on submission (see [Submission Failure](../submission/Submission.md#failure))
+is brought into focus on submission (see [Submission Failure](../Submission.md#failure))
 
 For this application, the modifier `primaryFocusable` is provided. This should be 
 added to the element of your field you wish to gain focus when that FormBox requests focus.
