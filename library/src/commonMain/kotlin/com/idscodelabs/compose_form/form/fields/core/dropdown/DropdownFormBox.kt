@@ -31,9 +31,6 @@ open class DropdownFormBox<Model, Item : ListDisplayable>(
         val value by collectValueAsState()
         return options.firstOrNull { it.label == value.text }?.item
     }
-
-    companion object {
-    }
 }
 
 @Composable

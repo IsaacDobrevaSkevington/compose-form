@@ -4,7 +4,7 @@ The text field is a key component of any form, allowing the user to input free t
 
 ## Validation
 
-The TextField must have a String validator provided. Both parameters passed
+The TextField can have a String validator provided. Both parameters passed
 to the validate function will be the raw string. 
 
 ### Common Validators

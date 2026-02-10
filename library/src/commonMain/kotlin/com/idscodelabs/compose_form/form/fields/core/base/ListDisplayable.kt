@@ -31,12 +31,18 @@ interface ListDisplayable {
     val label: Any
 }
 
+private data class ListDisplayableImpl(
+    override val key: Any,
+    override val label: Any,
+    override val position: Int,
+): ListDisplayable
+
 fun ListDisplayable(
     key: Any,
     label: Any,
     position: Int = 0,
-) = object : ListDisplayable {
-    override val key: Any = key
-    override val label: Any = label
-    override val position: Int = position
-}
+): ListDisplayable = ListDisplayableImpl(
+    key = key,
+    label = label,
+    position = position
+)
