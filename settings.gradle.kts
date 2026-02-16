@@ -36,3 +36,4 @@ plugins {
 include(":composeApp")
 include(":library")
 include(":reflect")
+include(":json")

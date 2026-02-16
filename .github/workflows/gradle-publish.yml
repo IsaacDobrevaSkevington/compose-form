@@ -35,7 +35,7 @@ jobs:
 
 
     - name: Build with Gradle
-      run: ./gradlew :library:build :reflect:build
+      run: ./gradlew :library:build :reflect:build :json:build
 
     - name: Publish to Maven Central
       run: ./gradlew publishAllPublicationsToMavenCentralRepository
