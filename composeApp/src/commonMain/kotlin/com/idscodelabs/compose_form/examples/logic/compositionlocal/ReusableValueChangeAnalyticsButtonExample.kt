@@ -18,18 +18,20 @@ fun ReusableValueChangeAnalyticsButtonExample() =
                 modelProperty = FormTextFieldExampleModel::value,
                 validator = NotEmptyValidator(),
                 updateModel = { value = it },
-                hint = "Value"
+                hint = "Value",
             )
             ValueChangedSettledAnalytics()
         }
     }
 
 private object Analytics {
-    fun logValueChanged(){}
+    fun logValueChanged() {}
 }
+
 @Composable
-fun ValueChangedSettledAnalytics() = UntypedFormExtension {
-    ValueChangedEffect(debounceMillis = 5000) {
-        Analytics.logValueChanged()
+fun ValueChangedSettledAnalytics() =
+    UntypedFormExtension {
+        ValueChangedEffect(debounceMillis = 5000) {
+            Analytics.logValueChanged()
+        }
     }
-}

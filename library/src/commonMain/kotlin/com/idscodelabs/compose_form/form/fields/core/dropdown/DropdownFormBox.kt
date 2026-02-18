@@ -33,6 +33,12 @@ open class DropdownFormBox<Model, Item : ListDisplayable>(
     }
 }
 
+/**
+ * Remember a FormBox as a dropdown form box
+ *
+ * @param Item The type of [ListDisplayable] this dropdown displays
+ * @param options A list of options displayed in the dropdown
+ */
 @Composable
 fun <Model, Item : ListDisplayable> FormBox<Model, TextFieldValue>.rememberAsDropdownFormBox(options: List<DisplayableOption<Item>>) =
     remember(this, options) {

@@ -18,13 +18,13 @@ val LocalFormController = compositionLocalOf<FormController<*>?> { null }
  * @param block The action to execute with the [FormController]
  */
 @Composable
-fun <Model> withLocalFormController(block: @Composable FormController<Model>.()->Unit) {
+fun <Model> withLocalFormController(block: @Composable FormController<Model>.() -> Unit) {
     val currentController = LocalFormController.current
 
-    remember(currentController){
-        try{
+    remember(currentController) {
+        try {
             currentController as? FormController<Model>
-        } catch (_: Throwable){
+        } catch (_: Throwable) {
             null
         }
     }?.block()
@@ -38,6 +38,6 @@ fun <Model> withLocalFormController(block: @Composable FormController<Model>.()-
  * @param block The action to execute with the [FormController]
  */
 @Composable
-fun withUntypedLocalFormController(block: @Composable FormController<*>.()->Unit) {
+fun withUntypedLocalFormController(block: @Composable FormController<*>.() -> Unit) {
     LocalFormController.current?.block()
 }

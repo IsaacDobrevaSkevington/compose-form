@@ -21,7 +21,7 @@ import kotlin.reflect.KProperty
  * @param validator The [Validator] for this field
  * @param updateModel Function called which should set the correct property on the model. Most often should be `{ <variable> = it }`
  * @param implementation The implementation of the form field UI
- * @param itemDelimiter The delimiter to use for the item, both when displayed and when stored. The [Item] label  must not contain this charater
+ * @param itemDelimiter The delimiter to use for the item, both when displayed and when stored. The [Item] label  must not contain this character
  * @see [ListDisplayable]
  * @sample com.idscodelabs.compose_form.examples.fields.multiselect.FormMultiselectFieldExample
  */

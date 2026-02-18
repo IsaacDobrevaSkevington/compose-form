@@ -36,7 +36,6 @@ import kotlin.reflect.KProperty
  * @param invalidOptionError The error to be displayed if an invalid option is entered into the box
  * @see [ListDisplayable]
  * @sample com.idscodelabs.compose_form.examples.fields.dropdown.large.FormDropdownFieldExampleLarge
- * @sample com.idscodelabs.compose_form.examples.fields.dropdown.large.FormAutocompleteDropdownFieldExampleLarge
  */
 @Composable
 fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(

@@ -36,7 +36,6 @@ suspend fun <Value> FormBoxFlow<*, Value>.onFieldValueChanged(
     }
 }
 
-
 /**
  * Subscribe to [FormBox] value changes
  *

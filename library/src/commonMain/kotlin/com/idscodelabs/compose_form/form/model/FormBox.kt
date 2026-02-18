@@ -46,10 +46,9 @@ open class FormBox<Model, Value>(
     protected var mapValue: (value: Value) -> Value,
 ) {
     companion object {
-
         /**
          * Remember a [FormBox].
-         * 
+         *
          * The [FormBox] will survive configuration changed
          *
          * @param initialValue Initial value the form box should have

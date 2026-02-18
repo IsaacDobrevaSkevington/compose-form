@@ -8,7 +8,6 @@ import com.idscodelabs.compose_form.form.model.FormBox
  * Result of a form submission allowing attaching callbacks
  */
 interface FormSubmissionResult<Model> {
-
     /**
      * On error
      *
@@ -16,7 +15,6 @@ interface FormSubmissionResult<Model> {
      * @return A [FormSubmissionResult] for chaining
      */
     fun onError(action: (Throwable) -> Unit): FormSubmissionResult<Model> = this
-
 
     /**
      * On failure

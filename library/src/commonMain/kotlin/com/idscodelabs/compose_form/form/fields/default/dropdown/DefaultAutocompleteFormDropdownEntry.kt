@@ -25,6 +25,7 @@ import com.idscodelabs.compose_form.utils.IconButton
  * @param clearIcon Icon to display to allow full clearing of the text field
  * @param expandIcon Icon to display which thw user can click to expand or collapse the dropdown menu
  * @param menuItem A display for the menu item
+ * @sample com.idscodelabs.compose_form.examples.fields.dropdown.large.FormAutocompleteDropdownFieldExampleLarge
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

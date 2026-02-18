@@ -15,7 +15,7 @@ import com.idscodelabs.compose_form.form.model.FormBox
  *
  * @param Model The Model of the Form
  * @param Item The type of Item to be displayed in the dropdown
- * @property field A base [FormBox]
+ * @param itemDelimiter The item delimiter to use for storage and display
  * @property options A list of [Item]s which can be selected from the UI
  * @constructor Create Dropdown form box
  */
@@ -101,6 +101,13 @@ open class MultiselectFormBox<Model, Item : ListDisplayable>(
     }
 }
 
+/**
+ * Remember a FormBox as a multiselect form box
+ *
+ * @param Item The type of [ListDisplayable] this dropdown displays
+ * @param options A list of options displayed in the dropdown
+ * @param itemDelimiter The item delimiter to use for storage and display
+ */
 @Composable
 fun <Model, Item : ListDisplayable> FormBox<Model, TextFieldValue>.rememberAsMultiselectFormBox(
     options: List<DisplayableOption<Item>>,

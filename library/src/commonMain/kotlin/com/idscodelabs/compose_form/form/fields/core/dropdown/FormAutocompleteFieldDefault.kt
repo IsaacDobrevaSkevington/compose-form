@@ -15,7 +15,7 @@ import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
 
 /**
- * A dropdown form field
+ * An autocomplete form field
  *
  * @param Model The Model of the form
  * @param modelProperty The [KProperty] of the [Model] which this field updates.
@@ -36,7 +36,6 @@ import kotlin.reflect.KProperty
  * @param menuItem A display for the menu item
  * @param invalidOptionError The error to be displayed if an invalid option is entered into the box
  * @see [ListDisplayable]
- * @sample com.idscodelabs.compose_form.examples.fields.dropdown.large.FormDropdownFieldExampleLarge
  * @sample com.idscodelabs.compose_form.examples.fields.dropdown.large.FormAutocompleteDropdownFieldExampleLarge
  */
 @Composable

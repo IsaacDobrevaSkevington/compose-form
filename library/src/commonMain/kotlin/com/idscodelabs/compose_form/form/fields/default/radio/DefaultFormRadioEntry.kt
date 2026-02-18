@@ -17,37 +17,23 @@ import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 
+/**
+ * Default form radio group entry
+ *
+ * @param Item The type of [ListDisplayable] to be displayed
+ * @param hint Hint for the radio group
+ * @param modifier Modifier for the whole radio group
+ * @param textModifier Modifier for the hint text
+ * @param radioButton Composable display of the radio button
+ * @param errorDisplay Composable display of the error
+ */
 @Composable
 fun <Item : ListDisplayable> RadioFormBox<*, Item>.DefaultFormRadioEntry(
     hint: Any?,
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
     radioButton: @Composable RadioFormBox<*, Item>.(DisplayableOption<Item>, Int) -> Unit = { item, index ->
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .selectable(
-                    selected = index == value,
-                    onClick = { setValue(index) },
-                ).minimumInteractiveComponentSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldRowSpacing),
-        ) {
-            RadioButton(
-                selected = (index == value),
-                onClick = {
-                    if (valueSnapshot == index) {
-                        setValue(-1)
-                    } else {
-                        setValue(index)
-                    }
-                },
-                enabled = enabled,
-            )
-            Text(
-                text = item.label,
-            )
-        }
+        DefaultRadioButton(item, index)
     },
     errorDisplay: @Composable RadioFormBox<*, Item>.(error: String) -> Unit = {
         StandardErrorDisplay(it)

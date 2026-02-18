@@ -35,14 +35,15 @@ private data class ListDisplayableImpl(
     override val key: Any,
     override val label: Any,
     override val position: Int,
-): ListDisplayable
+) : ListDisplayable
 
 fun ListDisplayable(
     key: Any,
     label: Any,
     position: Int = 0,
-): ListDisplayable = ListDisplayableImpl(
-    key = key,
-    label = label,
-    position = position
-)
+): ListDisplayable =
+    ListDisplayableImpl(
+        key = key,
+        label = label,
+        position = position,
+    )

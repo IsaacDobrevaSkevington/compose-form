@@ -24,6 +24,22 @@ import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.utils.IconButton
 
+/**
+ * Default form multiselect entry
+ *
+ * @param Item
+ * @param textFieldModifier The modifier to apply to the text field of the autocomplete dropdown
+ * @param exposedDropdownBoxModifier The modifier to apply to the overall exposed dropdown box
+ * @param exposedDropdownMenuModifier The modifier to apply to the menu inside the dropdown box
+ * @param hint The hint to display for in the text field
+ * @param placeholder The placeholder to display when the text field is empty
+ * @param isLast If this form field is the last field in the form
+ * @param leadingIcon The leading icon in the text field
+ * @param clearIcon Icon to display to allow full clearing of the text field
+ * @param expandIcon Icon to display which thw user can click to expand or collapse the dropdown menu
+ * @param menuItem A display for the menu item
+ * @sample com.idscodelabs.compose_form.examples.fields.multiselect.FormMultiselectFieldExample
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <Item : ListDisplayable> MultiselectFormBox<*, Item>.DefaultFormMultiselectEntry(

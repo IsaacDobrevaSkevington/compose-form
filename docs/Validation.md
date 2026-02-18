@@ -20,6 +20,8 @@ A number of common validators are provided:
 - `EveryCharacterValidator` This checks that every character in a text-based form box matches a condition
 - `InvalidOptionValidator` This checks that an item selected in a form box which has a list of discrete selectable items matches the list.
 For example in a dropdown
+- `MaxCountValidator` This checks that the value in a list form box has a minimum number of items selected
+- `MinCountValidator` This checks that the value in a list form box has a maximum number of items selected
 - `MaxLengthValidator` This checks that the value in a text-based form box is not longer than a certain number of characters
 - `MinLengthValidator` This checks that the value in a text-based form box is not shorter than a certain number of characters
 - `MultipleValidator` This combines validators using a list, and is used in the backing of the `+` and `and` operators

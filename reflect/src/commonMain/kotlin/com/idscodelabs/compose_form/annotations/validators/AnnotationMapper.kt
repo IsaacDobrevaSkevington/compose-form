@@ -22,6 +22,8 @@ object AnnotationMapper {
             is TimeBefore -> annotation.validator()
             is com.idscodelabs.compose_form.annotations.validators.Validator<*> -> annotation.validator()
             is ComposeValidator<*> -> annotation.validator()
+            is MaxCount -> annotation.validator()
+            is MinCount -> annotation.validator()
             else -> null
         }?.cast()
 }

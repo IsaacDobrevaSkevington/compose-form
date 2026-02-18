@@ -17,6 +17,9 @@ using `invalidOptionError`.
 
 ## Default usage
 
+
+### Selection only
+
 Along with [common fields](../Common.md), the default dropdown field includes multiple
 styling and behavior options:
 
@@ -34,3 +37,14 @@ styling and behavior options:
 | menuItem                    | (@Composable (ListDisplayable) -> Unit)? | `DefaultDropdownMenuItem` | Composable used to render each menu item                       | Requires `ListDisplayable`        |
 | invalidOptionError          | Any?                                     | "Invalid Option"          | Error displayed when the user enters an invalid option         | Converted using `asDisplayString` |
 
+### Autocompletion
+
+The dropdown can also be used for autocomplete, by selecting the `DefaultAutocompleteFormDropdownEntry` or using `FormAutocompleteField`
+
+The parameters are the same, except for a `filterFunction` which:
+
+- Takes the current `item` being checked as the first parameter (as its display name)
+- Takes the current `value` of the text field
+- Returns `true` if the `item` should be included in the filtered dropdown, or false otherwise
+
+This has a default implementation of `item.startsWith(value, ignoreCase = true)`

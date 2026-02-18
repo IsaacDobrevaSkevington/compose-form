@@ -24,29 +24,27 @@ fun ReusableSubmitButtonExample() =
                 modelProperty = FormTextFieldExampleModel::value,
                 validator = NotEmptyValidator(),
                 updateModel = { value = it },
-                hint = "Value"
+                hint = "Value",
             )
-            FormSubmitButton{it: FormTextFieldExampleModel ->
+            FormSubmitButton { it: FormTextFieldExampleModel ->
                 // Use result here
             }
         }
     }
 
-
 @Composable
-fun <Model> FormSubmitButton(
-    onSuccess: (Model) -> Unit,
-) = FormExtension {
-    Button(
-        modifier = Modifier.fillMaxWidth(),
-        onClick = {
-            submit()
-                .onSuccess(onSuccess)
-                .onFailure { box ->
-                    box.forEach { it.focusRequester.requestFocus() }
-                }
-        },
-    ) {
-        Text("Submit")
+fun <Model> FormSubmitButton(onSuccess: (Model) -> Unit) =
+    FormExtension {
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                submit()
+                    .onSuccess(onSuccess)
+                    .onFailure { box ->
+                        box.forEach { it.focusRequester.requestFocus() }
+                    }
+            },
+        ) {
+            Text("Submit")
+        }
     }
-}

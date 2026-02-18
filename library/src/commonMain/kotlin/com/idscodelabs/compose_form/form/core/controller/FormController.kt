@@ -160,7 +160,6 @@ interface FormController<Model> {
             throw FormSubmissionFailedError(emptyList(), e)
         }
 
-
     /**
      * Submit for model or return null
      *
@@ -204,7 +203,6 @@ interface FormController<Model> {
         onSuccess: (Model) -> Unit = {},
     ): () -> Unit = { submit(onFailure, onError, onSuccess) }
 
-
     /**
      * Field snapshot with type
      *
@@ -239,13 +237,12 @@ interface FormController<Model> {
      */
     fun <Value> fieldWithType(property: KProperty<*>): FormBoxFlow<Model, Value> =
         field(property).mapSync {
-            try{
+            try {
                 it as? FormBox<Model, Value>?
-            } catch (_: Throwable){
+            } catch (_: Throwable) {
                 null
             }
         }
-
 
     /**
      * Field with type
