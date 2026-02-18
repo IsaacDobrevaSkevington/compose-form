@@ -87,9 +87,8 @@ Form(emptyModel = ::FormTextFieldExampleModel) {
 
 ```
 
-### Documentation
-
-https://isaacdobrevaskevington.github.io/compose-form/
+### [<u>Documentation</u>](https://isaacdobrevaskevington.github.io/compose-form/)
+### [<u>Changelog</u>](./CHANGELOG.md)
 
 
 
