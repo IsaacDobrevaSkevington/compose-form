@@ -1,4 +1,4 @@
-import com.vanniktech.maven.publish.SonatypeHost
+
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.net.URI
@@ -28,16 +28,17 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":library"))
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            implementation(libs.runtime)
+            implementation(libs.foundation)
+            implementation(libs.material3)
+            implementation(libs.ui)
+            implementation(libs.components.resources)
+            implementation(libs.ui.tooling.preview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlin.serialization)
+            implementation(libs.kotlinx.serialization.json)
         }
     }
 }
@@ -78,10 +79,6 @@ android {
         singleVariant("debug") {
         }
     }
-}
-
-dependencies {
-    debugImplementation(compose.uiTooling)
 }
 
 publishing {
@@ -151,7 +148,7 @@ mavenPublishing {
     }
 
     // Configure publishing to Maven Central
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    //publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
 
     // Enable GPG signing for all publications
     signAllPublications()
