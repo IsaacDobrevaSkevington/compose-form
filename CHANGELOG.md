@@ -1,7 +1,5 @@
 # [0.0.9](https://github.com/IsaacDobrevaSkevington/compose-form/releases/tag/0.0.9)
 
----
-
 ## New Features
 
 - Form extensions via `FormExtension` and `UntypedFormExtension`

@@ -1,7 +1,5 @@
 # [Version](https://github.com/IsaacDobrevaSkevington/compose-form/releases/tag/version)
 
----
-
 ## New Features
 
 - Feature 1
