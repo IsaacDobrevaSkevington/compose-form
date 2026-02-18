@@ -6,6 +6,7 @@ import com.idscodelabs.compose_form.examples.helpers.ExampleForm
 import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
 import com.idscodelabs.compose_form.form.fields.core.text.FormTextField
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
+import com.idscodelabs.compose_form.validators.NotEmptyValidator
 import com.idscodelabs.compose_form.validators.RegexValidator
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -16,10 +17,10 @@ fun RegexValidatorExample() =
         ExampleForm(emptyModel = ::FormTextFieldExampleModel) {
             FormTextField(
                 modelProperty = FormTextFieldExampleModel::value,
-                validator = RegexValidator("(xyz)*".toRegex()),
+                validator = NotEmptyValidator<String>() + RegexValidator("(xyz)*"),
                 updateModel = { value = it },
             ) {
-                DefaultTextEntry(hint = "Value")
+                DefaultTextEntry(hint = "Enter only x, y or z")
             }
         }
     }
