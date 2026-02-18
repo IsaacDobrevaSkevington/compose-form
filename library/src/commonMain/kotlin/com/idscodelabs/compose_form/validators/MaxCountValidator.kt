@@ -2,12 +2,12 @@ package com.idscodelabs.compose_form.validators
 
 import com.idscodelabs.compose_form.validators.core.Validator
 
-class MaxCountValidator(
+class MaxCountValidator<T>(
     val maxCount: Int,
     val error: Any = "More than $maxCount options selected.",
-) : Validator<List<*>> {
+) : Validator<List<T>> {
     override fun validate(
-        value: List<*>?,
+        value: List<T>?,
         stringRepresentation: String?,
     ): Any? {
         if (value == null) return null

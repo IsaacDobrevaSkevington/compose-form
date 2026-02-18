@@ -2,12 +2,12 @@ package com.idscodelabs.compose_form.validators
 
 import com.idscodelabs.compose_form.validators.core.Validator
 
-class MinCountValidator(
+class MinCountValidator<T>(
     val minCount: Int,
     val error: Any = "Fewer than $minCount options selected.",
-) : Validator<List<*>> {
+) : Validator<List<T>> {
     override fun validate(
-        value: List<*>?,
+        value: List<T>?,
         stringRepresentation: String?,
     ): Any? {
         if (value == null) return null

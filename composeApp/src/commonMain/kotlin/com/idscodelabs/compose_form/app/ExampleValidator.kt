@@ -4,7 +4,9 @@ import androidx.compose.runtime.Composable
 import com.idscodelabs.compose_form.examples.validators.DateAfterValidatorExample
 import com.idscodelabs.compose_form.examples.validators.DateBeforeValidatorExample
 import com.idscodelabs.compose_form.examples.validators.EveryCharacterValidatorExampleCustom
+import com.idscodelabs.compose_form.examples.validators.MaxCountValidatorExample
 import com.idscodelabs.compose_form.examples.validators.MaxLengthValidatorExample
+import com.idscodelabs.compose_form.examples.validators.MinCountValidatorExample
 import com.idscodelabs.compose_form.examples.validators.MinLengthValidatorExample
 import com.idscodelabs.compose_form.examples.validators.MultipleValidatorExample
 import com.idscodelabs.compose_form.examples.validators.MustBeTickedValidatorExample
@@ -61,5 +63,11 @@ enum class ExampleValidator(
     }),
     TIME_BEFORE("Time Before", {
         TimeBeforeValidatorExample()
+    }),
+    MAX_COUNT("Max Count", {
+        MaxCountValidatorExample()
+    }),
+    MIN_COUNT("Min Count", {
+        MinCountValidatorExample()
     }),
 }
