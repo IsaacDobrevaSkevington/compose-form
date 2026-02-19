@@ -1,6 +1,7 @@
 package com.idscodelabs.compose_form.annotations.validators
 
 import androidx.compose.runtime.Composable
+import com.idscodelabs.compose_form.annotations.validators.validator
 import com.idscodelabs.compose_form.validators.NumberOnlyValidator
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.full.isSubtypeOf
@@ -22,8 +23,6 @@ object AnnotationMapper {
             is TimeBefore -> annotation.validator()
             is com.idscodelabs.compose_form.annotations.validators.Validator<*> -> annotation.validator()
             is ComposeValidator<*> -> annotation.validator()
-            is MaxCount -> annotation.validator()
-            is MinCount -> annotation.validator()
             else -> null
         }?.cast()
 }
