@@ -1,4 +1,4 @@
-package com.idscodelabs.compose_form.json.fields.serialization
+package com.idscodelabs.compose_form.json.serialization
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
