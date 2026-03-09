@@ -50,20 +50,19 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormMultiselectField(
         implementation = implementation,
         formImplementationMapper = { rememberAsMultiselectFormBox(displayableOptions, itemDelimiter) },
         stringToValue = { string ->
-            val items = string?.split(itemDelimiter) ?: emptyList()
+            val items = string?.ifBlank { null }?.split(itemDelimiter) ?: emptyList()
             items.mapNotNull { itemString ->
                 displayableOptions.firstOrNull { it.label == itemString.trim() }?.item
             }
         },
         valueToString = {
-            initialValue
-                .mapNotNull { item ->
-                    displayableOptions
-                        .firstOrNull { it.item.key == item.key }
-                        ?.label
-                        ?.trim()
-                        ?.ifBlank { null }
-                }.joinToString(itemDelimiter)
+            it?.mapNotNull { item ->
+                displayableOptions
+                    .firstOrNull { it.item.key == item.key }
+                    ?.label
+                    ?.trim()
+                    ?.ifBlank { null }
+            }?.joinToString(itemDelimiter)
         },
     )
 }
