@@ -1,6 +1,8 @@
 import com.vanniktech.maven.publish.SonatypeHost
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import java.net.URI
 
 plugins {
@@ -21,6 +23,8 @@ kotlin {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
 
     listOf(
@@ -43,12 +47,12 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            implementation(libs.runtime)
+            implementation(libs.foundation)
+            implementation(libs.material3)
+            implementation(libs.ui)
+            implementation(libs.components.resources)
+            implementation(libs.ui.tooling.preview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.kotlinx.datetime)
@@ -57,6 +61,12 @@ kotlin {
             api(libs.filekit.dialogs.compose)
             implementation(libs.filekit.coil)
             implementation(libs.kotlin.reflect)
+
+        }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(libs.ui.test)
+            implementation(libs.kotlinx.coroutines.test)
         }
     }
 }
@@ -73,6 +83,9 @@ android {
             libs.versions.android.minSdk
                 .get()
                 .toInt()
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
     packaging {
         resources {
@@ -100,7 +113,7 @@ android {
 }
 
 dependencies {
-    debugImplementation(compose.uiTooling)
+    debugImplementation(libs.ui.tooling)
 }
 
 publishing {
@@ -174,4 +187,9 @@ mavenPublishing {
 
     // Enable GPG signing for all publications
     signAllPublications()
+}
+
+dependencies {
+    androidTestImplementation(libs.androidx.ui.test.junit4.android)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }

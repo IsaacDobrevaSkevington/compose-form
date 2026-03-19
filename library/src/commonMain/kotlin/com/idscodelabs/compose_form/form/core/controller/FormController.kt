@@ -43,45 +43,33 @@ interface FormController<Model> {
      * Clear all the form's values and boxes
      */
     fun clearForm() {
-        state.boxes.clear()
+        state.boxes.forEach {(property, _) ->
+            removeFromForm(property = property)
+        }
     }
 
-    /**
-     * Clear a subset of the form's values and boxes
+    /**     * Clear a subset of the form's values and boxes
      *
      * @param fields The fields to clear
      */
     fun clearForm(vararg fields: KProperty<*>) {
         fields.forEach {
-            state.boxes.remove(it.name)
+            removeFromForm(property = it.name)
         }
     }
 
-    /**
-     * Add a box to the form
-     *
-     * @param property The unique property of this form field
-     */
-    private fun FormBox<Model, *>.addToForm(property: KProperty<*>) {
-        state.boxes[property.name] = this
-        state.boxFlows[property.name]?.value = this
-        state.observerJobs[property.name] =
-            lifecycleScope.launch {
-                this@addToForm.onFieldValueChanged {
-                    this@FormController.state.valueFlow.update { this@FormController.valueSnapshot }
-                }
-            }
-    }
+
+
 
     /**
      * Remove a [FormBox] from the form
      *
      * @param property The unique property which this [FormBox] is associated with
      */
-    private fun removeFromForm(property: KProperty<*>) {
-        state.boxes.remove(property.name)
-        state.boxFlows[property.name]?.value = null
-        state.observerJobs.remove(property.name)?.cancel()
+    private fun removeFromForm(property: String) {
+        state.boxes.remove(property)
+        state.boxFlows[property]?.value = null
+        state.observerJobs.remove(property)?.cancel()
     }
 
     /**
@@ -325,11 +313,27 @@ interface FormController<Model> {
     @Composable
     fun FormBox<Model, *>.BindLifecycle(modelProperty: KProperty<*>) {
         DisposableEffect(modelProperty.name, this) {
-            addToForm(modelProperty)
+            add(this@BindLifecycle, modelProperty)
 
             onDispose {
-                removeFromForm(modelProperty)
+                removeFromForm(modelProperty.name)
             }
         }
     }
+}
+
+/**
+ * Add a box to the form
+ *
+ * @param property The unique property of this form field
+ */
+internal fun <Model> FormController<Model>.add(formBox: FormBox<Model, *>, property: KProperty<*>) {
+    state.boxes[property.name] = formBox
+    state.boxFlows[property.name]?.value = formBox
+    state.observerJobs[property.name] =
+        lifecycleScope.launch {
+            formBox.onFieldValueChanged {
+                state.valueFlow.update { valueSnapshot }
+            }
+        }
 }
