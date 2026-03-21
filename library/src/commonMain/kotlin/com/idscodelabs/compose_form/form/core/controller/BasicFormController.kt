@@ -1,6 +1,8 @@
 package com.idscodelabs.compose_form.form.core.controller
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.form.model.FormControllerState
@@ -25,5 +27,12 @@ open class BasicFormController<Model>(
 @Composable
 fun <Model> rememberFormController(emptyModel: () -> Model): FormController<Model> {
     val controllerScope = rememberCoroutineScope()
-    return BasicFormController(emptyModel, controllerScope)
+    val controller =
+        remember {
+            BasicFormController(emptyModel, controllerScope)
+        }
+    LaunchedEffect(emptyModel) {
+        controller.emptyModel = emptyModel
+    }
+    return controller
 }

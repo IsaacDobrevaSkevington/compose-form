@@ -20,6 +20,7 @@ import kotlin.reflect.KParameter
  */
 @Composable
 inline fun <reified Model : Any> Form(
+    enabled: Boolean = true,
     noinline container: @Composable FormController<Model>.(contents: @Composable FormController<Model>.() -> Unit) -> Unit = {
         Column(
             verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldSpacing),
@@ -36,5 +37,5 @@ inline fun <reified Model : Any> Form(
                     "${Model::class.simpleName} must have a zero-argument constructor to be used in the form.",
                 )
         }
-    Form(emptyModel, container, contents)
+    Form(emptyModel, enabled, container, contents)
 }

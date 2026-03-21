@@ -5,6 +5,7 @@ import com.idscodelabs.compose_form.form.core.exceptions.FormSubmissionFailedErr
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.form.model.FormBoxFlow
 import com.idscodelabs.compose_form.form.model.FormControllerState
+import com.idscodelabs.compose_form.form.model.FormState
 import com.idscodelabs.compose_form.utils.mapSync
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -141,6 +142,9 @@ interface FormController<Model> {
         }
     }
 
+    @Composable
+    fun collectFormStateAsState() = state.formStateFlow.collectAsState()
+
     /**
      * Submit for model
      *
@@ -150,6 +154,7 @@ interface FormController<Model> {
     @Throws(FormSubmissionFailedError::class)
     fun submitForModel(): Model =
         try {
+            state.formStateFlow.value = FormState.Submitting(state.formStateFlow.value)
             val failedBoxes = validate()
             if (failedBoxes.isEmpty()) {
                 valueSnapshot
@@ -158,7 +163,36 @@ interface FormController<Model> {
             }
         } catch (e: Throwable) {
             throw FormSubmissionFailedError(emptyList(), e)
+        } finally {
+            state.formStateFlow.update {
+                if (it is FormState.Submitting) {
+                    it.previousState
+                } else {
+                    it
+                }
+            }
         }
+
+    /**
+     * Set the form as enabled or disabled. All fields will be disabled when the form is disabled
+     *
+     * @param enabled true to enable the form, false to disable
+     */
+    fun setEnabled(enabled: Boolean) {
+        val newState =
+            if (enabled) {
+                FormState.Enabled
+            } else {
+                FormState.Disabled
+            }
+        state.formStateFlow.update {
+            if (it is FormState.Submitting) {
+                FormState.Submitting(newState)
+            } else {
+                newState
+            }
+        }
+    }
 
     /**
      * Submit for model or return null
