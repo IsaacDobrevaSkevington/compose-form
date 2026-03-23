@@ -56,13 +56,14 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormMultiselectField(
             }
         },
         valueToString = {
-            it?.mapNotNull { item ->
-                displayableOptions
-                    .firstOrNull { it.item.key == item.key }
-                    ?.label
-                    ?.trim()
-                    ?.ifBlank { null }
-            }?.joinToString(itemDelimiter)
+            it
+                ?.mapNotNull { item ->
+                    displayableOptions
+                        .firstOrNull { it.item.key == item.key }
+                        ?.label
+                        ?.trim()
+                        ?.ifBlank { null }
+                }?.joinToString(itemDelimiter)
         },
     )
 }

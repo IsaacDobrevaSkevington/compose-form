@@ -6,16 +6,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import com.idscodelabs.compose_form.form.core.controller.LocalFormController
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.validators.core.Validator
-import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -243,7 +239,16 @@ open class FormBox<Model, Value>(
      * @return A [State] of the current value of enabled
      */
     @Composable
-    fun collectEnabledAsState(context: CoroutineContext = EmptyCoroutineContext): State<Boolean> = enabledState.collectAsState(context)
+    fun collectEnabledAsState(context: CoroutineContext = EmptyCoroutineContext): State<Boolean> {
+        val localFormState = LocalFormController.current?.state?.formStateFlow ?: flowOf(FormState.Enabled)
+        val enabledFlow =
+            localFormState.combine(
+                enabledState,
+            ) { state, enabled ->
+                enabled && state.isEnabled()
+            }
+        return enabledFlow.collectAsState(true, context)
+    }
 
     /**
      * Collect error as state

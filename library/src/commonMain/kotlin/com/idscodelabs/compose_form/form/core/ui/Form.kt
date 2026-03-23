@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.core.controller.LocalFormController
@@ -21,6 +22,7 @@ import com.idscodelabs.compose_form.styles.LocalFormStyle
 @Composable
 fun <Model : Any> Form(
     emptyModel: () -> Model,
+    enabled: Boolean = true,
     container: @Composable FormController<Model>.(contents: @Composable FormController<Model>.() -> Unit) -> Unit = {
         Column(
             verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldSpacing),
@@ -31,10 +33,10 @@ fun <Model : Any> Form(
     contents: @Composable FormController<Model>.() -> Unit = {},
 ) {
     val controller: FormController<Model> = rememberFormController(emptyModel)
-    remember(emptyModel, controller) {
-        controller.emptyModel = emptyModel
-    }
     CompositionLocalProvider(LocalFormController provides controller) {
+        LaunchedEffect(enabled) {
+            controller.setEnabled(enabled)
+        }
         container(controller) {
             contents()
         }
@@ -52,6 +54,7 @@ fun <Model : Any> Form(
 @Composable
 fun <Model : Any> Form(
     controller: FormController<Model>,
+    enabled: Boolean = true,
     container: @Composable FormController<Model>.(contents: @Composable FormController<Model>.() -> Unit) -> Unit = {
         Column(
             verticalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldSpacing),
@@ -61,6 +64,9 @@ fun <Model : Any> Form(
     },
     contents: @Composable FormController<Model>.() -> Unit = {},
 ) = CompositionLocalProvider(LocalFormController provides controller) {
+    LaunchedEffect(enabled) {
+        controller.setEnabled(enabled)
+    }
     container(controller) {
         contents()
     }

@@ -23,6 +23,8 @@ interface FormControllerState<Model> {
      * A flow of the current value of the form
      */
     val valueFlow: MutableStateFlow<Model>
+
+    val formStateFlow: MutableStateFlow<FormState>
 }
 
 fun <Model> FormControllerState(initialValue: Model) =
@@ -31,4 +33,5 @@ fun <Model> FormControllerState(initialValue: Model) =
         override val boxFlows: MutableMap<String, MutableFormBoxFlow<Model, *>> = mutableMapOf()
         override val observerJobs: MutableMap<String, Job> = mutableMapOf()
         override val valueFlow: MutableStateFlow<Model> = MutableStateFlow(initialValue)
+        override val formStateFlow: MutableStateFlow<FormState> = MutableStateFlow(FormState.Enabled)
     }
