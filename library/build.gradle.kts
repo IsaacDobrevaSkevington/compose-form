@@ -61,7 +61,6 @@ kotlin {
             api(libs.filekit.dialogs.compose)
             implementation(libs.filekit.coil)
             implementation(libs.kotlin.reflect)
-
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
@@ -85,7 +84,6 @@ android {
                 .toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
     }
     packaging {
         resources {

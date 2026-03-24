@@ -44,7 +44,7 @@ interface FormController<Model> {
      * Clear all the form's values and boxes
      */
     fun clearForm() {
-        state.boxes.forEach {(property, _) ->
+        state.boxes.forEach { (property, _) ->
             removeFromForm(property = property)
         }
     }
@@ -58,9 +58,6 @@ interface FormController<Model> {
             removeFromForm(property = it.name)
         }
     }
-
-
-
 
     /**
      * Remove a [FormBox] from the form
@@ -150,7 +147,11 @@ interface FormController<Model> {
                 throw FormSubmissionFailedError(failedBoxes, null)
             }
         } catch (e: Throwable) {
-            throw FormSubmissionFailedError(emptyList(), e)
+            if (e is FormSubmissionFailedError) {
+                throw e
+            } else {
+                throw FormSubmissionFailedError(emptyList(), e)
+            }
         } finally {
             state.formStateFlow.update {
                 if (it is FormState.Submitting) {
@@ -361,7 +362,10 @@ interface FormController<Model> {
  *
  * @param property The unique property of this form field
  */
-internal fun <Model> FormController<Model>.add(formBox: FormBox<Model, *>, property: KProperty<*>) {
+internal fun <Model> FormController<Model>.add(
+    formBox: FormBox<Model, *>,
+    property: KProperty<*>,
+) {
     state.boxes[property.name] = formBox
     state.boxFlows[property.name]?.value = formBox
     state.observerJobs[property.name] =

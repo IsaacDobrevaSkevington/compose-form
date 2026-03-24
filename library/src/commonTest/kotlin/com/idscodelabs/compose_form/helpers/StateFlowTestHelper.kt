@@ -8,7 +8,7 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 
 @OptIn(ExperimentalCoroutinesApi::class)
-fun <T> TestScope.mostRecent(flow: StateFlow<T>): T{
+fun <T> TestScope.mostRecent(flow: StateFlow<T>): T {
     val value = mutableListOf<T>()
     backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
         flow.toList(value)
