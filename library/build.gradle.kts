@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
@@ -45,7 +47,30 @@ kotlin {
         binaries.executable()
     }
 
+
+    applyHierarchyTemplate {
+        common{
+            group("nonJs"){
+                withJvm()
+                group("native"){
+                    withIos()
+                }
+                group("ios"){
+                    withIos()
+                }
+                withAndroidTarget()
+                withWasmJs()
+            }
+            group("web"){
+                withJs()
+                withWasmJs()
+            }
+            withJs()
+        }
+    }
+
     sourceSets {
+        val nonJsTest by getting
         commonMain.dependencies {
             implementation(libs.runtime)
             implementation(libs.foundation)
@@ -62,10 +87,11 @@ kotlin {
             implementation(libs.filekit.coil)
             implementation(libs.kotlin.reflect)
         }
-        commonTest.dependencies {
+        nonJsTest.dependencies {
             implementation(kotlin("test"))
             implementation(libs.ui.test)
             implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.mockfunction)
         }
     }
 }
@@ -181,7 +207,7 @@ mavenPublishing {
     }
 
     // Configure publishing to Maven Central
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
 
     // Enable GPG signing for all publications
     signAllPublications()

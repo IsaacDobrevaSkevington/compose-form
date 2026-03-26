@@ -2,12 +2,16 @@ package com.idscodelabs.compose_form.core.controller.submission
 
 import com.idscodelabs.compose_form.form.core.controller.add
 import com.idscodelabs.compose_form.form.model.FormBox
-import com.idscodelabs.compose_form.helpers.*
+import com.idscodelabs.compose_form.helpers.TestModel
+import com.idscodelabs.compose_form.helpers.randomProperty
+import com.idscodelabs.compose_form.helpers.testFormBox
+import com.idscodelabs.compose_form.helpers.testFormController
 import com.idscodelabs.compose_form.validators.NotEmptyValidator
+import com.idscodelabs.mock_function.functions.MockFunction1
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 
-class SubmissionCallbackTests {
+class SubmissionResultTests {
     @Test
     fun `GIVEN The form controller has a valid value WHEN submit is called THEN the result is the first parameter of the success callback`() =
         runTest {
@@ -16,7 +20,7 @@ class SubmissionCallbackTests {
                 testFormController {
                     add(testFormBox("Some value"), randomProperty())
                 }
-            formController.submit(onSuccess = successFunction)
+            formController.submit().onSuccess(successFunction)
 
             successFunction.verify {
                 onlyCall {
@@ -34,7 +38,7 @@ class SubmissionCallbackTests {
                 testFormController {
                     add(testFormBox("Some value"), randomProperty())
                 }
-            formController.submit(onFailure = failureFunction)
+            formController.submit().onFailure(failureFunction)
 
             failureFunction.verify {
                 wasNotCalled()
@@ -50,7 +54,7 @@ class SubmissionCallbackTests {
                 testFormController {
                     add(testFormBox("Some value"), randomProperty())
                 }
-            formController.submit(onError = errorFunction)
+            formController.submit().onError(errorFunction)
 
             errorFunction.verify {
                 wasNotCalled()
@@ -67,7 +71,7 @@ class SubmissionCallbackTests {
                 testFormController {
                     add(failingBox, randomProperty())
                 }
-            formController.submit(onFailure = failureFunction)
+            formController.submit().onFailure(failureFunction)
 
             failureFunction.verify {
                 onlyCall {
@@ -86,7 +90,7 @@ class SubmissionCallbackTests {
                 testFormController {
                     add(failingBox, randomProperty())
                 }
-            formController.submit(onSuccess = successFunction)
+            formController.submit().onSuccess(successFunction)
 
             successFunction.verify {
                 wasNotCalled()
@@ -103,7 +107,7 @@ class SubmissionCallbackTests {
                 testFormController {
                     add(failingBox, randomProperty())
                 }
-            formController.submit(onError = errorFunction)
+            formController.submit().onError(errorFunction)
 
             errorFunction.verify {
                 wasNotCalled()
@@ -121,7 +125,7 @@ class SubmissionCallbackTests {
                 testFormController {
                     add(failingBox, randomProperty())
                 }
-            formController.submit(onError = errorFunction)
+            formController.submit().onError(errorFunction)
 
             errorFunction.verify {
                 onlyCall {
@@ -141,7 +145,7 @@ class SubmissionCallbackTests {
                 testFormController {
                     add(failingBox, randomProperty())
                 }
-            formController.submit(onSuccess = successFunction)
+            formController.submit().onSuccess(successFunction)
 
             successFunction.verify {
                 wasNotCalled()
@@ -159,7 +163,7 @@ class SubmissionCallbackTests {
                 testFormController {
                     add(failingBox, randomProperty())
                 }
-            formController.submit(onFailure = failureFunction)
+            formController.submit().onFailure(failureFunction)
 
             failureFunction.verify {
                 wasNotCalled()
