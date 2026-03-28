@@ -213,10 +213,8 @@ open class FormBox<Model, Value>(
      */
     open fun setValue(value: Value) {
         errorState.update { null }
-        if (enabledState.value) {
-            valueState.update {
-                mapValue(value)
-            }
+        valueState.update {
+            mapValue(value)
         }
     }
 
@@ -243,16 +241,18 @@ open class FormBox<Model, Value>(
     @Composable
     fun collectEnabledAsState(context: CoroutineContext = EmptyCoroutineContext): State<Boolean> {
         val localFormState = LocalFormController.current?.state?.formStateFlow
+        val coroutineScope = rememberCoroutineScope { context}
         val enabledFlow =
             remember(localFormState, enabledState) {
-                localFormState?.combine(
+                val flow = localFormState?.combine(
                     enabledState,
                 ) { state, enabled ->
                     enabled && state.isEnabled()
                 } ?: enabledState
+                flow.stateIn(coroutineScope, SharingStarted.Eagerly, enabledState.value && localFormState?.value?.isEnabled() != false)
             }
 
-        return enabledFlow.collectAsState(true, context)
+        return enabledFlow.collectAsState(context)
     }
 
     /**

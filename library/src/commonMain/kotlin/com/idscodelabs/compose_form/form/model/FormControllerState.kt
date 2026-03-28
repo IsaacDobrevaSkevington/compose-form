@@ -27,11 +27,11 @@ interface FormControllerState<Model> {
     val formStateFlow: MutableStateFlow<FormState>
 }
 
-fun <Model> FormControllerState(initialValue: Model) =
+fun <Model> FormControllerState(initialValue: Model, initialEnabled: Boolean = true) =
     object : FormControllerState<Model> {
         override val boxes: MutableMap<String, FormBox<Model, *>> = mutableMapOf()
         override val boxFlows: MutableMap<String, MutableFormBoxFlow<Model, *>> = mutableMapOf()
         override val observerJobs: MutableMap<String, Job> = mutableMapOf()
         override val valueFlow: MutableStateFlow<Model> = MutableStateFlow(initialValue)
-        override val formStateFlow: MutableStateFlow<FormState> = MutableStateFlow(FormState.Enabled)
+        override val formStateFlow: MutableStateFlow<FormState> = MutableStateFlow(if(initialEnabled) FormState.Enabled else FormState.Disabled)
     }

@@ -20,8 +20,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
  */
 abstract class FormControllerViewModel<Model>(
     override var emptyModel: () -> Model,
+    initialEnabled: Boolean = true,
 ) : ViewModel(),
     FormController<Model> {
-    override val state: FormControllerState<Model> = FormControllerState(emptyModel())
+    override val state: FormControllerState<Model> = FormControllerState(emptyModel(), initialEnabled)
     override var lifecycleScope: CoroutineScope = viewModelScope
 }

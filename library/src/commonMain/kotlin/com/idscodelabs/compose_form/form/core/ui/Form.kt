@@ -32,7 +32,7 @@ fun <Model : Any> Form(
     },
     contents: @Composable FormController<Model>.() -> Unit = {},
 ) {
-    val controller: FormController<Model> = rememberFormController(emptyModel)
+    val controller: FormController<Model> = rememberFormController(enabled, emptyModel)
     CompositionLocalProvider(LocalFormController provides controller) {
         LaunchedEffect(enabled) {
             controller.setEnabled(enabled)

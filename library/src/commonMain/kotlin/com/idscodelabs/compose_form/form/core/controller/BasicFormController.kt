@@ -20,16 +20,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 open class BasicFormController<Model>(
     override var emptyModel: () -> Model,
     override var lifecycleScope: CoroutineScope,
+    initialEnabled: Boolean = true
 ) : FormController<Model> {
-    override val state: FormControllerState<Model> = FormControllerState(emptyModel())
+    override val state: FormControllerState<Model> = FormControllerState(emptyModel(), initialEnabled)
 }
 
 @Composable
-fun <Model> rememberFormController(emptyModel: () -> Model): FormController<Model> {
+fun <Model> rememberFormController(initialEnabled: Boolean = true, emptyModel: () -> Model): FormController<Model> {
     val controllerScope = rememberCoroutineScope()
     val controller =
         remember {
-            BasicFormController(emptyModel, controllerScope)
+            BasicFormController(emptyModel, controllerScope, initialEnabled)
         }
     LaunchedEffect(emptyModel) {
         controller.emptyModel = emptyModel
