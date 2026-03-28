@@ -21,6 +21,7 @@ mock-function = "0.0.1"
 kotlinxDatetime="0.7.1"
 dokka = "2.1.0"
 material3 = "1.9.0"
+navigationeventCompose = "1.0.1"
 uiTestJunit4Android = "1.10.5"
 vanniktechMavenPublish = "0.31.0"
 
@@ -48,9 +49,9 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 mockfunction= { module = "io.github.idscodelabs:mock-function", version.ref = "mock-function" }
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-datetime = {group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
-backhandler = {group = "org.jetbrains.compose.ui", name = "ui-backhandler", version.ref = "composeMultiplatform" }
 kotlin-reflect = {group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
 material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
+navigationevent-compose = { module = "org.jetbrains.androidx.navigationevent:navigationevent-compose", version.ref = "navigationeventCompose" }
 runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }
 ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
 ui-test = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "composeMultiplatform" }

@@ -1,6 +1,7 @@
 package com.idscodelabs.compose_form.examples.fields.date
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.idscodelabs.compose_form.examples.fields.date.FormDateFieldExampleModel
 import com.idscodelabs.compose_form.examples.helpers.ExampleForm
 import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
@@ -11,7 +12,6 @@ import com.idscodelabs.compose_form.validators.DateAfterValidator
 import com.idscodelabs.compose_form.validators.DateBeforeValidator
 import com.idscodelabs.compose_form.validators.NotEmptyValidator
 import kotlinx.datetime.LocalDate
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
@@ -25,8 +25,8 @@ fun FormDateFieldExample() =
             FormDateField(
                 modelProperty = FormDateFieldExampleModel::value,
                 validator =
-                    DateBeforeValidator(min) +
-                        DateAfterValidator(max) +
+                    DateBeforeValidator(max) +
+                        DateAfterValidator(min) +
                         NotEmptyValidator(),
                 updateModel = { value = it },
             ) {

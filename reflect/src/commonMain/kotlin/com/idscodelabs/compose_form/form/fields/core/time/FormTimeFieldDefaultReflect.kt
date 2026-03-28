@@ -10,9 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.controller.FormController
+import com.idscodelabs.compose_form.form.fields.default.base.DefaultPickerTextEntry
+import com.idscodelabs.compose_form.form.fields.default.base.PickerController
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.fields.default.time.DefaultTimePickerDialog
-import com.idscodelabs.compose_form.form.fields.default.time.TimePickerController
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.form.model.FormBox
 import com.idscodelabs.compose_form.utils.IconButton
@@ -39,34 +40,32 @@ fun <Model> FormController<Model>.FormTimeField(
     leadingIcon: (@Composable () -> Unit)? = null,
     timePickerState: TimePickerState = rememberTimePickerState(),
     allowTyping: Boolean = true,
-    entry: @Composable FormBox<*, TextFieldValue>.(TimePickerController) -> Unit = {
-        DefaultTextEntry(
-            hint = hint,
+    entry: @Composable (
+        controller: PickerController<TimePickerState>,
+        value: TextFieldValue,
+        setValue: (TextFieldValue) -> Unit,
+    ) -> Unit = { controller, value, setValue ->
+        DefaultPickerTextEntry(
+            value = value,
+            setValue = setValue,
             modifier = modifier,
-            trailingIcon =
-                if (enabled) {
-                    {
-                        IconButton(Icons.Timer, "Clock Icon") {
-                            it.setPickerVisible(true)
-                        }
-                    }
-                } else {
-                    null
-                },
-            placeholder = placeholder,
+            hint = hint,
             isLast = isLast,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
             leadingIcon = leadingIcon,
-            readOnly = !(allowTyping && enabled),
+            placeholder = placeholder,
+            controller = controller,
+            allowTyping = allowTyping,
+            trailingIconImage = Icons.Timer,
         )
     },
-    dialog: @Composable FormBox<*, TextFieldValue>.(TimePickerController) -> Unit = {
+    dialog: @Composable (
+        controller: PickerController<TimePickerState>,
+        onTimePicked: (LocalTime) -> Unit,
+    ) -> Unit = { controller, onTimePicked ->
         DefaultTimePickerDialog(
-            it.timepickerState,
-            ::setValue,
-        ) {
-            it.setPickerVisible(false)
-        }
+            controller,
+            onTimePicked = onTimePicked,
+        )
     },
     invalidTimeMessage: Any = "Invalid time format",
 ) = FormTimeField(

@@ -51,18 +51,18 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormDropdownField(
     exposedDropdownMenuModifier: Modifier = Modifier,
     hint: Any? = null,
     placeholder: Any? = hint,
-    leadingIcon: (@Composable DropdownFormBox<*, Item>.() -> Unit)? = null,
-    clearIcon: (@Composable DropdownFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
+    leadingIcon: (@Composable () -> Unit)? = null,
+    clearIcon: (@Composable (onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable DropdownFormBox<*, Item>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable (expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable DropdownFormBox<*, Item>.(
+    menuItem: @Composable (
         item: DisplayableOption<Item>,
-        setExpanded: (Boolean) -> Unit,
-    ) -> Unit = { item, setExpanded ->
-        DefaultDropdownMenuItem(item, setExpanded)
+        onItemClick: (DisplayableOption<Item>) -> Unit,
+    ) -> Unit = { item, onItemClick ->
+        DefaultDropdownMenuItem(item, onItemClick = onItemClick)
     },
     isLast: Boolean = false,
 ) = FormDropdownField(

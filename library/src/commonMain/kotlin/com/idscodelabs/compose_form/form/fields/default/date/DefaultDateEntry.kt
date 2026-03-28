@@ -1,7 +1,7 @@
 package com.idscodelabs.compose_form.form.fields.default.date
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberDatePickerState
@@ -10,16 +10,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
-import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
+import com.idscodelabs.compose_form.form.fields.default.base.DefaultPickerTextEntry
+import com.idscodelabs.compose_form.form.fields.default.base.PickerController
 import com.idscodelabs.compose_form.form.icons.Icons
 import com.idscodelabs.compose_form.form.model.FormBox
-import com.idscodelabs.compose_form.utils.IconButton
+import com.idscodelabs.compose_form.form.model.setValue
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.format
 import kotlin.time.ExperimentalTime
 
 /**
@@ -45,43 +46,32 @@ fun FormBox<*, TextFieldValue>.DefaultDateEntry(
     leadingIcon: (@Composable () -> Unit)? = null,
     datePickerState: DatePickerState = rememberDatePickerState(),
     allowTyping: Boolean = true,
-    entry: @Composable FormBox<*, TextFieldValue>.(DatePickerController) -> Unit = {
-        val enabled = enabled
-        DefaultTextEntry(
+    entry: @Composable (
+        controller: PickerController<DatePickerState>,
+        value: TextFieldValue,
+        setValue: (TextFieldValue) -> Unit,
+    ) -> Unit = { controller, value, setValue ->
+        DefaultPickerTextEntry(
+            value = value,
+            setValue = setValue,
+            modifier = modifier,
             hint = hint,
-            modifier =
-                modifier.onFocusChanged { focusState ->
-                    if (focusState.isFocused && !allowTyping && enabled) {
-                        it.setPickerVisible(true)
-                    }
-                },
-            trailingIcon =
-                if (enabled) {
-                    {
-                        IconButton(
-                            Icons.DateRange,
-                            null,
-                        ) {
-                            it.setPickerVisible(true)
-                        }
-                    }
-                } else {
-                    null
-                },
-            placeholder = placeholder,
             isLast = isLast,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             leadingIcon = leadingIcon,
-            readOnly = !(allowTyping && enabled),
+            placeholder = placeholder,
+            controller = controller,
+            allowTyping = allowTyping,
+            trailingIconImage = Icons.DateRange,
         )
     },
-    dialog: @Composable FormBox<*, TextFieldValue>.(DatePickerController) -> Unit = {
+    dialog: @Composable (
+        controller: PickerController<DatePickerState>,
+        onDatePicked: (LocalDate) -> Unit,
+    ) -> Unit = { controller, onDatePicked ->
         DefaultDatePickerDialog(
-            it.datePickerState,
-            ::setValue,
-        ) {
-            it.setPickerVisible(false)
-        }
+            controller,
+            onDatePicked = onDatePicked,
+        )
     },
 ) {
     val dateFormatter = LocalFormDateFormatter.current
@@ -95,11 +85,15 @@ fun FormBox<*, TextFieldValue>.DefaultDateEntry(
         }
     }
 
-    val datePickerController = remember(datePickerState) { DatePickerController(datePickerState) }
+    val datePickerController = remember(datePickerState) { PickerController(datePickerState) }
     val datePickerVisible by datePickerController.pickerVisible.collectAsState()
-    entry(datePickerController)
+    Box(Modifier.primaryFocusable()) {
+        entry(datePickerController, value, ::setValue)
+    }
 
     if (datePickerVisible) {
-        dialog(datePickerController)
+        dialog(datePickerController) {
+            setValue(it.format(dateFormatter))
+        }
     }
 }

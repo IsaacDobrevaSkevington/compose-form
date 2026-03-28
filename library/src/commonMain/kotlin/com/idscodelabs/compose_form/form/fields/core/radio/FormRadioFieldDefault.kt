@@ -46,10 +46,10 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
     validator: Validator<Item>? = null,
     enabled: Boolean = true,
     hint: Any? = null,
-    radioButton: @Composable RadioFormBox<*, Item>.(DisplayableOption<Item>, Int) -> Unit = { item, index ->
-        DefaultRadioButton(item, index)
+    radioButton: @Composable (item: DisplayableOption<Item>, selected: Boolean, onClick: () -> Unit) -> Unit = { item, selected, onClick ->
+        DefaultRadioButton(item, selected, onClick)
     },
-    errorDisplay: @Composable RadioFormBox<*, Item>.(error: String) -> Unit = {
+    errorDisplay: @Composable (error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
     modifier: Modifier = Modifier,

@@ -6,4 +6,5 @@ object Icons {
     val Close = CloseIcon
     val Error = ErrorIcon
     val Timer = TimerIcon
+    val File = FileIcon
 }

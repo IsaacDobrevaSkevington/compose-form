@@ -1,12 +1,12 @@
 package com.idscodelabs.compose_form.examples.fields.slider
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.idscodelabs.compose_form.examples.fields.slider.FormSliderExampleModel
 import com.idscodelabs.compose_form.examples.helpers.ExampleForm
 import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
 import com.idscodelabs.compose_form.form.fields.core.slider.FormSliderField
 import com.idscodelabs.compose_form.form.fields.default.slider.DefaultFormSliderEntry
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable

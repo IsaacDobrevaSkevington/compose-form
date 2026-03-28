@@ -2,6 +2,7 @@ package com.idscodelabs.compose_form.form.fields.default.checkbox
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.model.FormBox
+import com.idscodelabs.compose_form.form.model.LocalFormBox
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 import io.github.vinceglb.filekit.PlatformFile
@@ -30,9 +32,15 @@ import io.github.vinceglb.filekit.PlatformFile
 fun FormBox<*, Boolean>.DefaultFormCheckBoxEntry(
     hint: Any? = null,
     modifier: Modifier = Modifier.fillMaxWidth(),
-    checkboxModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
+    checkbox: @Composable (value: Boolean, setValue: (Boolean) -> Unit) -> Unit = { value, setValue ->
+        Checkbox(
+            checked = value,
+            onCheckedChange = setValue,
+            enabled = LocalFormBox.current.enabled,
+        )
+    },
     textModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
-    errorDisplay: @Composable FormBox<*, Boolean>.(error: String) -> Unit = {
+    errorDisplay: @Composable (error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
 ) {
@@ -44,12 +52,9 @@ fun FormBox<*, Boolean>.DefaultFormCheckBoxEntry(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldRowSpacing),
         ) {
-            Checkbox(
-                checked = value,
-                onCheckedChange = ::setValue,
-                modifier = checkboxModifier.primaryFocusable(),
-                enabled = enabled,
-            )
+            Box(Modifier.primaryFocusable()) {
+                checkbox(value, ::setValue)
+            }
             hint?.let {
                 Text(
                     text = it.asDisplayString(),

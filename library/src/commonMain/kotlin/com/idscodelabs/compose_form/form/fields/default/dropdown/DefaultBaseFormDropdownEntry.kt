@@ -18,6 +18,7 @@ import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.icons.Icons
+import com.idscodelabs.compose_form.form.model.setValue
 import com.idscodelabs.compose_form.utils.IconButton
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,19 +31,19 @@ fun <Item : ListDisplayable> DropdownFormBox<*, Item>.DefaultBaseFormDropdownEnt
     placeholder: Any? = hint,
     isLast: Boolean = false,
     readOnly: Boolean = false,
-    leadingIcon: (@Composable DropdownFormBox<*, Item>.() -> Unit)? = null,
+    leadingIcon: (@Composable () -> Unit)? = null,
     filterFunction: ((item: String, value: String) -> Boolean)? = null,
-    clearIcon: (@Composable DropdownFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
+    clearIcon: (@Composable (onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable DropdownFormBox<*, Item>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable (expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable DropdownFormBox<*, Item>.(
+    menuItem: @Composable (
         item: DisplayableOption<Item>,
-        setExpanded: (Boolean) -> Unit,
-    ) -> Unit = { item, setExpanded ->
-        DefaultDropdownMenuItem(item, setExpanded)
+        onItemClick: (DisplayableOption<Item>) -> Unit,
+    ) -> Unit = { item, onItemClick ->
+        DefaultDropdownMenuItem(item, onItemClick = onItemClick)
     },
 ) {
     val currentValue = value.text
@@ -73,13 +74,15 @@ fun <Item : ListDisplayable> DropdownFormBox<*, Item>.DefaultBaseFormDropdownEnt
     ) {
         DefaultTextEntry(
             hint = hint,
-            modifier = textFieldModifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable),
+            modifier = textFieldModifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable).primaryFocusable(),
             trailingIcon = {
-                Row {
-                    clearIcon?.invoke(this@DefaultBaseFormDropdownEntry) {
-                        setValue(TextFieldValue())
+                if (enabled) {
+                    Row {
+                        clearIcon?.invoke {
+                            setValue("")
+                        }
+                        expandIcon(expanded)
                     }
-                    expandIcon(expanded)
                 }
             },
             placeholder = placeholder?.asDisplayString(),
@@ -104,7 +107,10 @@ fun <Item : ListDisplayable> DropdownFormBox<*, Item>.DefaultBaseFormDropdownEnt
                     items = filteredOptions,
                     scope = lazyDropdownScope,
                 ) {
-                    menuItem(it, setExpanded)
+                    menuItem(it) { item ->
+                        setValue(item.label)
+                        setExpanded(false)
+                    }
                 }
             }
         }

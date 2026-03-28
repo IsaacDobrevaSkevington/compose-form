@@ -51,17 +51,19 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormMultiselectField(
     exposedDropdownMenuModifier: Modifier = Modifier,
     hint: Any? = null,
     placeholder: Any? = hint,
-    leadingIcon: (@Composable MultiselectFormBox<*, Item>.() -> Unit)? = null,
-    clearIcon: (@Composable MultiselectFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
+    leadingIcon: (@Composable () -> Unit)? = null,
+    clearIcon: (@Composable (onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable MultiselectFormBox<*, Item>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable (expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable MultiselectFormBox<*, Item>.(
+    menuItem: @Composable (
         item: DisplayableOption<Item>,
-    ) -> Unit = { item ->
-        DefaultMultiselectMenuItem(item)
+        isSelected: Boolean,
+        onClickItem: (DisplayableOption<Item>) -> Unit,
+    ) -> Unit = { item, isSelected, onClickItem ->
+        DefaultMultiselectMenuItem(item, isSelected) { onClickItem(item) }
     },
     isLast: Boolean = false,
 ) = FormMultiselectField(

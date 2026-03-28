@@ -33,18 +33,18 @@ fun <Model, Suggestion : ListDisplayable> FormController<Model>.FormSuggestionFi
     exposedDropdownMenuModifier: Modifier = Modifier,
     hint: Any? = modelProperty.hint(),
     placeholder: Any? = hint,
-    leadingIcon: (@Composable SuggestionFormBox<*, Suggestion>.() -> Unit)? = null,
-    clearIcon: (@Composable SuggestionFormBox<*, Suggestion>.(onClick: () -> Unit) -> Unit)? = {
+    leadingIcon: (@Composable () -> Unit)? = null,
+    clearIcon: (@Composable (onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable SuggestionFormBox<*, Suggestion>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable (expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable SuggestionFormBox<*, Suggestion>.(
+    menuItem: @Composable (
         item: DisplayableOption<Suggestion>,
-        setExpanded: (Boolean) -> Unit,
-    ) -> Unit = { item, setExpanded ->
-        DefaultDropdownMenuItem(item, setExpanded)
+        onSuggestionClick: (DisplayableOption<Suggestion>) -> Unit,
+    ) -> Unit = { item, onSuggestionClick ->
+        DefaultDropdownMenuItem(item, onItemClick = onSuggestionClick)
     },
     loadingView: @Composable () -> Unit = {
         CircularProgressIndicator(Modifier.size(48.dp).padding(8.dp))

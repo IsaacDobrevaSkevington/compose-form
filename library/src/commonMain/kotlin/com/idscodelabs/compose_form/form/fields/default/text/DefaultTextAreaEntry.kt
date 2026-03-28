@@ -25,9 +25,49 @@ fun FormBox<*, TextFieldValue>.DefaultTextAreaEntry(
     leadingIcon: (@Composable () -> Unit)? = null,
     minLines: Int = 4,
     maxLines: Int = 4,
+) = DefaultTextAreaEntry(
+    value = value,
+    setValue = ::setValue,
+    hint = hint,
+    modifier = modifier.primaryFocusable(),
+    trailingIcon = trailingIcon,
+    placeholder = placeholder,
+    isLast = isLast,
+    keyboardOptions = keyboardOptions,
+    prefix = prefix,
+    readOnly = readOnly,
+    style = style,
+    onValueChange = onValueChange,
+    leadingIcon = leadingIcon,
+    minLines = minLines,
+    maxLines = maxLines,
+)
+
+@Composable
+fun DefaultTextAreaEntry(
+    value: TextFieldValue,
+    setValue: (TextFieldValue) -> Unit,
+    hint: Any? = null,
+    modifier: Modifier = Modifier.fillMaxWidth(),
+    trailingIcon: (@Composable () -> Unit)? = null,
+    placeholder: Any? = null,
+    isLast: Boolean = false,
+    keyboardOptions: KeyboardOptions? = null,
+    prefix: Any = "",
+    readOnly: Boolean = false,
+    style: FormFieldStyle = LocalFormFieldStyle.current,
+    onValueChange: (TextFieldValue) -> Unit = {},
+    leadingIcon: (@Composable () -> Unit)? = null,
+    minLines: Int = 4,
+    maxLines: Int = 4,
 ) {
     with(LocalFormTextFieldEntry.current) {
         Render(
+            value = value,
+            onValueChange = {
+                setValue(it)
+                onValueChange(it)
+            },
             hint = hint,
             modifier = modifier,
             isLast = isLast,
@@ -35,7 +75,6 @@ fun FormBox<*, TextFieldValue>.DefaultTextAreaEntry(
             prefix = prefix,
             readOnly = readOnly,
             style = style,
-            onValueChange = onValueChange,
             keyboardOptions = keyboardOptions,
             leadingIcon = leadingIcon,
             placeholder = placeholder,

@@ -6,15 +6,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.controller.LocalFormController
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
+
+val LocalFormBox = compositionLocalOf<FormBox<*, *>> { throw IllegalStateException("No form box in composition") }
 
 /**
  * Representation of a Form Box
@@ -240,13 +242,16 @@ open class FormBox<Model, Value>(
      */
     @Composable
     fun collectEnabledAsState(context: CoroutineContext = EmptyCoroutineContext): State<Boolean> {
-        val localFormState = LocalFormController.current?.state?.formStateFlow ?: flowOf(FormState.Enabled)
+        val localFormState = LocalFormController.current?.state?.formStateFlow
         val enabledFlow =
-            localFormState.combine(
-                enabledState,
-            ) { state, enabled ->
-                enabled && state.isEnabled()
+            remember(localFormState, enabledState) {
+                localFormState?.combine(
+                    enabledState,
+                ) { state, enabled ->
+                    enabled && state.isEnabled()
+                } ?: enabledState
             }
+
         return enabledFlow.collectAsState(true, context)
     }
 
@@ -387,6 +392,17 @@ fun <Item> FormBox<*, List<Item>>.setValue(item: Item) {
 }
 
 /**
+ * Toggle the item value. If the item is already in the list of items, remove it, otherwise, add it
+ */
+fun <Item> FormBox<*, List<Item>>.toggle(item: Item) {
+    val current = valueSnapshot.toMutableList()
+    if (!current.remove(item)) {
+        current.add(item)
+    }
+    setValue(current)
+}
+
+/**
  * Add single item value to a form box containing list of items
  */
 fun <Item> FormBox<*, List<Item>>.add(item: Item) {
@@ -403,3 +419,8 @@ fun <Item> FormBox<*, List<Item>>.remove(item: Item) {
     current.remove(item)
     setValue(current)
 }
+
+/**
+ * Convenience method to set the string value of a TextFieldValue form box
+ */
+fun FormBox<*, TextFieldValue>.setValue(value: String) = setValue(TextFieldValue(value))

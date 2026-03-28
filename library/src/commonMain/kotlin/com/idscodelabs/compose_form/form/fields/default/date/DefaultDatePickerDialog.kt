@@ -3,12 +3,10 @@ package com.idscodelabs.compose_form.form.fields.default.date
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.input.TextFieldValue
-import com.idscodelabs.compose_form.form.fields.core.date.LocalFormDateFormatter
+import com.idscodelabs.compose_form.form.fields.default.base.PickerController
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.format
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -16,45 +14,42 @@ import kotlin.time.Instant
 @OptIn(ExperimentalTime::class, ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultDatePickerDialog(
-    state: DatePickerState,
-    onValueChange: (TextFieldValue) -> Unit,
+    controller: PickerController<DatePickerState>,
     positiveButtonText: Any = "Ok",
     negativeButtonText: Any = "Cancel",
-    datePicker: @Composable ColumnScope.() -> Unit = {
+    datePicker: @Composable ColumnScope.(state: DatePickerState) -> Unit = {
         DatePicker(
-            state = state,
+            state = it,
             showModeToggle = false,
         )
     },
-    onDismissRequest: () -> Unit,
+    onDatePicked: (LocalDate) -> Unit,
 ) {
-    val formatter = LocalFormDateFormatter.current
     DatePickerDialog(
-        onDismissRequest = onDismissRequest,
+        onDismissRequest = {
+            controller.setPickerVisible(false)
+        },
         confirmButton = {
             TextButton(onClick = {
                 val newValue =
-                    state.selectedDateMillis?.let {
+                    controller.state.selectedDateMillis?.let {
                         Instant
                             .fromEpochMilliseconds(it)
                             .toLocalDateTime(TimeZone.UTC)
                             .date
-                            .format(formatter)
-                    } ?: ""
-                onValueChange(
-                    TextFieldValue(newValue, TextRange(newValue.length)),
-                )
-                onDismissRequest()
+                    }
+                newValue?.let(onDatePicked)
+                controller.setPickerVisible(false)
             }) {
                 Text(text = positiveButtonText.asDisplayString())
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismissRequest) {
+            TextButton(onClick = { controller.setPickerVisible(false) }) {
                 Text(text = negativeButtonText.asDisplayString())
             }
         },
     ) {
-        datePicker()
+        datePicker(controller.state)
     }
 }

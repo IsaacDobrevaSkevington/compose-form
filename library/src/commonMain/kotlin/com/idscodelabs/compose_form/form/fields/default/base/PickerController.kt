@@ -1,11 +1,10 @@
-package com.idscodelabs.compose_form.form.fields.default.date
+package com.idscodelabs.compose_form.form.fields.default.base
 
-import androidx.compose.material3.DatePickerState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
-data class DatePickerController(
-    val datePickerState: DatePickerState,
+data class PickerController<T>(
+    val state: T,
 ) {
     val pickerVisible: MutableStateFlow<Boolean> = MutableStateFlow(false)
 

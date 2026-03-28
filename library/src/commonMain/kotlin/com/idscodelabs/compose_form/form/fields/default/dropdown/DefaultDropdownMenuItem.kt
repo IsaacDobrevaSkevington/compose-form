@@ -16,10 +16,10 @@ import com.idscodelabs.compose_form.form.model.FormBox
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <Item : ListDisplayable> FormBox<*, TextFieldValue>.DefaultDropdownMenuItem(
+fun <Item : ListDisplayable> DefaultDropdownMenuItem(
     item: DisplayableOption<Item>,
-    setExpanded: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
+    onItemClick: (DisplayableOption<Item>) -> Unit,
 ) {
     val displayString = item.label
     val focusManager = LocalFocusManager.current
@@ -27,15 +27,7 @@ fun <Item : ListDisplayable> FormBox<*, TextFieldValue>.DefaultDropdownMenuItem(
         modifier = modifier,
         text = { Text(displayString) },
         onClick = {
-            if (valueSnapshot.text != displayString) {
-                setValue(
-                    TextFieldValue(
-                        displayString,
-                        TextRange(displayString.length),
-                    ),
-                )
-            }
-            setExpanded(false)
+            onItemClick(item)
             focusManager.clearFocus()
         },
         contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,

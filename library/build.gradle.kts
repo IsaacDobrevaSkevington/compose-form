@@ -47,21 +47,20 @@ kotlin {
         binaries.executable()
     }
 
-
     applyHierarchyTemplate {
-        common{
-            group("nonJs"){
+        common {
+            group("nonJs") {
                 withJvm()
-                group("native"){
+                group("native") {
                     withIos()
                 }
-                group("ios"){
+                group("ios") {
                     withIos()
                 }
                 withAndroidTarget()
                 withWasmJs()
             }
-            group("web"){
+            group("web") {
                 withJs()
                 withWasmJs()
             }

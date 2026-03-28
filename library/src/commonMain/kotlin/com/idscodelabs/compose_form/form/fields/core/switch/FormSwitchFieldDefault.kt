@@ -1,12 +1,14 @@
 package com.idscodelabs.compose_form.form.fields.core.switch
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Switch
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.default.switch.DefaultFormSwitchEntry
 import com.idscodelabs.compose_form.form.model.FormBox
+import com.idscodelabs.compose_form.form.model.LocalFormBox
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
@@ -21,11 +23,17 @@ fun <Model> FormController<Model>.FormSwitchField(
     hint: Any? = null,
     leftLabel: Any? = null,
     rightLabel: Any? = null,
-    errorDisplay: @Composable FormBox<*, Boolean>.(error: String) -> Unit = {
+    switch: @Composable (value: Boolean, setValue: (Boolean) -> Unit) -> Unit = { value, setValue ->
+        Switch(
+            checked = value,
+            onCheckedChange = setValue,
+            enabled = LocalFormBox.current.enabled,
+        )
+    },
+    errorDisplay: @Composable (error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
     modifier: Modifier = Modifier.fillMaxWidth(),
-    switchModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     hintModifier: Modifier = Modifier.fillMaxWidth(),
     leftLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     rightLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
@@ -41,7 +49,7 @@ fun <Model> FormController<Model>.FormSwitchField(
             leftLabel = leftLabel,
             rightLabel = rightLabel,
             modifier = modifier,
-            switchModifier = switchModifier,
+            switch = switch,
             hintModifier = hintModifier,
             leftLabelModifier = leftLabelModifier,
             rightLabelModifier = rightLabelModifier,

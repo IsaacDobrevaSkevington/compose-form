@@ -1,9 +1,10 @@
 package com.idscodelabs.compose_form.form.fields.core.base
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.CompositionLocalProvider
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.model.FormBox
+import com.idscodelabs.compose_form.form.model.LocalFormBox
 import com.idscodelabs.compose_form.form.model.rememberFormBox
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlin.reflect.KProperty
@@ -56,7 +57,9 @@ fun <Model, Value, FormBoxImpl : FormBox<*, Value>> FormController<Model>.FormFi
 
     val params = formBox.formImplementationMapper()
 
-    implementation(params)
+    CompositionLocalProvider(LocalFormBox provides formBox) {
+        implementation(params)
+    }
 
     formBox.BindLifecycle(modelProperty)
 }

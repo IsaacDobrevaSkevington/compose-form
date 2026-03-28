@@ -8,6 +8,7 @@ import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.core.dropdown.DropdownFormBox
 import com.idscodelabs.compose_form.form.model.FormBox
+import com.idscodelabs.compose_form.form.model.setValue
 
 /**
  * [FormBox] specific to multiselects, also holds a list of [DisplayableOption]s to allow use in the UI, and
@@ -73,7 +74,18 @@ open class MultiselectFormBox<Model, Item : ListDisplayable>(
      * @param items The list of [Item]s to be selected
      */
     fun setSelected(items: List<Item>) {
-        setValue(TextFieldValue(items.toItemString()))
+        setValue(items.toItemString())
+    }
+
+    /**
+     * Toggle the item value. If the item is already in the list of items, remove it, otherwise, add it
+     */
+    fun toggle(item: Item) {
+        val current = valueSnapshot.text.toItemsList().toMutableList()
+        if (!current.remove(item)) {
+            current.add(item)
+        }
+        setValue(current.distinctBy { it.key }.toItemString())
     }
 
     /**
@@ -84,7 +96,7 @@ open class MultiselectFormBox<Model, Item : ListDisplayable>(
     fun add(item: Item) {
         val current = valueSnapshot.text.toItemsList().toMutableList()
         current.add(item)
-        setValue(TextFieldValue(current.distinctBy { it.key }.toItemString()))
+        setValue(current.distinctBy { it.key }.toItemString())
     }
 
     /**
@@ -97,7 +109,7 @@ open class MultiselectFormBox<Model, Item : ListDisplayable>(
         current.removeAll {
             it.key == item.key
         }
-        setValue(TextFieldValue(current.distinctBy { it.key }.toItemString()))
+        setValue(current.distinctBy { it.key }.toItemString())
     }
 }
 

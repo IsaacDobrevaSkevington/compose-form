@@ -11,14 +11,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.idscodelabs.compose_form.examples.fields.textfield.FormTextFieldExampleModel
 import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
+import com.idscodelabs.compose_form.examples.helpers.LocalExampleFormEnabled
 import com.idscodelabs.compose_form.form.core.ui.Form
 import com.idscodelabs.compose_form.form.fields.core.text.FormTextField
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.validators.NotEmptyValidator
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable
@@ -33,7 +34,7 @@ fun FormViewModelExample() =
                 CircularProgressIndicator(Modifier.align(Alignment.Center))
             }
             if (uiState.text.isNullOrEmpty()) {
-                Form(controller = viewModel) {
+                Form(controller = viewModel, enabled = LocalExampleFormEnabled.current) {
                     FormTextField(
                         enabled = !uiState.loading,
                         modelProperty = FormTextFieldExampleModel::value,

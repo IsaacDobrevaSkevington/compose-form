@@ -32,10 +32,10 @@ fun <Item : ListDisplayable> RadioFormBox<*, Item>.DefaultFormRadioEntry(
     hint: Any?,
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
-    radioButton: @Composable RadioFormBox<*, Item>.(DisplayableOption<Item>, Int) -> Unit = { item, index ->
-        DefaultRadioButton(item, index)
+    radioButton: @Composable (item: DisplayableOption<Item>, selected: Boolean, onClick: () -> Unit) -> Unit = { item, selected, onClick ->
+        DefaultRadioButton(item, selected, onClick)
     },
-    errorDisplay: @Composable RadioFormBox<*, Item>.(error: String) -> Unit = {
+    errorDisplay: @Composable (error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
 ) {
@@ -51,8 +51,15 @@ fun <Item : ListDisplayable> RadioFormBox<*, Item>.DefaultFormRadioEntry(
             )
         }
 
+        val currentValue = value
         options.forEachIndexed { index, item ->
-            radioButton(item, index)
+            radioButton(item, index == currentValue) {
+                if (currentValue == index) {
+                    setValue(-1)
+                } else {
+                    setValue(index)
+                }
+            }
         }
 
         error?.let {

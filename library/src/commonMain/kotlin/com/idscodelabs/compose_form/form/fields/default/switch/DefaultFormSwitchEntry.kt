@@ -1,6 +1,7 @@
 package com.idscodelabs.compose_form.form.fields.default.switch
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.model.FormBox
+import com.idscodelabs.compose_form.form.model.LocalFormBox
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 import io.github.vinceglb.filekit.PlatformFile
@@ -23,11 +25,17 @@ fun FormBox<*, Boolean>.DefaultFormSwitchEntry(
     leftLabel: Any? = null,
     rightLabel: Any? = null,
     modifier: Modifier = Modifier.fillMaxWidth(),
-    switchModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     hintModifier: Modifier = Modifier.fillMaxWidth(),
     leftLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     rightLabelModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
-    errorDisplay: @Composable FormBox<*, Boolean>.(error: String) -> Unit = {
+    switch: @Composable (value: Boolean, setValue: (Boolean) -> Unit) -> Unit = { value, setValue ->
+        Switch(
+            checked = value,
+            onCheckedChange = setValue,
+            enabled = LocalFormBox.current.enabled,
+        )
+    },
+    errorDisplay: @Composable (error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
 ) {
@@ -57,14 +65,9 @@ fun FormBox<*, Boolean>.DefaultFormSwitchEntry(
                 )
             }
 
-            Switch(
-                modifier = switchModifier,
-                checked = value,
-                onCheckedChange = {
-                    setValue(it)
-                },
-                enabled = enabled,
-            )
+            Box(Modifier.primaryFocusable()) {
+                switch(value, ::setValue)
+            }
 
             rightLabel?.let {
                 Text(

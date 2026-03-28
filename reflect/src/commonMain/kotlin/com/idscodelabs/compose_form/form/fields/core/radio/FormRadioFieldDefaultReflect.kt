@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
+import com.idscodelabs.compose_form.form.fields.default.radio.DefaultRadioButton
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 import com.idscodelabs.compose_form.utils.hint
@@ -29,34 +30,10 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormRadioField(
     validator: Validator<Item>? = modelProperty.validator(),
     enabled: Boolean = true,
     hint: Any? = modelProperty.hint(),
-    radioButton: @Composable RadioFormBox<*, Item>.(DisplayableOption<Item>, Int) -> Unit = { item, index ->
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .selectable(
-                    selected = index == value,
-                    onClick = { setValue(index) },
-                ).minimumInteractiveComponentSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldRowSpacing),
-        ) {
-            RadioButton(
-                selected = (index == value),
-                onClick = {
-                    if (valueSnapshot == index) {
-                        setValue(-1)
-                    } else {
-                        setValue(index)
-                    }
-                },
-                enabled = enabled,
-            )
-            Text(
-                text = item.label,
-            )
-        }
+    radioButton: @Composable (item: DisplayableOption<Item>, selected: Boolean, onClick: () -> Unit) -> Unit = { item, selected, onClick ->
+        DefaultRadioButton(item, selected, onClick)
     },
-    errorDisplay: @Composable RadioFormBox<*, Item>.(error: String) -> Unit = {
+    errorDisplay: @Composable (error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
     modifier: Modifier = Modifier,

@@ -1,23 +1,18 @@
 package com.idscodelabs.compose_form.form.fields.core.date
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.FormFieldImplementation
-import com.idscodelabs.compose_form.form.fields.default.date.DatePickerController
+import com.idscodelabs.compose_form.form.fields.default.base.DefaultPickerTextEntry
+import com.idscodelabs.compose_form.form.fields.default.base.PickerController
 import com.idscodelabs.compose_form.form.fields.default.date.DefaultDateEntry
 import com.idscodelabs.compose_form.form.fields.default.date.DefaultDatePickerDialog
-import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.icons.Icons
-import com.idscodelabs.compose_form.form.model.FormBox
-import com.idscodelabs.compose_form.utils.IconButton
 import com.idscodelabs.compose_form.validators.core.Validator
 import kotlinx.datetime.LocalDate
 import kotlin.reflect.KProperty
@@ -63,43 +58,32 @@ fun <Model> FormController<Model>.FormDateField(
     leadingIcon: (@Composable () -> Unit)? = null,
     datePickerState: DatePickerState = rememberDatePickerState(),
     allowTyping: Boolean = true,
-    entry: @Composable FormBox<*, TextFieldValue>.(DatePickerController) -> Unit = {
-        val enabled = enabled
-        DefaultTextEntry(
+    entry: @Composable (
+        controller: PickerController<DatePickerState>,
+        value: TextFieldValue,
+        setValue: (TextFieldValue) -> Unit,
+    ) -> Unit = { controller, value, setValue ->
+        DefaultPickerTextEntry(
+            value = value,
+            setValue = setValue,
+            modifier = modifier,
             hint = hint,
-            modifier =
-                modifier.onFocusChanged { focusState ->
-                    if (focusState.isFocused && !allowTyping && enabled) {
-                        it.setPickerVisible(true)
-                    }
-                },
-            trailingIcon =
-                if (enabled) {
-                    {
-                        IconButton(
-                            Icons.DateRange,
-                            "Calendar Icon",
-                        ) {
-                            it.setPickerVisible(true)
-                        }
-                    }
-                } else {
-                    null
-                },
-            placeholder = placeholder,
             isLast = isLast,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             leadingIcon = leadingIcon,
-            readOnly = !(allowTyping && enabled),
+            placeholder = placeholder,
+            controller = controller,
+            allowTyping = allowTyping,
+            trailingIconImage = Icons.DateRange,
         )
     },
-    dialog: @Composable FormBox<*, TextFieldValue>.(DatePickerController) -> Unit = {
+    dialog: @Composable (
+        controller: PickerController<DatePickerState>,
+        onDatePicked: (LocalDate) -> Unit,
+    ) -> Unit = { controller, onDatePicked ->
         DefaultDatePickerDialog(
-            it.datePickerState,
-            ::setValue,
-        ) {
-            it.setPickerVisible(false)
-        }
+            controller,
+            onDatePicked = onDatePicked,
+        )
     },
     invalidDateMessage: Any = "Invalid date format",
 ) = FormDateField(

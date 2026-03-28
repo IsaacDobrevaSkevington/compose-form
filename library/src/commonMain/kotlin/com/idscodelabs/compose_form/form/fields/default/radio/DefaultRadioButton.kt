@@ -13,32 +13,30 @@ import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
 import com.idscodelabs.compose_form.form.fields.core.radio.RadioFormBox
+import com.idscodelabs.compose_form.form.model.LocalFormBox
 import com.idscodelabs.compose_form.styles.LocalFormStyle
 
 @Composable
-fun <Item : ListDisplayable> RadioFormBox<*, Item>.DefaultRadioButton(
+fun <Item : ListDisplayable> DefaultRadioButton(
     item: DisplayableOption<Item>,
-    index: Int,
+    selected: Boolean,
+    onClick: () -> Unit,
 ) {
+    val enabled = LocalFormBox.current.enabled
     Row(
         Modifier
             .fillMaxWidth()
             .selectable(
-                selected = index == value,
-                onClick = { setValue(index) },
+                enabled = enabled,
+                selected = selected,
+                onClick = { onClick() },
             ).minimumInteractiveComponentSize(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldRowSpacing),
     ) {
         RadioButton(
-            selected = (index == value),
-            onClick = {
-                if (valueSnapshot == index) {
-                    setValue(-1)
-                } else {
-                    setValue(index)
-                }
-            },
+            selected = selected,
+            onClick = onClick,
             enabled = enabled,
         )
         Text(

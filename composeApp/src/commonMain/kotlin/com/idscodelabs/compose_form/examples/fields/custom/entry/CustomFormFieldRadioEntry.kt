@@ -22,26 +22,21 @@ import com.idscodelabs.compose_form.styles.LocalFormStyle
 fun <Model, Item : ListDisplayable> RadioFormBox<Model, Item>.CustomFormFieldRadioEntry(hint: Any?) =
     DefaultFormRadioEntry(
         hint = hint,
-        radioButton = { item, index ->
+        radioButton = { item, selected, onClick ->
             Row(
                 Modifier
                     .fillMaxWidth()
                     .selectable(
-                        selected = index == value,
-                        onClick = { setValue(index) },
+                        enabled = enabled,
+                        selected = selected,
+                        onClick = onClick,
                     ).minimumInteractiveComponentSize(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(LocalFormStyle.current.fieldRowSpacing),
             ) {
                 Checkbox(
-                    checked = (index == value),
-                    onCheckedChange = {
-                        if (valueSnapshot == index) {
-                            setValue(-1)
-                        } else {
-                            setValue(index)
-                        }
-                    },
+                    checked = selected,
+                    onCheckedChange = { onClick() },
                     enabled = enabled,
                 )
                 Text(

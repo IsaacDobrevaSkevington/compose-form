@@ -21,7 +21,9 @@ val LocalFormTextFieldEntry = compositionLocalOf<FormTextFieldEntry> { DefaultFo
 
 interface FormTextFieldEntry {
     @Composable
-    fun FormBox<*, TextFieldValue>.Render(
+    fun Render(
+        value: TextFieldValue,
+        onValueChange: (TextFieldValue) -> Unit,
         hint: Any? = null,
         modifier: Modifier = Modifier.fillMaxWidth(),
         trailingIcon: (@Composable () -> Unit)? = null,
@@ -32,7 +34,6 @@ interface FormTextFieldEntry {
         prefix: Any = "",
         readOnly: Boolean = false,
         style: FormFieldStyle = LocalFormFieldStyle.current,
-        onValueChange: (TextFieldValue) -> Unit = {},
         leadingIcon: (@Composable () -> Unit)? = null,
         minLines: Int = 1,
         maxLines: Int = 1,

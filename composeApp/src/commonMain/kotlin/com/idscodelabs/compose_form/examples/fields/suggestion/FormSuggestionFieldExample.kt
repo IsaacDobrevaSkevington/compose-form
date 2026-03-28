@@ -1,6 +1,7 @@
 package com.idscodelabs.compose_form.examples.fields.suggestion
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.idscodelabs.compose_form.examples.fields.dropdown.large.FormDropdownFieldExampleModelLarge
 import com.idscodelabs.compose_form.examples.fields.dropdown.large.FormDropdownFieldExampleOptionLarge
 import com.idscodelabs.compose_form.examples.helpers.ExampleForm
@@ -11,7 +12,6 @@ import com.idscodelabs.compose_form.form.fields.default.dropdown.DefaultAutocomp
 import com.idscodelabs.compose_form.form.fields.default.suggestion.DefaultSuggestionDropdownEntry
 import com.idscodelabs.compose_form.validators.NotEmptyValidator
 import kotlinx.coroutines.delay
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable

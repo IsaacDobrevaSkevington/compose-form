@@ -2,51 +2,44 @@ package com.idscodelabs.compose_form.form.fields.default.time
 
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.input.TextFieldValue
-import com.idscodelabs.compose_form.form.fields.core.time.LocalFormTimeFormatter
+import com.idscodelabs.compose_form.form.fields.default.base.PickerController
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import kotlinx.datetime.LocalTime
-import kotlinx.datetime.format
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class, ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultTimePickerDialog(
-    state: TimePickerState,
-    onValueChange: (TextFieldValue) -> Unit,
+    controller: PickerController<TimePickerState>,
     positiveButtonText: Any = "Ok",
     negativeButtonText: Any = "Cancel",
-    timePicker: @Composable () -> Unit = {
-        TimePicker(state = state)
+    timePicker: @Composable (state: TimePickerState) -> Unit = {
+        TimePicker(state = it)
     },
     title: @Composable () -> Unit = { Text("Choose Time") },
-    onDismissRequest: () -> Unit,
+    onTimePicked: (LocalTime) -> Unit,
 ) {
-    val timeFormat = LocalFormTimeFormatter.current
     TimePickerDialog(
         title = title,
-        onDismissRequest = onDismissRequest,
+        onDismissRequest = {
+            controller.setPickerVisible(false)
+        },
         confirmButton = {
             TextButton(onClick = {
                 val newValue =
-                    LocalTime(state.hour, state.minute).format(
-                        timeFormat,
-                    )
-                onValueChange(
-                    TextFieldValue(newValue, TextRange(newValue.length)),
-                )
-                onDismissRequest()
+                    LocalTime(controller.state.hour, controller.state.minute)
+                onTimePicked(newValue)
+                controller.setPickerVisible(false)
             }) {
                 Text(text = positiveButtonText.asDisplayString())
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismissRequest) {
+            TextButton(onClick = { controller.setPickerVisible(false) }) {
                 Text(text = negativeButtonText.asDisplayString())
             }
         },
     ) {
-        timePicker()
+        timePicker(controller.state)
     }
 }

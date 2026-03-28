@@ -22,6 +22,8 @@ import com.idscodelabs.compose_form.form.fields.default.dropdown.rememberLazyDro
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.icons.Icons
+import com.idscodelabs.compose_form.form.model.setValue
+import com.idscodelabs.compose_form.form.model.toggle
 import com.idscodelabs.compose_form.utils.IconButton
 
 /**
@@ -49,15 +51,19 @@ fun <Item : ListDisplayable> MultiselectFormBox<*, Item>.DefaultFormMultiselectE
     hint: Any? = null,
     placeholder: Any? = hint,
     isLast: Boolean = false,
-    leadingIcon: (@Composable MultiselectFormBox<*, Item>.() -> Unit)? = null,
-    clearIcon: (@Composable MultiselectFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
+    leadingIcon: (@Composable () -> Unit)? = null,
+    clearIcon: (@Composable (onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable MultiselectFormBox<*, Item>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable (expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable MultiselectFormBox<*, Item>.(item: DisplayableOption<Item>) -> Unit = {
-        DefaultMultiselectMenuItem(it)
+    menuItem: @Composable (
+        item: DisplayableOption<Item>,
+        isSelected: Boolean,
+        onClickItem: (DisplayableOption<Item>) -> Unit,
+    ) -> Unit = { item, isSelected, onClickItem ->
+        DefaultMultiselectMenuItem(item, isSelected) { onClickItem(item) }
     },
 ) {
     val (allowExpanded, setExpanded) = remember { mutableStateOf(false) }
@@ -78,13 +84,15 @@ fun <Item : ListDisplayable> MultiselectFormBox<*, Item>.DefaultFormMultiselectE
     ) {
         DefaultTextEntry(
             hint = hint,
-            modifier = textFieldModifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable),
+            modifier = textFieldModifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable).primaryFocusable(),
             trailingIcon = {
-                Row {
-                    clearIcon?.invoke(this@DefaultFormMultiselectEntry) {
-                        setValue(TextFieldValue())
+                if (enabled) {
+                    Row {
+                        clearIcon?.invoke {
+                            setValue("")
+                        }
+                        expandIcon(expanded)
                     }
-                    expandIcon(expanded)
                 }
             },
             placeholder = placeholder?.asDisplayString(),
@@ -109,7 +117,9 @@ fun <Item : ListDisplayable> MultiselectFormBox<*, Item>.DefaultFormMultiselectE
                     items = options,
                     scope = lazyDropdownScope,
                 ) {
-                    menuItem(it)
+                    menuItem(it, isItemSelected(it.item)) { item ->
+                        toggle(item.item)
+                    }
                 }
             }
         }

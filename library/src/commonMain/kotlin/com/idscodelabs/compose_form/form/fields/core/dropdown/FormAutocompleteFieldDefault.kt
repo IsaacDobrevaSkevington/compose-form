@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.text.input.TextFieldValue
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.fields.core.base.DisplayableOption
 import com.idscodelabs.compose_form.form.fields.core.base.ListDisplayable
@@ -52,19 +53,19 @@ fun <Model, Item : ListDisplayable> FormController<Model>.FormAutocompleteField(
     exposedDropdownMenuModifier: Modifier = Modifier,
     hint: Any? = null,
     placeholder: Any? = hint,
-    leadingIcon: (@Composable DropdownFormBox<*, Item>.() -> Unit)? = null,
+    leadingIcon: (@Composable () -> Unit)? = null,
     filterFunction: (item: String, value: String) -> Boolean = { item, value -> item.startsWith(value, ignoreCase = true) },
-    clearIcon: (@Composable DropdownFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
+    clearIcon: (@Composable (onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable DropdownFormBox<*, Item>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable (expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable DropdownFormBox<*, Item>.(
+    menuItem: @Composable (
         item: DisplayableOption<Item>,
-        setExpanded: (Boolean) -> Unit,
-    ) -> Unit = { item, setExpanded ->
-        DefaultDropdownMenuItem(item, setExpanded)
+        onItemClick: (DisplayableOption<Item>) -> Unit,
+    ) -> Unit = { item, onItemClick ->
+        DefaultDropdownMenuItem(item, onItemClick = onItemClick)
     },
     isLast: Boolean = false,
 ) = FormDropdownField(

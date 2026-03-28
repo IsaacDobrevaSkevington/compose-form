@@ -1,41 +1,22 @@
 package com.idscodelabs.compose_form
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.PrimaryTabRow
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Tab
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import com.idscodelabs.compose_form.app.BackIcon
 import com.idscodelabs.compose_form.app.Example
-import com.idscodelabs.compose_form.app.ExampleField
-import com.idscodelabs.compose_form.app.ExampleValidator
 import com.idscodelabs.compose_form.app.Tabs
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import com.idscodelabs.compose_form.examples.helpers.LocalExampleFormEnabled
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
@@ -44,8 +25,12 @@ fun App() {
     MaterialTheme {
         var currentContent by remember { mutableStateOf<Example?>(null) }
         var selectedDestination by remember { mutableStateOf(Tabs.FIELDS) }
+        val (enabledState, setEnabledState) = remember { mutableStateOf(true) }
 
-        BackHandler(enabled = currentContent != null) {
+        NavigationBackHandler(
+            isBackEnabled = currentContent != null,
+            state = rememberNavigationEventState(currentInfo = NavigationEventInfo.None),
+        ) {
             currentContent = null
         }
 
@@ -60,12 +45,17 @@ fun App() {
                             }
                         }
                     },
+                    actions = {
+                        Switch(checked = enabledState, onCheckedChange = setEnabledState)
+                    },
                 )
             },
         ) { paddingValues ->
             currentContent?.let {
                 Box(Modifier.padding(paddingValues).fillMaxSize()) {
-                    it.contents()
+                    CompositionLocalProvider(LocalExampleFormEnabled provides enabledState) {
+                        it.contents()
+                    }
                 }
             } ?: Column(
                 Modifier

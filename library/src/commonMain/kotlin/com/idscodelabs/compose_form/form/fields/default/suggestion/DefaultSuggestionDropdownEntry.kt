@@ -23,11 +23,12 @@ import com.idscodelabs.compose_form.form.fields.default.dropdown.*
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.form.fields.strings.asDisplayString
 import com.idscodelabs.compose_form.form.icons.Icons
+import com.idscodelabs.compose_form.form.model.setValue
 import com.idscodelabs.compose_form.utils.IconButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <Item : ListDisplayable> SuggestionFormBox<*, Item>.DefaultSuggestionDropdownEntry(
+fun <Suggestion : ListDisplayable> SuggestionFormBox<*, Suggestion>.DefaultSuggestionDropdownEntry(
     textFieldModifier: Modifier = Modifier.fillMaxWidth(),
     exposedDropdownBoxModifier: Modifier = Modifier,
     exposedDropdownMenuModifier: Modifier = Modifier,
@@ -35,18 +36,18 @@ fun <Item : ListDisplayable> SuggestionFormBox<*, Item>.DefaultSuggestionDropdow
     placeholder: Any? = hint,
     isLast: Boolean = false,
     readOnly: Boolean = false,
-    leadingIcon: (@Composable SuggestionFormBox<*, Item>.() -> Unit)? = null,
-    clearIcon: (@Composable SuggestionFormBox<*, Item>.(onClick: () -> Unit) -> Unit)? = {
+    leadingIcon: (@Composable () -> Unit)? = null,
+    clearIcon: (@Composable (onClick: () -> Unit) -> Unit)? = {
         IconButton(Icons.Close, "Clear Icon") { it() }
     },
-    expandIcon: @Composable SuggestionFormBox<*, Item>.(expanded: Boolean) -> Unit = {
+    expandIcon: @Composable (expanded: Boolean) -> Unit = {
         IconButton(Icons.ArrowDropDown, "Expand Icon", iconModifier = Modifier.rotate(if (it) 180f else 0f)) {}
     },
-    menuItem: @Composable SuggestionFormBox<*, Item>.(
-        item: DisplayableOption<Item>,
-        setExpanded: (Boolean) -> Unit,
-    ) -> Unit = { item, setExpanded ->
-        DefaultDropdownMenuItem(item, setExpanded)
+    menuItem: @Composable (
+        item: DisplayableOption<Suggestion>,
+        onSuggestionClick: (DisplayableOption<Suggestion>) -> Unit,
+    ) -> Unit = { item, onSuggestionClick ->
+        DefaultDropdownMenuItem(item, onItemClick = onSuggestionClick)
     },
     loadingView: @Composable () -> Unit = {
         CircularProgressIndicator(Modifier.size(48.dp).padding(8.dp))
@@ -73,14 +74,14 @@ fun <Item : ListDisplayable> SuggestionFormBox<*, Item>.DefaultSuggestionDropdow
     ) {
         DefaultTextEntry(
             hint = hint,
-            modifier = textFieldModifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable),
+            modifier = textFieldModifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable).primaryFocusable(),
             trailingIcon = {
                 Row {
                     if (loading) {
                         loadingView()
-                    } else {
-                        clearIcon?.invoke(this@DefaultSuggestionDropdownEntry) {
-                            setValue(TextFieldValue())
+                    } else if (enabled) {
+                        clearIcon?.invoke {
+                            setValue("")
                         }
                         expandIcon(expanded)
                     }
@@ -112,7 +113,10 @@ fun <Item : ListDisplayable> SuggestionFormBox<*, Item>.DefaultSuggestionDropdow
                     items = displayableSuggestions,
                     scope = lazyDropdownScope,
                 ) {
-                    menuItem(it, setExpanded)
+                    menuItem(it) { suggestion ->
+                        setValue(suggestion.label)
+                        setExpanded(false)
+                    }
                 }
             }
         }

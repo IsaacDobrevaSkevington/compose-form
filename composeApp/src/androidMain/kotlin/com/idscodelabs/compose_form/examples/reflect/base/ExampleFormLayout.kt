@@ -8,10 +8,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.backhandler.BackHandler
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import com.idscodelabs.compose_form.examples.helpers.ExampleModel
 import com.idscodelabs.compose_form.form.core.controller.FormController
-import com.idscodelabs.compose_form.ui.Form
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -20,7 +21,10 @@ fun <Model : ExampleModel<*>> FormController<Model>.ExampleFormLayout(contents: 
         remember {
             mutableStateOf<Model?>(null)
         }
-    BackHandler(enabled = result != null) {
+    NavigationBackHandler(
+        isBackEnabled = result != null,
+        state = rememberNavigationEventState(currentInfo = NavigationEventInfo.None),
+    ) {
         setResult(null)
     }
     if (result == null) {

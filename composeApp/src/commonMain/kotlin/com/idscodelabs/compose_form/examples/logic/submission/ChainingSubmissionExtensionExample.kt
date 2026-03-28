@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.idscodelabs.compose_form.examples.fields.textfield.FormTextFieldExampleModel
 import com.idscodelabs.compose_form.examples.helpers.ExampleScreen
 import com.idscodelabs.compose_form.form.core.controller.FormSubmissionResult
@@ -13,7 +14,6 @@ import com.idscodelabs.compose_form.form.core.ui.Form
 import com.idscodelabs.compose_form.form.fields.core.text.FormTextField
 import com.idscodelabs.compose_form.form.fields.default.text.DefaultTextEntry
 import com.idscodelabs.compose_form.validators.NotEmptyValidator
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 fun <Model> FormSubmissionResult<Model>.handleErrors(success: (Model) -> Unit) =
     onSuccess(success)

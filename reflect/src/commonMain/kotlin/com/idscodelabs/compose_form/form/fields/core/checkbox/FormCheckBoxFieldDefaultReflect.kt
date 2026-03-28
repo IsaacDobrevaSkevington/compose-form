@@ -1,11 +1,13 @@
 package com.idscodelabs.compose_form.form.fields.core.checkbox
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.idscodelabs.compose_form.form.core.controller.FormController
 import com.idscodelabs.compose_form.form.model.FormBox
+import com.idscodelabs.compose_form.form.model.LocalFormBox
 import com.idscodelabs.compose_form.utils.StandardErrorDisplay
 import com.idscodelabs.compose_form.utils.hint
 import com.idscodelabs.compose_form.utils.updateModel
@@ -20,11 +22,17 @@ fun <Model> FormController<Model>.FormCheckBoxField(
     initialValue: Boolean? = null,
     validator: Validator<Boolean>? = modelProperty.validator(),
     enabled: Boolean = true,
-    errorDisplay: @Composable FormBox<*, Boolean>.(error: String) -> Unit = {
+    checkbox: @Composable (value: Boolean, setValue: (Boolean) -> Unit) -> Unit = { value, setValue ->
+        Checkbox(
+            checked = value,
+            onCheckedChange = setValue,
+            enabled = LocalFormBox.current.enabled,
+        )
+    },
+    errorDisplay: @Composable (error: String) -> Unit = {
         StandardErrorDisplay(it)
     },
     modifier: Modifier = Modifier.fillMaxWidth(),
-    checkboxModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
     textModifier: Modifier = Modifier.minimumInteractiveComponentSize(),
 ) = FormCheckBoxField(
     modelProperty = modelProperty,
@@ -34,7 +42,7 @@ fun <Model> FormController<Model>.FormCheckBoxField(
     enabled = enabled,
     hint = hint,
     modifier = modifier,
-    checkboxModifier = checkboxModifier,
+    checkbox = checkbox,
     textModifier = textModifier,
     errorDisplay = errorDisplay,
 )
