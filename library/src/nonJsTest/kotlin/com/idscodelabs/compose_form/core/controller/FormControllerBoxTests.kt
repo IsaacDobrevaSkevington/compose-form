@@ -42,7 +42,7 @@ class FormControllerBoxTests {
         }
 
     @Test
-    fun `GIVEN the form controller has no boxes, WHEN a box is added THEN calling field provides the form box`() =
+    fun `GIVEN the form controller has no boxes WHEN a box is added THEN calling field provides the form box`() =
         runTest {
             val property = randomProperty()
             val formController = testFormController()
